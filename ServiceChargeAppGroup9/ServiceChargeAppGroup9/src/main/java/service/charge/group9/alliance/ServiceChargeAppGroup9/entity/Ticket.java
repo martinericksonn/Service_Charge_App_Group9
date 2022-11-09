@@ -20,4 +20,9 @@ public class Ticket {
 			this.description = description;
 			this.tracker = tracker;
 		}
+		
+		 
+		public int getTicketID() {
+			return ticketID;
+		}
 }
