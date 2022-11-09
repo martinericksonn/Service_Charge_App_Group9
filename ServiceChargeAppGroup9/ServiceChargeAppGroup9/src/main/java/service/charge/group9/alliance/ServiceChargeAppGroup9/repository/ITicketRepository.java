@@ -1,5 +1,7 @@
 package service.charge.group9.alliance.ServiceChargeAppGroup9.repository;
 
-public interface ITicketRepository {
+import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
 
+public interface ITicketRepository {
+	public int create(final Ticket ticket);
 }
