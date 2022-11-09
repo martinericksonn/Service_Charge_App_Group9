@@ -25,4 +25,8 @@ public class Ticket {
 		public int getTicketID() {
 			return ticketID;
 		}
+		
+		public void setTicketID(int ticketID) {
+			this.ticketID = ticketID;
+		}
 }
