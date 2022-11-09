@@ -6,4 +6,5 @@ public interface ITicketRepository {
 	public int create(final Ticket ticket);
 	public Ticket findById(final int id);
 	public int updateTicket(final Ticket ticket);
+	public int updateTicketStatus (final Ticket ticket);
 }
