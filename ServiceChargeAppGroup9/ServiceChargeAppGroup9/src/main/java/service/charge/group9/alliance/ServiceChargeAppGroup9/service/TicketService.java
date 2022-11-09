@@ -19,6 +19,11 @@ public class TicketService {
 	        this.repository = repository;
 	        this.gson = new Gson();
 	    }
+	 
+	 public String findById(final int id)
+	    {
+	        return gson.toJson(repository.findById(id));
+	    }
 	
 	public int save(final BufferedReader body)
     {

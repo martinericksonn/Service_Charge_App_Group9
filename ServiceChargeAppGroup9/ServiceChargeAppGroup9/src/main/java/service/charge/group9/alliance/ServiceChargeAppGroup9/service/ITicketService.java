@@ -4,4 +4,5 @@ import java.io.BufferedReader;
 
 public interface ITicketService {
 	public int save(BufferedReader body);
+	public String findById(final int id);
 }
