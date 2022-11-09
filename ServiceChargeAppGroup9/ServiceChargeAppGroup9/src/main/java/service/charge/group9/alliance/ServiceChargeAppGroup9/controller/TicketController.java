@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.service.ITicketService;
 
 public class TicketController {
@@ -39,6 +41,21 @@ public class TicketController {
 				try {
 					final BufferedReader body = request.getReader();
 					return service.save(body) >= 1 ? "Success" : "Something went wrong";
+				} catch (Exception e) {
+					System.out.println(e);
+					return e.toString();
+				}
+			}
+			
+	// Update
+			@PostMapping("/ticket/update/{id}")
+			public String save(@PathVariable final int id, @RequestParam("subject") final String subject,
+					@RequestParam("description") final String description, @RequestParam("tracker") final String tracker,
+					@RequestParam("assignee") final String assignee, @RequestParam("status") final String status)
+					throws IOException {
+
+				try {
+					return service.update(new Ticket(id, assignee, status, subject, description, tracker)) >= 1 ? "Success" : "Something went wrong";
 				} catch (Exception e) {
 					System.out.println(e);
 					return e.toString();
