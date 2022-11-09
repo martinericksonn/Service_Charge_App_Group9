@@ -6,7 +6,7 @@ import Dashboard from './Components/Dashboard';
 function App() {
     return ( 
       <div>
-        <TicketManagement/>
+        
         <Dashboard/>
       </div>
     );
