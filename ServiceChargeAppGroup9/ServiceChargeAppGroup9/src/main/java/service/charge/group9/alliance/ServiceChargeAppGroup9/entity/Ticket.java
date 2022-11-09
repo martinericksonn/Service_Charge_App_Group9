@@ -20,4 +20,13 @@ public class Ticket {
 			this.description = description;
 			this.tracker = tracker;
 		}
+		
+		 
+		public int getTicketID() {
+			return ticketID;
+		}
+		
+		public void setTicketID(int ticketID) {
+			this.ticketID = ticketID;
+		}
 }
