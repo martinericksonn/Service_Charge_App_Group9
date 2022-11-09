@@ -61,4 +61,20 @@ public class TicketController {
 					return e.toString();
 				}
 			}
+	
+	// Update Ticket Status
+			@PostMapping("/ticket/update-status/{id}")
+			public String save(@PathVariable final int id, @RequestParam("status") final String status) throws IOException {
+				try {
+					Ticket ticket = new Ticket();
+					ticket.setStatus(status);
+					ticket.setTicketID(id);
+					return service.updateStatus(ticket) >= 1 ? "Success" : "Something went wrong";
+				} catch (Exception e) {
+					System.out.println(e);
+					return e.toString();
+				}
+
+			}
+			
 }

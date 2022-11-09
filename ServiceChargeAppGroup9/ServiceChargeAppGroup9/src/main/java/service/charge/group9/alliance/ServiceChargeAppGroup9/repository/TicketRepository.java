@@ -38,5 +38,16 @@ public class TicketRepository {
 			return result;
 		}
 		
+		//Update ticket status
+		public int updateTicketStatus(final Ticket ticket)
+		{
+			
+			final String sql = "UPDATE ticket SET assignee=?  WHERE ticketID=?";
+			final int result = template.update(sql, ticket.getAssignee(), ticket.getTicketID());
+			
+			return result;
+		}
+		
+		
 		
 }
