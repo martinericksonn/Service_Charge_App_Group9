@@ -93,5 +93,16 @@ public class TicketController {
 				}
 
 			}
+	// Delete
+			@DeleteMapping("/ticket/delete/{id}")
+			public String deleteTicket(@PathVariable final int id) {
+				try {
+					return service.deleteById(id) >= 1 ? "Success" : "Something went wrong";
+				} catch (Exception e) {
+					System.out.println(e);
+					return e.toString();
+				}
+
+			}
 			
 }

@@ -47,4 +47,8 @@ public class TicketService {
 	{
 	    return repository.updateTicketAssignee(ticket);
 	}
+	 public int deleteById(final int id)
+	    {
+	        return repository.deleteByID(id);
+	    }
 }

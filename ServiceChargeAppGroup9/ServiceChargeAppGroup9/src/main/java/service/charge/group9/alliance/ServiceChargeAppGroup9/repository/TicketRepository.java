@@ -58,6 +58,14 @@ public class TicketRepository {
 			return result;
 			
 		}
+		//delete
+		public int deleteByID(final int id)
+		{
+			final String sql = "DELETE FROM ticket WHERE ticketID=?";
+			final int result = template.update(sql, id);
+			
+			return result;
+		}
 		
 		
 }
