@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import ph.alliance.prelims.group9_prelims.entity.TicketTest;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
 
 public class TicketRepository {
@@ -48,6 +49,15 @@ public class TicketRepository {
 			return result;
 		}
 		
+		//Update ticket assignee
+		public int updateTicketAssignee(Ticket ticket) {
+			System.out.println(ticket.getAssignee()  + " " + ticket.getTicketID());
+			final String sql = "UPDATE ticket SET assignee=?  WHERE ticketID=?";
+			final int result = template.update(sql, ticket.getAssignee(), ticket.getTicketID());
+			
+			return result;
+			
+		}
 		
 		
 }

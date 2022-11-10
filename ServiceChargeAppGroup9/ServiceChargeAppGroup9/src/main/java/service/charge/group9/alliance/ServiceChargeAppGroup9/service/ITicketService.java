@@ -9,4 +9,5 @@ public interface ITicketService {
 	public String findById(final int id);
 	public int update(final Ticket ticket);
 	public int updateStatus(final Ticket ticket);
+	public int updateTicketAssignee(final Ticket ticket);
 }

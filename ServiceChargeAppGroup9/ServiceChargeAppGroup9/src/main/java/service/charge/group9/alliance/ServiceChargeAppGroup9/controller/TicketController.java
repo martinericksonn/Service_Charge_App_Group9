@@ -6,11 +6,13 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ph.alliance.prelims.group9_prelims.entity.TicketTest;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.service.ITicketService;
 
@@ -70,6 +72,21 @@ public class TicketController {
 					ticket.setStatus(status);
 					ticket.setTicketID(id);
 					return service.updateStatus(ticket) >= 1 ? "Success" : "Something went wrong";
+				} catch (Exception e) {
+					System.out.println(e);
+					return e.toString();
+				}
+
+			}
+	// Update Ticket Assignee
+			@PostMapping("/ticket/update-assignee/{id}")
+			public String saveAsignee(@PathVariable final int id, @RequestParam("assignee") final String asignee)
+					throws IOException {
+				try {
+					Ticket ticket = new Ticket();
+					ticket.setStatus(asignee);
+					ticket.setTicketID(id);
+					return service.updateTicketAssignee(ticket) >= 1 ? "Success" : "Something went wrong";
 				} catch (Exception e) {
 					System.out.println(e);
 					return e.toString();
