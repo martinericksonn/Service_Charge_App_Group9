@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.service.ITicketService;
 
+@RestController
 public class TicketController {
 	private ITicketService service;
 
