@@ -1,4 +1,4 @@
-package service.charge.group9.alliance.ServiceChargeAppGroup9.service;
+package service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.service;
 
 import java.io.BufferedReader;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 
-import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
-import service.charge.group9.alliance.ServiceChargeAppGroup9.repository.ITicketRepository;
+import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity.Ticket;
+import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.repository.ITicketRepository;
 
 @Service
 public class TicketService implements ITicketService{
@@ -27,11 +27,9 @@ public class TicketService implements ITicketService{
 	        return gson.toJson(repository.findById(id));
 	    }
 	
-	public int save(final BufferedReader body)
+	public Ticket saveAndFlush(Ticket ticket)
     {
-        //from just a simple requestBody, we transform it to a class using fromJson
-        final Ticket ticket= gson.fromJson(body, Ticket.class);
-
+ 
         return repository.create(ticket);
     }
 	
@@ -52,4 +50,7 @@ public class TicketService implements ITicketService{
 	    {
 	        return repository.deleteByID(id);
 	    }
+
+
+
 }

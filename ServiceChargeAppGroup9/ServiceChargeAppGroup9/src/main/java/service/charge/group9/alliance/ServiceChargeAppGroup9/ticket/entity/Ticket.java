@@ -1,4 +1,4 @@
-package service.charge.group9.alliance.ServiceChargeAppGroup9.entity;
+package service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity;
 
 public class Ticket {
 	private int ticketID;

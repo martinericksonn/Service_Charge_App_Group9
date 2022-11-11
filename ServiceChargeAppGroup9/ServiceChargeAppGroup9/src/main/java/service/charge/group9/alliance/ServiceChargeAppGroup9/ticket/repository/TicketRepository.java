@@ -1,11 +1,11 @@
-package service.charge.group9.alliance.ServiceChargeAppGroup9.repository;
+package service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
+import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity.Ticket;
 
 @Repository
 public class TicketRepository implements ITicketRepository	{
@@ -14,12 +14,12 @@ public class TicketRepository implements ITicketRepository	{
 	private JdbcTemplate template;
 	
 		//Create
-		public int create(final Ticket ticket)
+		public Ticket create(final Ticket ticket)
 		{
 			final String sql = " INSERT INTO ticket (ticketID, assignee, status,subject,description,tracker) VALUES  (?,?,?,?,?,? );";
 			final int result = template.update(sql, ticket.getTicketID(), ticket.getAssignee(), ticket.getStatus(),ticket.getSubject(),ticket.getDescription(),ticket.getTracker());
 			
-			return result;
+			return ticket;
 		}
 		
 		//Retrieve Ticket

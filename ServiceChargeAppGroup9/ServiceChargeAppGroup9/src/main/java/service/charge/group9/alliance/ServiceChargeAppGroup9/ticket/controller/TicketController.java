@@ -1,4 +1,4 @@
-package service.charge.group9.alliance.ServiceChargeAppGroup9.controller;
+package service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
-import service.charge.group9.alliance.ServiceChargeAppGroup9.service.ITicketService;
+import service.charge.group9.alliance.ServiceChargeAppGroup9.common.models.ApiResponse;
+import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity.Ticket;
+import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.service.ITicketService;
 
 @RestController
 public class TicketController {
@@ -28,7 +29,7 @@ public class TicketController {
 	
 	// Retrieve Ticket
 		@RequestMapping("/ticket/{id}")
-		public String getById(@PathVariable final int id) {
+		public ApiResponse getById(@PathVariable final int id) {
 
 			try {
 				return service.findById(id);

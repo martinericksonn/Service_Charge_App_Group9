@@ -1,9 +1,9 @@
-package service.charge.group9.alliance.ServiceChargeAppGroup9.repository;
+package service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.repository;
 
-import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
+import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity.Ticket;
 
 public interface ITicketRepository {
-	public int create(final Ticket ticket);
+	public Ticket create(final Ticket ticket);
 	public Ticket findById(final int id);
 	public int updateTicket(final Ticket ticket);
 	public int updateTicketStatus (final Ticket ticket);
