@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button';
+import '../index.css';
 
  class Dashboard extends Component {
     state = {  } 
@@ -7,9 +7,18 @@ import Button from 'react-bootstrap/Button';
     
     render() { 
         return (
-            <div className='d-flex bg-primary h-100'>
-              <div className='d-flex bg-info'>test</div>
+          <div className="d-flex flex-row body bg-primary">
+          <div className="side-nav bg-info ">
+            <div className='d-flex flex-column align-items-center'>
+              <h2>Menu</h2>
+              <div className='d-flex flex-column '>
+              <button className='btn btn-outline-primary'>Home</button>
+              <button className='btn btn-outline-primary'>Ticket</button>
+              <button className='btn btn-outline-primary'>Settings</button>
+              </div>
             </div>
+</div>
+          </div>
         );
     }
  }

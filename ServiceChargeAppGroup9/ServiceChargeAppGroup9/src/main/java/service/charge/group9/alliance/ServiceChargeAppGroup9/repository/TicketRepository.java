@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import ph.alliance.prelims.group9_prelims.entity.TicketTest;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
 
 public class TicketRepository {
