@@ -3,10 +3,13 @@ package service.charge.group9.alliance.ServiceChargeAppGroup9.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
 
-public class TicketRepository {
+@Repository
+public class TicketRepository implements ITicketRepository	{
+	
 	@Autowired
 	private JdbcTemplate template;
 	

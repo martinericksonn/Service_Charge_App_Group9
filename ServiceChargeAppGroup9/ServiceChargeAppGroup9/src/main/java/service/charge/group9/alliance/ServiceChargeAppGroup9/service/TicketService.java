@@ -3,13 +3,15 @@ package service.charge.group9.alliance.ServiceChargeAppGroup9.service;
 import java.io.BufferedReader;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 
 import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.repository.ITicketRepository;
 
-public class TicketService {
+@Service
+public class TicketService implements ITicketService{
 	private ITicketRepository repository;
 	private Gson gson;
 	 
