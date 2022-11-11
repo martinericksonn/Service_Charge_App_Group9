@@ -6,10 +6,10 @@ import Sidebar from './Components/sidebar/Sidebar';
 
 function App() {
     return ( 
-      <div>
+
         <Sidebar/>
-        <Dashboard/>
-      </div>
+
+  
     );
 }
 

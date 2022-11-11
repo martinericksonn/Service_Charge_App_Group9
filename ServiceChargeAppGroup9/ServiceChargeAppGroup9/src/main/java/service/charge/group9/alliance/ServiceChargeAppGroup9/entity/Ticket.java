@@ -25,11 +25,9 @@ public class Ticket {
 		public int getTicketID() {
 			return ticketID;
 		}
-		
 		public void setTicketID(int ticketID) {
 			this.ticketID = ticketID;
 		}
-		
 		public String getStatus() {
 			return status;
 		}
@@ -41,5 +39,23 @@ public class Ticket {
 		}
 		public void setAssignee(String assignee) {
 			this.assignee = assignee;
+		}
+		public String getTracker() {
+			return tracker;
+		}
+		public void setTracker(String tracker) {
+			this.tracker = tracker;
+		}
+		public String getSubject() {
+			return subject;
+		}
+		public void setSubject(String subject) {
+			this.subject = subject;
+		}
+		public String getDescription() {
+			return description;
+		}
+		public void setDescription(String description) {
+			this.description = description;
 		}
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;
 
-import ph.alliance.prelims.group9_prelims.entity.TicketTest;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.entity.Ticket;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.repository.ITicketRepository;
 
