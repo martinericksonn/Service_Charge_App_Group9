@@ -1,7 +1,13 @@
 package service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Ticket {
-	private int ticketID;
+	
+	@Id
+	private Integer ticketID;
 	 private String assignee;
 	 private String status;
 	 private String subject;
@@ -11,7 +17,7 @@ public class Ticket {
 	 
 		public Ticket() {};
 
-		public Ticket(final int ticketID, final String assignee, final String status, final String subject,
+		public Ticket(final Integer ticketID, final String assignee, final String status, final String subject,
 				final String description, final String tracker) {
 			this.ticketID = ticketID;
 			this.assignee = assignee;
@@ -22,7 +28,7 @@ public class Ticket {
 		}
 		
 		 
-		public int getTicketID() {
+		public Integer getTicketID() {
 			return ticketID;
 		}
 		public void setTicketID(int ticketID) {
