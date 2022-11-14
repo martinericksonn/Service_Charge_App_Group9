@@ -6,34 +6,23 @@ import NewTicket from './pages/NewTicket';
 import Notification from './pages/Notification';
 import Attachments from './pages/Attachments';
 import ViewTicket from './pages/ViewTicket';
+import {Route, Routes} from "react-router-dom"
 
 function App() {
-    let component
-    switch (window.location.pathname) {
-        case "/":
-            component=<App/>
-            break;
-        case "/Ticket_List":
-            component= <TicketList/>
-            break;
-        case "/New_Ticket":
-            component= <NewTicket/>
-            break;
-        case "/Notification":
-            component= <Notification/>
-            break;
-        case "/Attach_Files":
-            component= <Attachments/>
-            break;
-        case "/View_Tickets":
-            component= <ViewTicket/>
-            break;
-    }
 
     return ( 
         <>
         <Navbar/>
-        <div className="container">{component}</div>
+        <div className="container">
+            <Routes>
+                <Route path='/Home' element={<App/>}/>
+                <Route path='/Ticket_List' element={<TicketList/>}/>
+                <Route path='/New_Ticket' element={<NewTicket/>}/>
+                <Route path='/Notification' element={<Notification/>}/>
+                <Route path='/attach_Files' element={<Attachments/>}/>
+                <Route path='/view_Tickets' element={<ViewTicket/>}/>
+            </Routes>
+        </div>
         </>
     );
 }
