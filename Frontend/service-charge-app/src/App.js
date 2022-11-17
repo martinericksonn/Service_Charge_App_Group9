@@ -1,5 +1,6 @@
-import './App.css';
+import { useState } from 'react'; import './App.css';
 import TicketManagement from './Components/TicketManagement';
+import LogIn from './Components/LogIn';
 import Navbar from './Components/Navbar';
 import TicketList from './pages/TicketList';
 import NewTicket from './pages/NewTicket';
@@ -8,10 +9,12 @@ import Attachments from './pages/Attachments';
 import ViewTicket from './pages/ViewTicket';
 import {Route, Routes} from "react-router-dom"
 
-function App() {
 
+function App() {
+    const [currentForm, setCurrentForm] = useState ('login');
     return ( 
         <>
+        <LogIn/>
         <Navbar/>
         <div className="container">
             <Routes>
