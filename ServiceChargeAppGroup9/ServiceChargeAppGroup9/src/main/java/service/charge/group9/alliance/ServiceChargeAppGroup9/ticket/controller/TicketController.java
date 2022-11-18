@@ -3,7 +3,11 @@ package service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,37 +16,62 @@ import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity.Ticke
 import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.message.Messages;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.service.ITicketService;
 
+import java.util.List;
+
 @RestController
+@RequestMapping("/ticket")
 public class TicketController {
 	@Autowired
 	private ITicketService service;
 
-	@PostMapping("/ticket/create")
+	@PostMapping("/create")
 	@ResponseBody
 	public ApiResponse save(Ticket ticket) throws IOException {
 		Ticket savedTicket = service.saveTicket(ticket);
-
 		if (savedTicket != null) {
 			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_SUCCESSFULLY_SAVED);
 		}
-
+		
 		return ApiResponse.CreateError(Messages.GENERIC_UNSUCCESSFUL_SAVE);
 	}
 	
+	@PostMapping("/update")
+	@ResponseBody
+	public ApiResponse update(Ticket ticket) throws IOException {
+		Ticket savedTicket = service.saveTicket(ticket);
+		if (savedTicket != null) {
+			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_SUCCESSFULLY_SAVED);
+		}
+		
+		return ApiResponse.CreateError(Messages.GENERIC_TICKET_NOT_FOUND);
+	}
 	
+	@GetMapping("/{id}")
+	public ApiResponse getById(@PathVariable int id) {
+		try {
+			Ticket savedTicket = service.findById(id);
+			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_FOUND);
+		} catch (Exception e) {
+			return ApiResponse.CreateError(Messages.GENERIC_TICKET_NOT_FOUND);
+		}
+	}
 	
-//	// Retrieve Ticket
-//	@RequestMapping("/ticket/{id}")
-//	public String getById(@PathVariable final int id) {
-//
-
-//		try {
-//			return service.findById(id);
-//		} catch (Exception e) {
-//			System.out.println(e);
-//			return e.toString();
-//		}
-//	}
+	@DeleteMapping("/delete/{id}")
+	public ApiResponse deleteTicket(@PathVariable int id) {
+		try {
+			service.deleteById(id);
+			return ApiResponse.CreateSuccess(null, Messages.TICKET_SUCCESSFULLY_DELETED);
+		}catch(Exception e ){
+			return ApiResponse.CreateError( Messages.GENERIC_TICKET_NOT_FOUND);
+		}
+		
+	}
+	
+	@RequestMapping("/all")
+	public ApiResponse retrieveAllTicket() {
+		List<Ticket> ticketlist = service.getAllTicket();
+		return ApiResponse.CreateSuccess(ticketlist, Messages.ALL_TICKET_SUCCESSFULLY__RETIEVE_);
+	}
 
 //			
 //	// Update
@@ -59,7 +88,7 @@ public class TicketController {
 //					return e.toString();
 //				}
 //			}
-//	
+ //	
 //	// Update Ticket Status
 //			@PostMapping("/ticket/update-status/{id}")
 //			public String save(@PathVariable final int id, @RequestParam("status") final String status) throws IOException {
@@ -89,16 +118,6 @@ public class TicketController {
 //				}
 //
 //			}
-//	// Delete
-//			@DeleteMapping("/ticket/delete/{id}")
-//			public String deleteTicket(@PathVariable final int id) {
-//				try {
-//					return service.deleteById(id) >= 1 ? "Success" : "Something went wrong";
-//				} catch (Exception e) {
-//					System.out.println(e);
-//					return e.toString();
-//				}
-//
-//			}
+	 
 
 }
