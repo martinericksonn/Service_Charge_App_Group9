@@ -9,10 +9,7 @@ public interface ITicketService {
 
 	
 	public Ticket saveTicket(Ticket ticket);
-	public void deleteById(int id);
-	public Ticket findById(int id);
-	public List<Ticket> getAllTicket();
-	public Ticket updateTicket(Ticket ticket);
+
 //	public Ticket saveAndFlush(Ticket ticket);
 //	public int update(final Ticket ticket);
 //	public int updateStatus(final Ticket ticket);
