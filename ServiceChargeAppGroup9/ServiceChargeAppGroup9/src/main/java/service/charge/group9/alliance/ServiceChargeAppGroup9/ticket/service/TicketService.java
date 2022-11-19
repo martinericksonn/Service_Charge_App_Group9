@@ -22,33 +22,7 @@ public class TicketService implements ITicketService {
 		return ticketJpaRepository.saveAndFlush(ticket);
 	}
 
-	public TicketService() {
-		this.gson = new Gson();
-	}
 
-	public Ticket findById(int id) {
-		return ticketJpaRepository.getReferenceById(Integer.valueOf(id)).get(); 
-		
-	}
-	
-	public void deleteById(int id) {
-		ticketJpaRepository.deleteById(id);
-	}
-	
-	public List<Ticket> getAllTicket(){
-		List<Ticket> tickets = ticketJpaRepository.findAll();
-		return tickets;
-	}
-
-	
-	public Ticket updateTicket(Ticket ticket) {
-		Ticket ticketTemp = findById(ticket.getTicketID());
-		if(ticketTemp != null) {
-			return ticketJpaRepository.saveAndFlush(ticket.set(ticketTemp));
-		}
-		
-		return null;
-	}
 }
 
 //	public Ticket saveAndFlush(Ticket ticket)
