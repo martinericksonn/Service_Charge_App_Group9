@@ -35,6 +35,43 @@ public class TicketController {
 		return ApiResponse.CreateError(Messages.GENERIC_UNSUCCESSFUL_SAVE);
 	}
 	
+	@PostMapping("/update")
+	@ResponseBody
+	public ApiResponse update(Ticket ticket) throws IOException {
+		Ticket savedTicket = service.saveTicket(ticket);
+		if (savedTicket != null) {
+			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_SUCCESSFULLY_SAVED);
+		}
+		
+		return ApiResponse.CreateError(Messages.GENERIC_TICKET_NOT_FOUND);
+	}
+	
+	@GetMapping("/{id}")
+	public ApiResponse getById(@PathVariable int id) {
+		try {
+			Ticket savedTicket = service.findById(id);
+			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_FOUND);
+		} catch (Exception e) {
+			return ApiResponse.CreateError(Messages.GENERIC_TICKET_NOT_FOUND);
+		}
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public ApiResponse deleteTicket(@PathVariable int id) {
+		try {
+			service.deleteById(id);
+			return ApiResponse.CreateSuccess(null, Messages.TICKET_SUCCESSFULLY_DELETED);
+		}catch(Exception e ){
+			return ApiResponse.CreateError( Messages.GENERIC_TICKET_NOT_FOUND);
+		}
+		
+	}
+	
+	@RequestMapping("/all")
+	public ApiResponse retrieveAllTicket() {
+		List<Ticket> ticketlist = service.getAllTicket();
+		return ApiResponse.CreateSuccess(ticketlist, Messages.ALL_TICKET_SUCCESSFULLY__RETIEVE_);
+	}
 
 //			
 //	// Update
