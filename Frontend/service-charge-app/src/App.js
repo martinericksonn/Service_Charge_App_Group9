@@ -8,14 +8,15 @@ import Notification from './pages/Notification';
 import Attachments from './pages/Attachments';
 import ViewTicket from './pages/ViewTicket';
 import {Route, Routes} from "react-router-dom"
+import { Login } from './Components/LoginScreen';
 
 
 function App() {
     const [currentForm, setCurrentForm] = useState ('login');
     return ( 
         <>
-        <LogIn/>
-        <Navbar/>
+        <Login/>
+        {/* <Navbar/>
         <div className="container">
             <Routes>
                 <Route path='/Home' element={<App/>}/>
@@ -25,7 +26,7 @@ function App() {
                 <Route path='/attach_Files' element={<Attachments/>}/>
                 <Route path='/view_Tickets' element={<ViewTicket/>}/>
             </Routes>
-        </div>
+        </div> */}
         </>
     );
 }
