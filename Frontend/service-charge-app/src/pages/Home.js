@@ -1,9 +1,20 @@
-export default function Home = () =>{
+import React from 'react';
+import LogIn from '../Components/LogIn';
+import Navbar from './Components/Navbar';
+
+ function Home(){
 
     return(
-        <h1>Home</h1>
+    <>
+    {/* <div>
+            <h1>Home</h1>
+    </div> */}
+         <Navbar/> 
+    </>
 
     )
 
     
 }
+export default Home;
+
