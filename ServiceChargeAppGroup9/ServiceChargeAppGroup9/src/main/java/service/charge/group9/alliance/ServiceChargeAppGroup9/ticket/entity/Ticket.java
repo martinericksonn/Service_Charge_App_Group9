@@ -1,12 +1,17 @@
 package service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Ticket {
 
 	@Id
+	@Column(name = "ticketID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ticketID;
 	private String assignee;
 	private String status;
