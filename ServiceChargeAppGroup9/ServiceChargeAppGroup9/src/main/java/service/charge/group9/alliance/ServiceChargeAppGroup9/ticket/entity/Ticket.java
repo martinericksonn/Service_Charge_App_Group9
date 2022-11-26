@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Ticket {
 
 	@Id
-	@Column(name = "ticketID")
+	@Column(name = "ticketID",nullable=false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ticketID;
 	private String assignee;

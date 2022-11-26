@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'dart:convert';
 
 void main() {
   runApp(const MyApp());
@@ -6,10 +8,24 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  final String postsURL = "http://localhost:8080/ticket/all";
+
+  void getPosts() async {
+    Response res = await get(postsURL);
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+      print('asd');
+      print(body);
+    } else {
+      throw "Unable to retrieve posts.";
+    }
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    getPosts();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
