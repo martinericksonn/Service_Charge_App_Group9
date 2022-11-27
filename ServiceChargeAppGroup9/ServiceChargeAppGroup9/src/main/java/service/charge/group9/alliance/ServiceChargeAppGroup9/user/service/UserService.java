@@ -7,6 +7,7 @@ import service.charge.group9.alliance.ServiceChargeAppGroup9.user.respository.Us
 
 public class UserService implements IUserService{
 	private UserRespository userJpaRepository;
+	
 	@Override
 	public User saveUser(User user) {
 		return userJpaRepository.saveAndFlush(user);
@@ -16,11 +17,11 @@ public class UserService implements IUserService{
 	public User updateUser(User user) {
 		User userTemp = findUserById(user.getUserId());
 		if(userTemp != null) {
-			return userJpaRepository.saveAndFlush(user)
+			return userJpaRepository.saveAndFlush(user);
 		}
-			
+		return null;		
 	}
-
+	
 	@Override
 	public User findUserById(int id) {
 		userJpaRepository.getReferenceById(id);	
@@ -29,14 +30,12 @@ public class UserService implements IUserService{
 
 	@Override
 	public List<User> getAllUser() {
-		return  userJpaRepository.findAll();
-
+		return userJpaRepository.findAll();
 	}
 
 	@Override
 	public void deleteUser(int id) {
 		userJpaRepository.deleteById(id);
-		
 	}
 
 }

@@ -15,20 +15,17 @@ public class TicketService implements ITicketService {
 
 	@Autowired
 	private TicketRepository ticketJpaRepository;
-	private Gson gson;
-
+	
 	public Ticket saveTicket(Ticket ticket) {
 
 		return ticketJpaRepository.saveAndFlush(ticket);
 	}
 
 	public TicketService() {
-		this.gson = new Gson();
 	}
 
 	public Ticket findById(int id) {
 		return ticketJpaRepository.getReferenceById(Integer.valueOf(id)).get(); 
-		
 	}
 	
 	public void deleteById(int id) {
@@ -36,8 +33,7 @@ public class TicketService implements ITicketService {
 	}
 	
 	public List<Ticket> getAllTicket(){
-		List<Ticket> tickets = ticketJpaRepository.findAll();
-		return tickets;
+		return  ticketJpaRepository.findAll();	
 	}
 
 	

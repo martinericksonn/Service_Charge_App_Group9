@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity.Ticket;
+
 @Entity
 @Table(name = "users")
 public class User {
