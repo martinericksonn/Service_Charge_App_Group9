@@ -8,25 +8,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
 	@Id
-	@Column(name = "userId",nullable = false)
+	@Column(name = "userId", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
-	
 
 	private String firstName;
 	private String lastName;
 	private String username;
 	private String password;
 	private String role;
-	
+
 	public User() {
 	}
-	
-	
+
 	public User(int userId, String firstName, String lastName, String username, String password, String role) {
 		super();
 		this.userId = userId;
@@ -85,5 +83,15 @@ public class User {
 		this.role = role;
 	}
 
-
+	public User get() {
+		User user = new User();
+		user.firstName = firstName;
+		user.lastName = lastName;
+		user.password= password;
+		user.role = role;
+		user.userId = userId;
+		user.username= username;
+		
+		return user;
+	}
 }
