@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:service_charge_app_ver2/home.dart';
+import 'package:service_charge_app_ver2/loginPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      title: 'Service Charge App',
+      theme: ThemeData(fontFamily: 'Merriweather' ),
+      home: LoginPage(),
     );
   }
 }
