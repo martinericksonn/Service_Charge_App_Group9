@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:service_charge_app/src/routes/routes.dart';
+import 'package:service_charge_app/src/routes/routes_generator.dart';
+import 'package:service_charge_app/src/screen/app_view.dart';
 import 'package:service_charge_app/src/screen/login.dart';
+import 'package:service_charge_app/src/widgets/nav_bar.dart';
 
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
@@ -60,22 +64,12 @@ class MyApp extends StatelessWidget {
           darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
 
-          // Define a function to handle named routes in order to support
-          // Flutter web url navigation and deep linking.
-          onGenerateRoute: (RouteSettings routeSettings) {
-            return MaterialPageRoute<void>(
-              settings: routeSettings,
-              builder: (BuildContext context) {
-                switch (routeSettings.name) {
-                  case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
-
-                  default:
-                    return LoginScreen();
-                }
-              },
-            );
-          },
+          initialRoute: routeHome,
+          navigatorKey: navKey,
+          onGenerateRoute: RouteGenerator.generateRoute,
+            builder: (_, child) => AppView(
+        child: child,
+      ),
         );
       },
     );
