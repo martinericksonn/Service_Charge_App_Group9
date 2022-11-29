@@ -4,7 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
 import 'package:service_charge_app/src/routes/routes_generator.dart';
 import 'package:service_charge_app/src/screen/app_view.dart';
-import 'package:service_charge_app/src/screen/login.dart';
+import 'package:service_charge_app/src/screen/login_page.dart';
 import 'package:service_charge_app/src/widgets/nav_bar.dart';
 
 import 'settings/settings_controller.dart';
@@ -60,16 +60,25 @@ class MyApp extends StatelessWidget {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: ThemeData(),
-          darkTheme: ThemeData.dark(),
+          theme: ThemeData(
+            // ignore: prefer_const_constructors
+            appBarTheme: AppBarTheme(
+                backgroundColor: Colors.transparent,
+                foregroundColor: Colors.black //here you can give the text color
+                ),
+            // ignore: prefer_const_constructors
+            tabBarTheme: TabBarTheme(
+              indicatorSize: TabBarIndicatorSize.tab,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+            ),
+          ),
+          // darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
 
-          initialRoute: routeHome,
+          initialRoute: routeLogin,
           navigatorKey: navKey,
           onGenerateRoute: RouteGenerator.generateRoute,
-            builder: (_, child) => AppView(
-        child: child,
-      ),
         );
       },
     );

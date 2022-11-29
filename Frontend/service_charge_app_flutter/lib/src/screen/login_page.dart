@@ -3,6 +3,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:service_charge_app/src/routes/routes.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -21,6 +22,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.black,
         elevation: 0,
@@ -105,7 +107,10 @@ class LoginScreen extends StatelessWidget {
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.blue,
                                       foregroundColor: Colors.white),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.popAndPushNamed(
+                                        context, routeAppView);
+                                  },
                                   child: Text("Continue"),
                                 ),
                               ),
