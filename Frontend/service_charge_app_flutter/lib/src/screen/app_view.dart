@@ -12,26 +12,51 @@ class AppView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          centerTitle: true,
+          leadingWidth: 200,
+          leading: Center(
+            child: Text("Service Charge App",
+                style: Theme.of(context).textTheme.titleLarge),
+          ),
           automaticallyImplyLeading: false,
           // backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Text("Service Charge App"),
+          title: SizedBox(
+            width: 350,
+            child: TabBar(
+              indicatorColor: Colors.transparent,
+              tabs: [
+                Tab(
+                  child: Text(
+                    "Create Ticket",
+                  ),
+                ),
+                Tab(
+                  text: "View Ticket",
+                ),
+                Tab(
+                  text: "View User",
+                ),
+              ],
+            ),
+          ),
           actions: [
-            SizedBox(
-              width: 350,
-              child: TabBar(
-                indicatorColor: Colors.transparent,
-                tabs: [
-                  Tab(
-                    child: Text("Create Ticket"),
-                  ),
-                  Tab(text: "View Ticket"),
-                  Tab(
-                    text: "View User",
-                  ),
-                ],
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  "Martin Erickson Lapetaje",
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
               ),
             ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.logout_rounded),
+            ),
+            SizedBox(
+              width: 20,
+            )
           ],
         ),
         body: const TabBarView(
