@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:service_charge_app/src/routes/routes.dart';
 
 class AppView extends StatelessWidget {
   const AppView();
@@ -51,7 +52,9 @@ class AppView extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, routeLogin);
+              },
               icon: Icon(Icons.logout_rounded),
             ),
             SizedBox(

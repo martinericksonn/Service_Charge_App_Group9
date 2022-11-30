@@ -108,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                                       backgroundColor: Colors.blue,
                                       foregroundColor: Colors.white),
                                   onPressed: () {
-                                    Navigator.popAndPushNamed(
+                                    Navigator.pushReplacementNamed(
                                         context, routeAppView);
                                   },
                                   child: Text("Continue"),
