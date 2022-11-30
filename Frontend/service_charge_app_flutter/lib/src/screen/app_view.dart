@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
 
+import '../widgets/createTicket.dart';
+
 class AppView extends StatelessWidget {
-  const AppView();
+  const AppView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,61 +14,10 @@ class AppView extends StatelessWidget {
       length: 3,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          centerTitle: true,
-          leadingWidth: 200,
-          leading: Center(
-            child: Text("Service Charge App",
-                style: Theme.of(context).textTheme.titleLarge),
-          ),
-          automaticallyImplyLeading: false,
-          // backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: SizedBox(
-            width: 350,
-            child: TabBar(
-              indicatorColor: Colors.transparent,
-              tabs: [
-                Tab(
-                  child: Text(
-                    "Create Ticket",
-                  ),
-                ),
-                Tab(
-                  text: "View Ticket",
-                ),
-                Tab(
-                  text: "View User",
-                ),
-              ],
-            ),
-          ),
-          actions: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  "Martin Erickson Lapetaje",
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, routeLogin);
-              },
-              icon: Icon(Icons.logout_rounded),
-            ),
-            SizedBox(
-              width: 20,
-            )
-          ],
-        ),
+        appBar: navbar(context),
         body: const TabBarView(
           children: [
-            Center(
-              child: Text("textfield sa gi sabotan"),
-            ),
+            createTicket(),
             Center(
               child: Text("table diri ako ra bahala"),
             ),
@@ -76,6 +27,55 @@ class AppView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  AppBar navbar(BuildContext context) {
+    return AppBar(
+      // backgroundColor: Colors.black12,
+      centerTitle: true,
+      leadingWidth: 200,
+      leading: Center(
+        child: Text("Service Charge App",
+            style: Theme.of(context).textTheme.titleLarge),
+      ),
+      automaticallyImplyLeading: false,
+      // backgroundColor: Colors.transparent,
+      elevation: 0,
+      title: SizedBox(
+        width: 350,
+        child: TabBar(indicatorColor: Colors.transparent, tabs: [
+          Tab(
+            text: "Create Ticket",
+          ),
+          Tab(
+            text: "View Ticket",
+          ),
+          Tab(
+            text: "View User",
+          ),
+        ]),
+      ),
+      actions: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              "Martin Erickson Lapetaje",
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+          ),
+        ),
+        IconButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, routeLogin);
+          },
+          icon: Icon(Icons.logout_rounded),
+        ),
+        SizedBox(
+          width: 20,
+        )
+      ],
     );
   }
 }

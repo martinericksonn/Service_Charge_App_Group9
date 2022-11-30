@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
+
 import 'package:service_charge_app/src/routes/routes_generator.dart';
 import 'package:service_charge_app/src/screen/app_view.dart';
 import 'package:service_charge_app/src/screen/login_page.dart';
-import 'package:service_charge_app/src/widgets/nav_bar.dart';
+
 
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';

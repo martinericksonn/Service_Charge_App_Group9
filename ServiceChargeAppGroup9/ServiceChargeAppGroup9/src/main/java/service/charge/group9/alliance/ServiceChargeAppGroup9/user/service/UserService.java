@@ -2,10 +2,14 @@ package service.charge.group9.alliance.ServiceChargeAppGroup9.user.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.user.entity.User;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.user.respository.UserRespository;
 
+@Service
 public class UserService implements IUserService{
+	@Autowired
 	private UserRespository userJpaRepository;
 	
 	@Override
