@@ -4,6 +4,7 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
+import 'package:service_charge_app/src/screen/dashboard.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -109,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                                       foregroundColor: Colors.white),
                                   onPressed: () {
                                     Navigator.pushReplacementNamed(
-                                        context, routeAppView);
+                                        context, dashboard());
                                   },
                                   child: Text("Continue"),
                                 ),

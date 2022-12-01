@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
+import 'package:service_charge_app/src/screen/sidebar.dart';
 
 import '../widgets/createTicket.dart';
 
@@ -17,6 +18,7 @@ class AppView extends StatelessWidget {
         appBar: navbar(context),
         body: const TabBarView(
           children: [
+            sidebar(),
             createTicket(),
             Center(
               child: Text("table diri ako ra bahala"),
