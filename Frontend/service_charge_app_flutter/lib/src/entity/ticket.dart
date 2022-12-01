@@ -9,10 +9,10 @@ class Ticket {
   final String subject;
   final String description;
   final String tracker;
-  final String asignee;
+  final String assignee;
 
   Ticket([
-    this.asignee = "",
+    this.assignee = "",
     this.ticketID = 0,
     this.status = "",
     this.subject = "",
