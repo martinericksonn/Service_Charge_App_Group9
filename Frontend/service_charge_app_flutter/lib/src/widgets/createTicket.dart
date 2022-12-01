@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class createTicket extends StatelessWidget {
-  const createTicket({
+class CreateTicket extends StatelessWidget {
+  const CreateTicket({
     Key? key,
   }) : super(key: key);
 

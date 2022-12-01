@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
 
 import '../widgets/createTicket.dart';
+import '../widgets/viewTicket.dart';
 
 class AppView extends StatelessWidget {
   const AppView({super.key});
@@ -15,12 +16,10 @@ class AppView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: navbar(context),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            createTicket(),
-            Center(
-              child: Text("table diri ako ra bahala"),
-            ),
+            CreateTicket(),
+            ViewTicket(),
             Center(
               child: Text("unsa pa lain tabs?"),
             ),
