@@ -18,6 +18,16 @@ class ViewTicket extends StatefulWidget {
 }
 
 class _ViewTicketState extends State<ViewTicket> {
+  List<String> ticketAtributes = [
+    "Ticket ID",
+    "User ID",
+    "Category",
+    "Status",
+    "Subject",
+    "Description",
+    "Date",
+    "Actions",
+  ];
   TicketController ticketController = TicketController();
   static const String _title = 'Flutter Code Sample';
 

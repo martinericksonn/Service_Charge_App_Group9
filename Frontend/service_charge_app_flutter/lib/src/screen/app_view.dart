@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
 import 'package:service_charge_app/src/widgets/view_ticket.dart';
+import 'package:service_charge_app/src/widgets/view_users.dart';
 
 import '../widgets/create_ticket.dart';
 
@@ -20,9 +21,7 @@ class AppView extends StatelessWidget {
           children: [
             createTicket(),
             ViewTicket(),
-            Center(
-              child: Text("unsa pa lain tabs?"),
-            ),
+            ViewUser(),
           ],
         ),
       ),
