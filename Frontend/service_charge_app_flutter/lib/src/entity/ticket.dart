@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'ticket.g.dart';
 
-
 @JsonSerializable()
 class Ticket {
   final int ticketID;
@@ -10,9 +9,9 @@ class Ticket {
   final int userID;
   final int category;
   final String description;
-  final String subect;
+  final String subject;
   final String status;
-  final DateTime  date;
+  final DateTime date;
 
   Ticket([
     this.assigneeID = 0,
@@ -20,7 +19,7 @@ class Ticket {
     this.userID = 0,
     this.category = 0,
     this.status = "",
-    this.subect = "",
+    this.subject = "",
     this.description = "",
     DateTime? date,
   ]) : this.date = date ?? DateTime.now();

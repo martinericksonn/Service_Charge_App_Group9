@@ -14,7 +14,7 @@ class TicketController {
 
     var response = await dio.get("$url/ticket/all");
     var responseData = response.data['data'];
-    
+
     print(responseData);
     responseData
         .map((data) => {

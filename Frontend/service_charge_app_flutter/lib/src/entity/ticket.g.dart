@@ -12,7 +12,7 @@ Ticket _$TicketFromJson(Map<String, dynamic> json) => Ticket(
       json['userID'] as int? ?? 0,
       json['category'] as int? ?? 0,
       json['status'] as String? ?? "",
-      json['subect'] as String? ?? "",
+      json['subject'] as String? ?? "",
       json['description'] as String? ?? "",
       json['date'] == null
           ? null
@@ -25,7 +25,7 @@ Map<String, dynamic> _$TicketToJson(Ticket instance) => <String, dynamic>{
       'userID': instance.userID,
       'category': instance.category,
       'description': instance.description,
-      'subect': instance.subect,
+      'subject': instance.subject,
       'status': instance.status,
       'date': instance.date.toIso8601String(),
     };
