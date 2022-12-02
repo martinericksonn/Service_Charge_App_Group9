@@ -7,10 +7,10 @@ import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity.Ticke
 public interface ITicketService {
 
 	
-	public Ticket saveTicket(Ticket ticket);
-	public Ticket findById(int id);
-	public Ticket updateTicket(Ticket ticket);
-	public List<Ticket> getAllTicket();
-	public void deleteById(int id);
+	Ticket saveTicket(Ticket ticket);
+	Ticket findById(int id);
+	Ticket updateTicket(Ticket ticket);
+	List<Ticket> getAllTicket();
+	void deleteById(int id);
 
 }
