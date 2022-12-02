@@ -5,21 +5,6 @@ part 'ticket.g.dart';
 
 @JsonSerializable()
 class Ticket {
-<<<<<<< Updated upstream
-  final String ticketID;
-  final String status;
-  final String subject;
-  final String description;
-  final String tracker;
-
-  Ticket(
-    this.ticketID,
-    this.status,
-    this.subject,
-    this.description,
-    this.tracker,
-  );
-=======
   final int ticketID;
   final int assigneeID;
   final int userID;
@@ -39,7 +24,6 @@ class Ticket {
     this.description = "",
     DateTime? date,
   ]) : this.date = date ?? DateTime.now();
->>>>>>> Stashed changes
 
   factory Ticket.fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);
   Map<String, dynamic> toJson() => _$TicketToJson(this);

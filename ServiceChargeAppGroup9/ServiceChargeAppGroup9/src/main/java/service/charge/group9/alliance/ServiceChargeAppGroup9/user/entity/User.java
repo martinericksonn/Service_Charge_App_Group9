@@ -27,8 +27,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
-    private String role;
+
+
 
     @Column(name = "email")
     private String email;
@@ -39,7 +39,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.role = role;
+
         this.email = email;
     }
 
@@ -86,20 +86,14 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public User get() {
         User user = new User();
         user.firstName = firstName;
         user.lastName = lastName;
         user.password = password;
-        user.role = role;
+
         user.userId = userId;
         user.email = email;
         return user;

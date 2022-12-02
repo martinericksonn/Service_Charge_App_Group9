@@ -7,7 +7,6 @@ import 'package:service_charge_app/src/routes/routes_generator.dart';
 import 'package:service_charge_app/src/screen/app_view.dart';
 import 'package:service_charge_app/src/screen/login_page.dart';
 
-
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -77,7 +76,7 @@ class MyApp extends StatelessWidget {
           // darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
 
-          initialRoute: routeLogin,
+          initialRoute: routeAppView,
           navigatorKey: navKey,
           onGenerateRoute: RouteGenerator.generateRoute,
         );
