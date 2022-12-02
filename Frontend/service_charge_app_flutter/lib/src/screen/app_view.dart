@@ -31,6 +31,7 @@ class AppView extends StatelessWidget {
   }
 
   AppBar navbar(BuildContext context) {
+     
     return AppBar(
       // backgroundColor: Colors.black12,
       centerTitle: true,
