@@ -68,7 +68,23 @@ class _ViewTicketState extends State<ViewTicket> {
           future: ticketController.getTicket(),
           builder:
               (BuildContext context, AsyncSnapshot<List<Ticket>> snapshot) {
-            if (!snapshot.hasData) return const CircularProgressIndicator();
+            if (!snapshot.hasData) {
+              return Center(
+                child: Column(
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    SizedBox(
+                      height: 50,
+                    ),
+                    SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: CircularProgressIndicator(),
+                    ),
+                  ],
+                ),
+              );
+            }
             List<Map<String, dynamic>> mapData = [];
 
             var returnData =
