@@ -61,7 +61,6 @@ public class UserController {
 		if (savedUser != null) {
 			return ApiResponse.CreateSuccess(savedUser,Messages.USER_SUCCESSFULLY_UPDATED);
 		}
-
 		return ApiResponse.CreateError(Messages.USER_NOT_FOUND);
 	}
 }

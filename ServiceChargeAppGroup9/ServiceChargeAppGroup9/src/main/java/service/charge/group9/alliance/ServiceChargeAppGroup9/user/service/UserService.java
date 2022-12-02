@@ -21,11 +21,11 @@ public class UserService implements IUserService{
 	public User updateUser(User user) {
 		User userTemp = findUserById(user.getUserId());
 		if(userTemp != null) {
-			return userJpaRepository.saveAndFlush(user);
+			return userJpaRepository.saveAndFlush(userTemp);
 		}
-		return null;		
+		return null;
 	}
-	
+
 	@Override
 	public User findUserById(int id) {
 		userJpaRepository.getReferenceById(id);	
