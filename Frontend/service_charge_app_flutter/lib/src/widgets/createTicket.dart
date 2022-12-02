@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/widgets/assignees.dart';
+import 'package:service_charge_app/src/widgets/datePcker.dart';
+import 'package:service_charge_app/src/widgets/ticketStat.dart';
 
 class createTicket extends StatelessWidget {
   const createTicket({
@@ -13,72 +15,123 @@ class createTicket extends StatelessWidget {
     TextEditingController forSubject1 = TextEditingController();
     TextEditingController forSubject2 = TextEditingController();
 
-    return Center(
-      child: SingleChildScrollView(
-        child: SizedBox(
-          width: 370,
-          child: Card(
-                    elevation: 0,
-                    color: Colors.transparent,
-                    child: Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                     // ignore: prefer_const_literals_to_create_immutables
-                    children: [
-                                Text(
-                                  "Create Ticket",
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                //ID NUMBER FOR TICKETS
-                                Text('ID: Auto generated number'),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: TextField(
+    return SingleChildScrollView(
+      child: Column(
+         crossAxisAlignment: CrossAxisAlignment.start,
+         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Text("New Ticket", style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          ),),
+                  ),
+                  SizedBox(height: 5),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+            child: Card(
+              elevation: 5,
+              color: Colors.grey.shade200,
+              child: Center(
+                child: Column(
+                  children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                              child: Text("Subject", style: 
+                                    TextStyle(fontSize: 12),),
+                            ),
+                            SizedBox(width: 3,),
+                          SizedBox(
+                            width: 905,
+                            height: 50,
+                            child: 
+                                 Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: TextField(
+                                        controller: forSubject1,
+                                        decoration: InputDecoration(
+                                        border: OutlineInputBorder( 
+                                        borderSide: BorderSide(
+                                        width: 2, color: Colors.grey), 
+                                              ),
+                                        ),
+                                          ),
+                                      ),
+                                
+                          ),
+                        ],
+                      ),     
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 7, 5, 0),
+                            child: Text("Description", style: 
+                                      TextStyle(fontSize: 12),),
+                          ),
+                          SizedBox(
+                            width: 900,
+                            child: 
+                                  Padding(
+                                    padding: const EdgeInsets.all(7),
+                                    child: TextField(
+                                    maxLines: 5,
                                     controller: forDescription,
                                     decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        labelText: 'Description',
-                                        hintText: 'Enter your Description'),
+                                        border: OutlineInputBorder( 
+                                        borderSide: BorderSide(
+                                        width: 2, color: Colors.grey), 
+                                              ),
+                                        ),
+                                        ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: TextField(
-                                    controller: forSubject1,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        labelText: 'Subject',
-                                        hintText: 'Enter your subject'),
-                                  ),
-                                ),
-                                 Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: TextField(
-                                    controller: forSubject2,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        labelText: 'Subject',
-                                        hintText: 'Enter your subject'),
-                                  ),
-                                ),
-                                AssigneeDropDown(),
-                                SizedBox(
-                                height: 20,
-                              ),
-                              Container(
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(34, 0, 5, 0),
+                            child: Text("Status", style: 
+                                      TextStyle(fontSize: 12),),
+                          ),        
+                          SizedBox(
+                            height: 50,
+                            child: TixStatusDropDown()),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 5, 0),
+                            child: Text("Select Assignee", style: 
+                                      TextStyle(fontSize: 12),),
+                          ),
+                          SizedBox(
+                            height: 50,
+                            child: AssigneeDropDown()),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 5, 0),
+                            child: Text("Date Started", style: 
+                                      TextStyle(fontSize: 12),),
+                          ),
+                          SizedBox(
+                            height: 50,
+                            width: 120,
+                            child: DatePicker()),
+                        ],
+                      ),  
+                      Container(
                                 padding: EdgeInsets.all(10),
                                 height: 60,
-                                width: double.infinity,
+                                width: 100,
                                 child: TextButton(
                                   style: TextButton.styleFrom(
                                       backgroundColor: Colors.blue,
@@ -91,12 +144,95 @@ class createTicket extends StatelessWidget {
                                   child: Text("Create"),
                                 ),
                               ),
-                              ],
-                            ),
-                          ),
-                        ),
-        ),
+                  ]
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
+        // child: SizedBox(
+        //   width: 370,
+        //   child: Card(
+        //             elevation: 0,
+        //             color: Colors.transparent,
+        //             child: Padding(
+        //             padding: const EdgeInsets.all(24.0),
+        //             child: Column(
+        //             mainAxisAlignment: MainAxisAlignment.center,
+        //              // ignore: prefer_const_literals_to_create_immutables
+        //             children: [
+        //                         Text(
+        //                           "Create Ticket",
+        //                           style: TextStyle(
+        //                             fontSize: 28,
+        //                             fontWeight: FontWeight.w600,
+        //                           ),
+        //                         ),
+        //                         SizedBox(
+        //                           height: 10,
+        //                         ),
+        //                         //ID NUMBER FOR TICKETS
+        //                         Text('ID: Auto generated number'),
+        //                         SizedBox(
+        //                           height: 10,
+        //                         ),
+        //                         Padding(
+        //                           padding: EdgeInsets.all(10),
+        //                           child: TextField(
+        //                             controller: forDescription,
+        //                             decoration: InputDecoration(
+        //                                 border: OutlineInputBorder(),
+        //                                 labelText: 'Description',
+        //                                 hintText: 'Enter your Description'),
+        //                           ),
+        //                         ),
+        //                         Padding(
+        //                           padding: EdgeInsets.all(10),
+        //                           child: TextField(
+        //                             controller: forSubject1,
+        //                             decoration: InputDecoration(
+        //                                 border: OutlineInputBorder(),
+        //                                 labelText: 'Subject',
+        //                                 hintText: 'Enter your subject'),
+        //                           ),
+        //                         ),
+        //                          Padding(
+        //                           padding: EdgeInsets.all(10),
+        //                           child: TextField(
+        //                             controller: forSubject2,
+        //                             decoration: InputDecoration(
+        //                                 border: OutlineInputBorder(),
+        //                                 labelText: 'Subject',
+        //                                 hintText: 'Enter your subject'),
+        //                           ),
+        //                         ),
+        //                         AssigneeDropDown(),
+        //                         SizedBox(
+        //                         height: 20,
+        //                       ),
+        //                       Container(
+        //                         padding: EdgeInsets.all(10),
+        //                         height: 60,
+        //                         width: double.infinity,
+        //                         child: TextButton(
+        //                           style: TextButton.styleFrom(
+        //                               backgroundColor: Colors.blue,
+        //                               foregroundColor: Colors.white),
+        //                           onPressed: () {
+        //                             forDescription.clear(); 
+        //                             forSubject1.clear(); 
+        //                             forSubject2.clear(); 
+        //                           },
+        //                           child: Text("Create"),
+        //                         ),
+        //                       ),
+        //                       ],
+        //                     ),
+        //                   ),
+        //                 ),
+        // ),
+      
   }
 }

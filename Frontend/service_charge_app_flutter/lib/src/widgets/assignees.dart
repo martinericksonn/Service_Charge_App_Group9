@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 
-  List<String> country = [
+  List<String> assignees = [
     "Captain America",
     "Iron Man",
     "Black Widow",
@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
     "Hawkeye",
     "Wanda",
     "Vision",
-    "Spiderman"
+    "Spiderman",
+     "--",
   ];
 
 class AssigneeDropDown extends StatefulWidget {
@@ -22,36 +23,33 @@ class AssigneeDropDown extends StatefulWidget {
 }
 
 class _AssigneeDropDownState extends State<AssigneeDropDown> {
-String countryID = country.first;
+String assigneesID = assignees.last;
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(15.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Text("Select Assignee:"),
-              DropdownButtonHideUnderline(
-                child: DropdownButton(
-                  onChanged: (String? value) {
-                   setState(() {
-                    countryID = value!;
-                        });
-                    },
-                  value: countryID,
-                  items: country.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                
-                ),
-              ),
-            ]
+        padding: EdgeInsets.all(12.0),
+        child: SizedBox(
+          height: 50,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton(
+              onChanged: (String? value) {
+               setState(() {
+                assigneesID = value!;
+                    });
+                },
+              value: assigneesID,
+              items: assignees.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+            
             ),
+          ),
+        ),
       );
   }
 }
