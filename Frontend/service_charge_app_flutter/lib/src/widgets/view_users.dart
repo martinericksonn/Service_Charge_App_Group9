@@ -42,9 +42,14 @@ class _ViewUserState extends State<ViewUser> {
         builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
           if (!snapshot.hasData)
             // ignore: curly_braces_in_flow_control_structures
-            return const SizedBox(
-              height: 300,
-              child: CircularProgressIndicator(),
+            return Center(
+              child: Expanded(
+                child: const SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: CircularProgressIndicator(),
+                ),
+              ),
             );
 
           List<Map<String, dynamic>> users =
@@ -68,13 +73,13 @@ class _ViewUserState extends State<ViewUser> {
                             child: Row(
                               children: [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () => inputDialog(context),
                                   icon: Icon(
                                     Icons.edit_outlined,
                                   ),
                                 ),
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () => inputDialog(context),
                                   icon: Icon(
                                     Icons.delete_outline,
                                   ),
@@ -102,44 +107,24 @@ class _ViewUserState extends State<ViewUser> {
       ),
     );
   }
+
+  Future<String?> inputDialog(BuildContext context) {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Okay'),
+        content: const Text('Atleast ni gana siya'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'OK'),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
 }
-// const <DataRow>[
-                
-                // DataRow(
-                //   cells: <DataCell>[
-                    
-                //     DataCell(Text('Janine')),
-                //     DataCell(Text('43')),
-                //     DataCell(Text('Professor')),
-                //     DataCell(Text('Janine')),
-                //     DataCell(Text('43')),
-                //     DataCell(Text('Professor')),
-                //     DataCell(Text('Janine')),
-                //     DataCell(Text('43')),
-                //   ],
-                // ),
-//                 DataRow(
-//                   cells: <DataCell>[
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                     DataCell(Text('Professor')),
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                     DataCell(Text('Professor')),
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                   ],
-//                 ),
-//                 DataRow(
-//                   cells: <DataCell>[
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                     DataCell(Text('Professor')),
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                     DataCell(Text('Professor')),
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                   ],
-//                 ),
-//               ],

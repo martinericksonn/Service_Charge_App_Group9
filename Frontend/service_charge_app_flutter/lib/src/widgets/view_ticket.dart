@@ -5,6 +5,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_data_table/web_data_table.dart';
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
+import 'package:intl/date_symbol_data_http_request.dart';
+
+import 'package:intl/intl.dart';
 
 import '../entity/ticket.dart';
 
@@ -20,6 +23,7 @@ class ViewTicket extends StatefulWidget {
 class _ViewTicketState extends State<ViewTicket> {
   List<String> ticketAtributes = [
     "Ticket ID",
+    "Assignee ID",
     "User ID",
     "Category",
     "Status",
@@ -36,6 +40,17 @@ class _ViewTicketState extends State<ViewTicket> {
     return table();
   }
 
+  DataColumn tabTitle(String title) {
+    return DataColumn(
+      label: Expanded(
+        child: Text(
+          title,
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+      ),
+    );
+  }
+
   Widget table() {
     return SingleChildScrollView(
       child: FutureBuilder<List<Ticket>>(
@@ -43,9 +58,12 @@ class _ViewTicketState extends State<ViewTicket> {
         builder: (BuildContext context, AsyncSnapshot<List<Ticket>> snapshot) {
           if (!snapshot.hasData)
             // ignore: curly_braces_in_flow_control_structures
-            return const SizedBox(
-              height: 300,
-              child: CircularProgressIndicator(),
+            return Center(
+              child: const SizedBox(
+                height: 100,
+                width: 100,
+                child: CircularProgressIndicator(),
+              ),
             );
 
           List<Map<String, dynamic>> tickets =
@@ -54,80 +72,9 @@ class _ViewTicketState extends State<ViewTicket> {
           return Padding(
             padding: const EdgeInsets.all(18.0),
             child: DataTable(
-                columns: <DataColumn>[
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        'TicketID',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        'AssigneeID',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        'UserID',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        'Category',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        'Status',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        'Subject',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        'Description',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        'Date',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        'Actions',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                  ),
-                ],
+                columns: ticketAtributes
+                    .map((atribute) => tabTitle(atribute))
+                    .toList(),
                 rows: tickets
                     .map(
                       (ticket) => DataRow(
@@ -144,13 +91,13 @@ class _ViewTicketState extends State<ViewTicket> {
                             child: Row(
                               children: [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () => inputDialog(context),
                                   icon: Icon(
                                     Icons.edit_outlined,
                                   ),
                                 ),
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () => inputDialog(context),
                                   icon: Icon(
                                     Icons.delete_outline,
                                   ),
@@ -164,6 +111,26 @@ class _ViewTicketState extends State<ViewTicket> {
                     .toList()),
           );
         },
+      ),
+    );
+  }
+
+  Future<String?> inputDialog(BuildContext context) {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Okay'),
+        content: const Text('Atleast ni gana siya'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'OK'),
+            child: const Text('OK'),
+          ),
+        ],
       ),
     );
   }

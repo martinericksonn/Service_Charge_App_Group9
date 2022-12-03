@@ -14,9 +14,7 @@ Ticket _$TicketFromJson(Map<String, dynamic> json) => Ticket(
       json['status'] as String? ?? "",
       json['subject'] as String? ?? "",
       json['description'] as String? ?? "",
-      json['date'] == null
-          ? null
-          : DateTime.fromMillisecondsSinceEpoch(json['date'] * 1000),
+      json['date'] == null ? null : DateTime.parse(json['date'] as String),
     );
 
 Map<String, dynamic> _$TicketToJson(Ticket instance) => <String, dynamic>{
