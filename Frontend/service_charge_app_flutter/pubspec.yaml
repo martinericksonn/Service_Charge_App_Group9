@@ -14,6 +14,7 @@ dependencies:
   dio: ^4.0.6
   dropdown_textfield: ^1.0.7
   dropdownfield: ^1.0.3
+  file_picker: ^5.2.3
   flutter:
     sdk: flutter
   flutter_localizations:
