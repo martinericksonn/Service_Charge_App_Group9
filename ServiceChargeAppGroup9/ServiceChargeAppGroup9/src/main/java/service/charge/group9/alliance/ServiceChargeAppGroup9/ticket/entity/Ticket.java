@@ -12,11 +12,11 @@ public class Ticket {
 	@Column(name = "ticketID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ticketID;
-	private int assigneeID;
-
 	@JoinColumn(name ="userID",nullable = false)
 	private int userID;
-	private int category;
+
+	@JoinColumn(name ="userRoleID",nullable = false)
+	private int categoryID;
 	private String status;
 	private String subject;
 	private String description;
@@ -24,11 +24,8 @@ public class Ticket {
 	private Timestamp date;
 	public Ticket(int ticketID, int assigneeID, int userID, int category, String status, String subject, String description, Timestamp date) {
 		this.ticketID = ticketID;
-		this.assigneeID = assigneeID;
-
-
 		this.userID = userID;
-		this.category = category;
+		this.categoryID = categoryID;
 		this.status = status;
 		this.subject = subject;
 		this.description = description;
@@ -43,14 +40,6 @@ public class Ticket {
 		this.ticketID = ticketID;
 	}
 
-	public int getAssigneeID() {
-		return assigneeID;
-	}
-
-	public void setAssigneeID(int assigneeID) {
-		this.assigneeID = assigneeID;
-	}
-
 	public int getUserID() {
 		return userID;
 	}
@@ -59,12 +48,12 @@ public class Ticket {
 		this.userID = userID;
 	}
 
-	public int getCategory() {
-		return category;
+	public int getCategoryOID() {
+		return categoryID;
 	}
 
 	public void setCategory(int category) {
-		this.category = category;
+		this.categoryID = category;
 	}
 
 	public String getStatus() {
@@ -109,8 +98,8 @@ public class Ticket {
 		ticket.subject = subject;
 		ticket.description = description;
 		ticket.userID = userID;
-		ticket.category = category;
-		ticket.assigneeID = assigneeID;
+		ticket.categoryID = categoryID;
+
 
 		return ticket;
 	}
