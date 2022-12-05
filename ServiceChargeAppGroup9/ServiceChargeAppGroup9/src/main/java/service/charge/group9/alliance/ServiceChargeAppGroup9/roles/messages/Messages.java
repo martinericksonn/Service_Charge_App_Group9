@@ -10,4 +10,5 @@ public interface Messages extends IMessages {
     String USER_ROLE_SUCCESSFULLY_RETRIEVE = "User Role was successfully retrieve";
     String USER_ROLE_FOUND = "User Role was successfully found";
     String USER_ROLE_NOT_FOUND = "User Role was not found";
+    String USER_ROLE_NOT_SAVED = "User Role was not saved";
 }

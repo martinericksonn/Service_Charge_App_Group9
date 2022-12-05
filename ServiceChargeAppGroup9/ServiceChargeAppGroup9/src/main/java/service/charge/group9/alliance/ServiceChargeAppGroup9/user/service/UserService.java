@@ -28,7 +28,7 @@ public class UserService implements IUserService{
 
 	@Override
 	public User findUserById(int id) {
-		return userJpaRepository.getReferenceById(id);
+		return userJpaRepository.getReferenceById(id).get();
 	}
 
 	@Override

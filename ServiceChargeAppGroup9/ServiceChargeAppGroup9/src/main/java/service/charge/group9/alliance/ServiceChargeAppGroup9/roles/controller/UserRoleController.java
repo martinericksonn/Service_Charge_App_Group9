@@ -1,14 +1,13 @@
 package service.charge.group9.alliance.ServiceChargeAppGroup9.roles.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.common.models.ApiResponse;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.roles.enitiy.UserRole;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.roles.messages.Messages;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.roles.service.IUserRoleService;
+import service.charge.group9.alliance.ServiceChargeAppGroup9.user.entity.User;
+
 import java.util.List;
 
 @RestController
@@ -23,9 +22,9 @@ public class UserRoleController {
     public ApiResponse save(UserRole userRole){
         UserRole savedUserRole = serv.saveUserRole(userRole);
         if (savedUserRole != null){
-            return ApiResponse.CreateSuccess(savedUserRole, Messages.USER_ROLE_SUCCESSFULLY_SAVED);
+            ApiResponse.CreateSuccess(savedUserRole, Messages.USER_ROLE_SUCCESSFULLY_SAVED);
         }
-        return null;
+        return ApiResponse.CreateError( Messages.USER_ROLE_NOT_SAVED);
     }
 
     @RequestMapping("/all")
@@ -34,6 +33,35 @@ public class UserRoleController {
         return ApiResponse.CreateSuccess(userRoleList,Messages.USER_ROLE_SUCCESSFULLY_RETRIEVE);
     }
 
-    
+    @GetMapping("/{id}")
+    public ApiResponse getById(@PathVariable int id) {
+        try {
+            UserRole savedUserRole = serv.findUserRoleByID(id);
+            return ApiResponse.CreateSuccess(savedUserRole,Messages.USER_ROLE_FOUND);
+        } catch (Exception e) {
+            return ApiResponse.CreateError(Messages.USER_ROLE_NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public ApiResponse update(UserRole userRole){
+        UserRole savedUserRole = serv.saveUserRole(userRole);
+        if (savedUserRole != null){
+            return ApiResponse.CreateSuccess(savedUserRole, Messages.USER_ROLE_SUCCESSFULLY_UPDATED);
+        }
+        return ApiResponse.CreateError( Messages.USER_ROLE_NOT_SAVED);
+     }
+
+    @DeleteMapping("/delete/{id}")
+    public ApiResponse deleteUserRole(@PathVariable int id){
+        try{
+            serv.deleteUserRole(id);
+            return ApiResponse.CreateSuccess(Messages.USER_ROLE_SUCCESSFULLY_DELETED);
+        }catch (Exception e){
+            return ApiResponse.CreateError(Messages.USER_ROLE_NOT_FOUND);
+        }
+    }
+
 
 }

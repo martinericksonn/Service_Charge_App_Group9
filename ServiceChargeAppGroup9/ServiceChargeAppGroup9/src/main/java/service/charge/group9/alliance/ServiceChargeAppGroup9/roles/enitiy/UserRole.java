@@ -25,7 +25,13 @@ public class UserRole {
         this.userID = userID;
         this.roleID = roleID;
     }
-
+    public UserRole get(){
+        UserRole ur = new UserRole();
+        ur.roleID = this.roleID;
+        ur.userID = this.userID;
+        ur.userRoleID = this.userRoleID;
+        return ur;
+    }
     public int getUserRoleID() {
         return userRoleID;
     }
