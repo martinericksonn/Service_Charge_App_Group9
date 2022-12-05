@@ -2,10 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
+import 'package:service_charge_app/src/widgets/createTicket.dart';
 import 'package:service_charge_app/src/widgets/view_ticket.dart';
 import 'package:service_charge_app/src/widgets/view_users.dart';
 
-import '../widgets/create_ticket.dart';
+
 
 class AppView extends StatelessWidget {
   const AppView({super.key});
@@ -19,7 +20,7 @@ class AppView extends StatelessWidget {
         appBar: navbar(context),
         body: TabBarView(
           children: [
-            createTicket(),
+            CreateTicket(),
             ViewTicket(),
             ViewUser(),
           ],
