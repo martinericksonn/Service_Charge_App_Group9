@@ -14,9 +14,9 @@ import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity.Ticke
 public class User {
 
     @Id
-    @Column(name = "userId", nullable = false)
+    @Column(name = "userID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    private int userID;
 
     @Column(name = "firstName")
     private String firstName;
@@ -28,18 +28,15 @@ public class User {
     private String password;
 
 
-
-
     @Column(name = "email")
     private String email;
 
     public User(int userId, String firstName, String lastName, String username, String password, String role, String email) {
         super();
-        this.userId = userId;
+        this.userID = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-
         this.email = email;
     }
 
@@ -55,11 +52,11 @@ public class User {
     }
 
     public int getUserId() {
-        return userId;
+        return userID;
     }
 
     public void setUserId(int userId) {
-        this.userId = userId;
+        this.userID = userId;
     }
 
     public String getFirstName() {
@@ -94,7 +91,7 @@ public class User {
         user.lastName = lastName;
         user.password = password;
 
-        user.userId = userId;
+        user.userID = userID;
         user.email = email;
         return user;
     }

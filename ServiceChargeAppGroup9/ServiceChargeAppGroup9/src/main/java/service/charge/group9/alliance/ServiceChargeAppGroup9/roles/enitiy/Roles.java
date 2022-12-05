@@ -1,9 +1,22 @@
 package service.charge.group9.alliance.ServiceChargeAppGroup9.roles.enitiy;
 
-public class Role {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "roles")
+public class Roles {
+    @Id
+    @Column(name = "roleID", nullable = false)
     private int roleID;
 
     private String role;
+
+    public Roles() {
+
+    }
 
     public int getRoleID() {
         return roleID;
@@ -17,7 +30,7 @@ public class Role {
         return role;
     }
 
-    public Role(int roleID, String role) {
+    public Roles(int roleID, String role) {
         this.roleID = roleID;
         this.role = role;
     }
