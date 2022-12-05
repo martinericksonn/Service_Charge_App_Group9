@@ -25,7 +25,7 @@ public class UserRoleService implements IUserRoleService {
 
     @Override
     public UserRole findUserRoleByID(int id) {
-        return roleRepository.getReferenceById(id);
+        return roleRepository.getReferenceById(id).get();
     }
 
     @Override
