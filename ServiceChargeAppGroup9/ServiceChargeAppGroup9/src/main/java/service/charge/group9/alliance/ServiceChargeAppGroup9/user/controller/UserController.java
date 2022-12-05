@@ -19,7 +19,7 @@ public class UserController {
 	@PostMapping("/create")
 	@ResponseBody
 	public ApiResponse save(User user) throws IOException {
-		System.out.println(user);
+
 		User savedUser = serv.saveUser(user);
 		if (user != null) {
 			return ApiResponse.CreateSuccess(savedUser , Messages.USER_SUCCESSFULLY_SAVED);

@@ -22,7 +22,7 @@ public class Ticket {
 	private String description;
 
 	private Timestamp date;
-	public Ticket(int ticketID, int assigneeID, int userID, int category, String status, String subject, String description, Timestamp date) {
+	public Ticket(int ticketID, int assigneeID, int userID, int categoryID, String status, String subject, String description, Timestamp date) {
 		this.ticketID = ticketID;
 		this.userID = userID;
 		this.categoryID = categoryID;
