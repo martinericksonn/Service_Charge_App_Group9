@@ -22,9 +22,9 @@ public class UserRoleController {
     public ApiResponse save(UserRole userRole){
         UserRole savedUserRole = serv.saveUserRole(userRole);
         if (savedUserRole != null){
-            return ApiResponse.CreateSuccess(savedUserRole, Messages.USER_ROLE_SUCCESSFULLY_SAVED);
+            ApiResponse.CreateSuccess(savedUserRole, Messages.USER_ROLE_SUCCESSFULLY_SAVED);
         }
-        return null;
+        return ApiResponse.CreateError( Messages.USER_ROLE_NOT_SAVED);
     }
 
     @RequestMapping("/all")
@@ -42,4 +42,26 @@ public class UserRoleController {
             return ApiResponse.CreateError(Messages.USER_ROLE_NOT_FOUND);
         }
     }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public ApiResponse update(UserRole userRole){
+        UserRole savedUserRole = serv.saveUserRole(userRole);
+        if (savedUserRole != null){
+            return ApiResponse.CreateSuccess(savedUserRole, Messages.USER_ROLE_SUCCESSFULLY_UPDATED);
+        }
+        return ApiResponse.CreateError( Messages.USER_ROLE_NOT_SAVED);
+     }
+
+    @DeleteMapping("/delete/{id}")
+    public ApiResponse deleteUserRole(@PathVariable int id){
+        try{
+            serv.deleteUserRole(id);
+            return ApiResponse.CreateSuccess(Messages.USER_ROLE_SUCCESSFULLY_DELETED);
+        }catch (Exception e){
+            return ApiResponse.CreateError(Messages.USER_ROLE_NOT_FOUND);
+        }
+    }
+
+
 }
