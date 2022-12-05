@@ -14,9 +14,7 @@ public class Roles {
 
     private String role;
 
-    public Roles() {
-
-    }
+    public Roles() {}
 
     public int getRoleID() {
         return roleID;

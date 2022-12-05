@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "userRole")
 public class UserRole {
-
     @Id
     @Column(name = "userRoleID", nullable = false)
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -26,7 +25,13 @@ public class UserRole {
         this.userID = userID;
         this.roleID = roleID;
     }
-
+    public UserRole get(){
+        UserRole ur = new UserRole();
+        ur.roleID = this.roleID;
+        ur.userID = this.userID;
+        ur.userRoleID = this.userRoleID;
+        return ur;
+    }
     public int getUserRoleID() {
         return userRoleID;
     }
