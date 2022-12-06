@@ -37,4 +37,10 @@ public class Roles {
         this.role = role;
     }
 
+    public Roles get() {
+        Roles role = new Roles();
+        role.roleID = this.roleID;
+        role.role = this.role;
+        return role;
+    }
 }

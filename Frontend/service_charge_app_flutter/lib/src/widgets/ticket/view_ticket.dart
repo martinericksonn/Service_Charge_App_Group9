@@ -38,7 +38,7 @@ class _ViewTicketState extends State<ViewTicket> {
 
   Widget table() {
     return FutureBuilder<List<Ticket>>(
-      future: ticketController.getTicket(),
+      future: ticketController.getTicketAll(),
       builder: (BuildContext context, AsyncSnapshot<List<Ticket>> snapshot) {
         print(snapshot.data);
         if (!snapshot.hasData) {
