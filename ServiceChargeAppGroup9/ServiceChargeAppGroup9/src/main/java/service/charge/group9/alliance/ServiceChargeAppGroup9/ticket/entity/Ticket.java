@@ -16,20 +16,16 @@ public class Ticket {
 	private int userID;
 
 	@JoinColumn(name ="userRoleID",nullable = false)
+	@Column(name = "categoryID")
 	private int categoryID;
 	private String status;
 	private String subject;
 	private String description;
 
 	private Timestamp date;
-	public Ticket(int ticketID, int assigneeID, int userID, int categoryID, String status, String subject, String description, Timestamp date) {
-		this.ticketID = ticketID;
-		this.userID = userID;
-		this.categoryID = categoryID;
-		this.status = status;
-		this.subject = subject;
-		this.description = description;
-		this.date = date;
+
+	public Ticket() {
+
 	}
 
 	public int getTicketID() {
@@ -52,8 +48,8 @@ public class Ticket {
 		return categoryID;
 	}
 
-	public void setCategory(int category) {
-		this.categoryID = category;
+	public void setCategoryID(int categoryID) {
+		this.categoryID = categoryID;
 	}
 
 	public String getStatus() {
@@ -88,8 +84,16 @@ public class Ticket {
 		this.date = date;
 	}
 
-	public Ticket() {
+	public Ticket(int ticketID, int userID, int categoryID, String status, String subject, String description, Timestamp date) {
+		this.ticketID = ticketID;
+		this.userID = userID;
+		this.categoryID = categoryID;
+		this.status = status;
+		this.subject = subject;
+		this.description = description;
+		this.date = date;
 	}
+
 
 	public Ticket get() {
 		Ticket ticket = new Ticket();

@@ -8,8 +8,6 @@ import 'package:service_charge_app/src/controller/ticket_controller.dart';
 import 'package:service_charge_app/src/controller/user_controller.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
 
-
-
 class ViewUser extends StatefulWidget {
   ViewUser({
     Key? key,
@@ -52,9 +50,7 @@ class _ViewUserState extends State<ViewUser> {
               ),
             );
 
-          List<Map<String, dynamic>> users =
-              snapshot.data!.map((data) => data.toJson()).toList();
-          print(users);
+          List<User> users = snapshot.data!;
           return Padding(
             padding: const EdgeInsets.all(18.0),
             child: DataTable(
@@ -63,37 +59,49 @@ class _ViewUserState extends State<ViewUser> {
                     .toList(),
                 rows: users
                     .map(
-                      (user) => DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text(user['userID'].toString())),
-                          DataCell(Text(user['firstName'])),
-                          DataCell(Text(user['lastName'])),
-                          DataCell(Text(user['email'])),
-                          DataCell(SizedBox(
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () => inputDialog(context),
-                                  icon: Icon(
-                                    Icons.edit_outlined,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () => inputDialog(context),
-                                  icon: Icon(
-                                    Icons.delete_outline,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ))
-                        ],
-                      ),
+                      (user) => dataRows(user, context),
                     )
                     .toList()),
           );
         },
       ),
+    );
+  }
+
+  DataRow dataRows(User user, BuildContext context) {
+    return DataRow(
+      cells: <DataCell>[
+        DataCell(
+          Text(user.userID.toString()),
+        ),
+        DataCell(
+          Text(user.firstName),
+        ),
+        DataCell(
+          Text(user.lastName),
+        ),
+        DataCell(
+          Text(user.email),
+        ),
+        DataCell(SizedBox(
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () => inputDialog(context),
+                icon: Icon(
+                  Icons.edit_outlined,
+                ),
+              ),
+              IconButton(
+                onPressed: () => inputDialog(context),
+                icon: Icon(
+                  Icons.delete_outline,
+                ),
+              )
+            ],
+          ),
+        ))
+      ],
     );
   }
 

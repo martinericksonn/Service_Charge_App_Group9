@@ -18,45 +18,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userID;
 
-    @Column(name = "firstName")
-    private String firstName;
-
-    @Column(name = "lastName")
-    private String lastName;
-
-    @Column(name = "password")
-    private String password;
-
-
-    @Column(name = "email")
-    private String email;
-
-    public User(int userId, String firstName, String lastName, String username, String password, String role, String email) {
-        super();
-        this.userID = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.email = email;
-    }
-
-    public User() {
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getUserId() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserId(int userId) {
-        this.userID = userId;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getFirstName() {
@@ -83,7 +50,38 @@ public class User {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
+
+    @Column(name = "password")
+    private String password;
+
+
+    @Column(name = "email")
+    private String email;
+
+    public User(int userId, String firstName, String lastName, String username, String password, String role, String email) {
+        super();
+        this.userID = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+    }
+
+    public User() {
+    }
 
     public User get() {
         User user = new User();

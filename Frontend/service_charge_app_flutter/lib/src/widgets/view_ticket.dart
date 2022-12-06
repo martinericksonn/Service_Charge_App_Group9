@@ -5,11 +5,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
-import 'package:service_charge_app/src/controller/user_controller.dart';
 
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
-
-import '../entity/user/user.dart';
 
 class ViewTicket extends StatefulWidget {
   ViewTicket({
@@ -31,6 +28,7 @@ class _ViewTicketState extends State<ViewTicket> {
     "Date",
     "Actions",
   ];
+
   TicketController ticketController = TicketController();
 
   @override
@@ -46,81 +44,77 @@ class _ViewTicketState extends State<ViewTicket> {
         if (!snapshot.hasData) {
           print(!snapshot.hasData);
           // ignore: curly_braces_in_flow_control_structures
-          return const SizedBox(
-            height: 100,
-            width: 100,
-            child: CircularProgressIndicator(),
+          return Center(
+            child: Expanded(
+              child: const SizedBox(
+                height: 100,
+                width: 100,
+                child: CircularProgressIndicator(),
+              ),
+            ),
           );
-        } else {
-          print("has data");
-          return Text("YES");
         }
         List<Ticket> ticket = snapshot.data!;
 
-        // return Padding(
-        //   padding: const EdgeInsets.all(18.0),
-        //   child: DataTable(
-        //       columns: ticketAtributes
-        //           .map((atribute) => tabTitle(atribute))
-        //           .toList(),
-        //       rows: ticket
-        //           .map(
-        //             (ticket) => DataRow(
-        //               cells: <DataCell>[
-        //                 DataCell(
-        //                   Text(
-        //                     ticket.ticketID.toString(),
-        //                   ),
-        //                 ),
-        //                 DataCell(
-        //                   Text(
-        //                     ticket.userID.toString(),
-        //                   ),
-        //                 ),
-        //                 DataCell(
-        //                   Text(
-        //                     ticket.categoryID.toString(),
-        //                   ),
-        //                 ),
-        //                 DataCell(
-        //                   Text(
-        //                     ticket.status.toString(),
-        //                   ),
-        //                 ),
-        //                 DataCell(
-        //                   Text(
-        //                     ticket.description.toString(),
-        //                   ),
-        //                 ),
-        //                 DataCell(
-        //                   Text(
-        //                     ticket.date.toString(),
-        //                   ),
-        //                 ),
-        //                 DataCell(SizedBox(
-        //                   child: Row(
-        //                     children: [
-        //                       IconButton(
-        //                         onPressed: () => inputDialog(context),
-        //                         icon: Icon(
-        //                           Icons.edit_outlined,
-        //                         ),
-        //                       ),
-        //                       IconButton(
-        //                         onPressed: () => inputDialog(context),
-        //                         icon: Icon(
-        //                           Icons.delete_outline,
-        //                         ),
-        //                       )
-        //                     ],
-        //                   ),
-        //                 ))
-        //               ],
-        //             ),
-        //           )
-        //           .toList()),
-        // );
+        return Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: DataTable(
+              columns: ticketAtributes
+                  .map((atribute) => tabTitle(atribute))
+                  .toList(),
+              rows: ticket
+                  .map(
+                    (ticket) => dataRows(ticket, context),
+                  )
+                  .toList()),
+        );
       },
+    );
+  }
+
+  DataRow dataRows(Ticket ticket, BuildContext context) {
+    return DataRow(
+      cells: <DataCell>[
+        DataCell(
+          Text(ticket.ticketID.toString()),
+        ),
+        DataCell(
+          Text(ticket.userID.toString()),
+        ),
+        DataCell(
+          Text(ticket.categoryID.toString()),
+        ),
+        DataCell(
+          Text(ticket.status),
+        ),
+        DataCell(
+          Text(ticket.description),
+        ),
+        DataCell(
+          Text(ticket.subject),
+        ),
+        DataCell(
+          Text(ticket.date.toString()),
+        ),
+        DataCell(SizedBox(
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () => inputDialog(context),
+                icon: Icon(
+                  Icons.edit_outlined,
+                ),
+              ),
+              IconButton(
+                onPressed: () => inputDialog(context),
+                icon: Icon(
+                  Icons.delete_outline,
+                ),
+              )
+            ],
+          ),
+        ))
+      ],
     );
   }
 

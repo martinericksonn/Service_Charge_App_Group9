@@ -19,6 +19,8 @@ public class TicketController {
 	@PostMapping("/create")
 	@ResponseBody
 	public ApiResponse save(Ticket ticket) throws IOException {
+
+		System.out.println(ticket.getCategoryID());
 		Ticket savedTicket = service.saveTicket(ticket);
 		if (savedTicket != null) {
 			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_SUCCESSFULLY_SAVED);

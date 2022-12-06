@@ -19,7 +19,7 @@ public class UserService implements IUserService{
 
 	@Override
 	public User updateUser(User user) {
-		User userTemp = findUserById(user.getUserId());
+		User userTemp = findUserById(user.getUserID());
 		if(userTemp != null) {
 			return userJpaRepository.saveAndFlush(userTemp);
 		}
