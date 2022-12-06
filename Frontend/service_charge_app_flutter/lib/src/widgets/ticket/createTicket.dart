@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/widgets/assignees.dart';
-import 'package:service_charge_app/src/widgets/datePcker.dart';
-import 'package:service_charge_app/src/widgets/filePcker.dart';
-import 'package:service_charge_app/src/widgets/ticketStat.dart';
+import 'package:service_charge_app/src/widgets/ticket/datePcker.dart';
+import 'package:service_charge_app/src/widgets/ticket/filePcker.dart';
+import 'package:service_charge_app/src/widgets/ticket/ticketStat.dart';
+
 
 class CreateTicket extends StatelessWidget {
   const CreateTicket({
