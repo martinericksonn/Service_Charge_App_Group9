@@ -48,7 +48,7 @@ public class Ticket {
 		this.userID = userID;
 	}
 
-	public int getCategoryOID() {
+	public int getCategoryID() {
 		return categoryID;
 	}
 

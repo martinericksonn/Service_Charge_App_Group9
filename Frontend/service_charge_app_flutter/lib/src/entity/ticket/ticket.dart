@@ -5,19 +5,17 @@ part 'ticket.g.dart';
 @JsonSerializable()
 class Ticket {
   final int ticketID;
-  final int assigneeID;
   final int userID;
-  final int category;
+  final int categoryID;
   final String description;
   final String subject;
   final String status;
   final DateTime date;
 
   Ticket([
-    this.assigneeID = 0,
     this.ticketID = 0,
     this.userID = 0,
-    this.category = 0,
+    this.categoryID = 0,
     this.status = "",
     this.subject = "",
     this.description = "",

@@ -3,13 +3,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_web_data_table/web_data_table.dart';
+
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
-import 'package:intl/date_symbol_data_http_request.dart';
+import 'package:service_charge_app/src/controller/user_controller.dart';
 
-import 'package:intl/intl.dart';
+import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 
-import '../entity/ticket.dart';
+import '../entity/user/user.dart';
 
 class ViewTicket extends StatefulWidget {
   ViewTicket({
@@ -23,9 +23,8 @@ class ViewTicket extends StatefulWidget {
 class _ViewTicketState extends State<ViewTicket> {
   List<String> ticketAtributes = [
     "Ticket ID",
-    "Assignee ID",
     "User ID",
-    "Category",
+    "Category ID",
     "Status",
     "Subject",
     "Description",
@@ -33,84 +32,103 @@ class _ViewTicketState extends State<ViewTicket> {
     "Actions",
   ];
   TicketController ticketController = TicketController();
-  static const String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
     return table();
   }
 
-  DataColumn tabTitle(String title) {
-    return DataColumn(
-      label: Expanded(
-        child: Text(
-          title,
-          style: TextStyle(fontStyle: FontStyle.italic),
-        ),
-      ),
+  Widget table() {
+    return FutureBuilder<List<Ticket>>(
+      future: ticketController.getTicket(),
+      builder: (BuildContext context, AsyncSnapshot<List<Ticket>> snapshot) {
+        print(snapshot.data);
+        if (!snapshot.hasData) {
+          print(!snapshot.hasData);
+          // ignore: curly_braces_in_flow_control_structures
+          return const SizedBox(
+            height: 100,
+            width: 100,
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          print("has data");
+          return Text("YES");
+        }
+        List<Ticket> ticket = snapshot.data!;
+
+        // return Padding(
+        //   padding: const EdgeInsets.all(18.0),
+        //   child: DataTable(
+        //       columns: ticketAtributes
+        //           .map((atribute) => tabTitle(atribute))
+        //           .toList(),
+        //       rows: ticket
+        //           .map(
+        //             (ticket) => DataRow(
+        //               cells: <DataCell>[
+        //                 DataCell(
+        //                   Text(
+        //                     ticket.ticketID.toString(),
+        //                   ),
+        //                 ),
+        //                 DataCell(
+        //                   Text(
+        //                     ticket.userID.toString(),
+        //                   ),
+        //                 ),
+        //                 DataCell(
+        //                   Text(
+        //                     ticket.categoryID.toString(),
+        //                   ),
+        //                 ),
+        //                 DataCell(
+        //                   Text(
+        //                     ticket.status.toString(),
+        //                   ),
+        //                 ),
+        //                 DataCell(
+        //                   Text(
+        //                     ticket.description.toString(),
+        //                   ),
+        //                 ),
+        //                 DataCell(
+        //                   Text(
+        //                     ticket.date.toString(),
+        //                   ),
+        //                 ),
+        //                 DataCell(SizedBox(
+        //                   child: Row(
+        //                     children: [
+        //                       IconButton(
+        //                         onPressed: () => inputDialog(context),
+        //                         icon: Icon(
+        //                           Icons.edit_outlined,
+        //                         ),
+        //                       ),
+        //                       IconButton(
+        //                         onPressed: () => inputDialog(context),
+        //                         icon: Icon(
+        //                           Icons.delete_outline,
+        //                         ),
+        //                       )
+        //                     ],
+        //                   ),
+        //                 ))
+        //               ],
+        //             ),
+        //           )
+        //           .toList()),
+        // );
+      },
     );
   }
 
-  Widget table() {
-    return SingleChildScrollView(
-      child: FutureBuilder<List<Ticket>>(
-        future: ticketController.getTicket(),
-        builder: (BuildContext context, AsyncSnapshot<List<Ticket>> snapshot) {
-          if (!snapshot.hasData)
-            // ignore: curly_braces_in_flow_control_structures
-            return Center(
-              child: const SizedBox(
-                height: 100,
-                width: 100,
-                child: CircularProgressIndicator(),
-              ),
-            );
-
-          List<Map<String, dynamic>> tickets =
-              snapshot.data!.map((data) => data.toJson()).toList();
-          print(tickets);
-          return Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: DataTable(
-                columns: ticketAtributes
-                    .map((atribute) => tabTitle(atribute))
-                    .toList(),
-                rows: tickets
-                    .map(
-                      (ticket) => DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text(ticket['ticketID'].toString())),
-                          DataCell(Text(ticket['assigneeID'].toString())),
-                          DataCell(Text(ticket['userID'].toString())),
-                          DataCell(Text(ticket['category'].toString())),
-                          DataCell(Text(ticket['status'])),
-                          DataCell(Text(ticket['subject'])),
-                          DataCell(Text(ticket['description'])),
-                          DataCell(Text(ticket['date'].toString())),
-                          DataCell(SizedBox(
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () => inputDialog(context),
-                                  icon: Icon(
-                                    Icons.edit_outlined,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () => inputDialog(context),
-                                  icon: Icon(
-                                    Icons.delete_outline,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ))
-                        ],
-                      ),
-                    )
-                    .toList()),
-          );
-        },
+  DataColumn tabTitle(String title) {
+    return DataColumn(
+      label: Text(
+        title,
+        style: TextStyle(fontStyle: FontStyle.italic),
       ),
     );
   }
@@ -135,43 +153,3 @@ class _ViewTicketState extends State<ViewTicket> {
     );
   }
 }
-// const <DataRow>[
-                
-                // DataRow(
-                //   cells: <DataCell>[
-                    
-                //     DataCell(Text('Janine')),
-                //     DataCell(Text('43')),
-                //     DataCell(Text('Professor')),
-                //     DataCell(Text('Janine')),
-                //     DataCell(Text('43')),
-                //     DataCell(Text('Professor')),
-                //     DataCell(Text('Janine')),
-                //     DataCell(Text('43')),
-                //   ],
-                // ),
-//                 DataRow(
-//                   cells: <DataCell>[
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                     DataCell(Text('Professor')),
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                     DataCell(Text('Professor')),
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                   ],
-//                 ),
-//                 DataRow(
-//                   cells: <DataCell>[
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                     DataCell(Text('Professor')),
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                     DataCell(Text('Professor')),
-//                     DataCell(Text('Janine')),
-//                     DataCell(Text('43')),
-//                   ],
-//                 ),
-//               ],
