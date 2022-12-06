@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.user.entity.User;
-import service.charge.group9.alliance.ServiceChargeAppGroup9.user.respository.UserRespository;
+import service.charge.group9.alliance.ServiceChargeAppGroup9.user.repository.UserRepository;
 
 @Service
 public class UserService implements IUserService{
 	@Autowired
-	private UserRespository userJpaRepository;
+	private UserRepository userJpaRepository;
 	
 	@Override
 	public User saveUser(User user) {
@@ -19,17 +19,16 @@ public class UserService implements IUserService{
 
 	@Override
 	public User updateUser(User user) {
-		User userTemp = findUserById(user.getUserId());
+		User userTemp = findUserById(user.getUserID());
 		if(userTemp != null) {
-			return userJpaRepository.saveAndFlush(user);
+			return userJpaRepository.saveAndFlush(userTemp);
 		}
-		return null;		
+		return null;
 	}
-	
+
 	@Override
 	public User findUserById(int id) {
-		userJpaRepository.getReferenceById(id);	
-		return null;
+		return userJpaRepository.getReferenceById(id).get();
 	}
 
 	@Override

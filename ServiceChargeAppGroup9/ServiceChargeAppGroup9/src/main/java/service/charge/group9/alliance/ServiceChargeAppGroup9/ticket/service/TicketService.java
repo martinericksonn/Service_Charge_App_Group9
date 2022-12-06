@@ -1,5 +1,7 @@
 package service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,9 @@ public class TicketService implements ITicketService {
 	private TicketRepository ticketJpaRepository;
 	
 	public Ticket saveTicket(Ticket ticket) {
-
+		Instant instant = Instant.now();
+		Timestamp timestamp = java.sql.Timestamp.from( instant );
+		ticket.setDate(timestamp);
 		return ticketJpaRepository.saveAndFlush(ticket);
 	}
 
@@ -40,7 +44,7 @@ public class TicketService implements ITicketService {
 	public Ticket updateTicket(Ticket ticket) {
 		Ticket ticketTemp = findById(ticket.getTicketID());
 		if(ticketTemp != null) {
-			return ticketJpaRepository.saveAndFlush(ticket.set(ticketTemp));
+			return ticketJpaRepository.saveAndFlush(ticketTemp);
 		}
 		
 		return null;

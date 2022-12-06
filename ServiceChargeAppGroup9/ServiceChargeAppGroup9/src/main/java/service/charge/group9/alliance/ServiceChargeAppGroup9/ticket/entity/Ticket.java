@@ -1,38 +1,32 @@
 package service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "ticket")
 public class Ticket {
 	
-	public Ticket() {
-	}
-
-	public Ticket(int ticketID, String assignee, String status, String subject, String description, String tracker) {
-		super();
-		this.ticketID = ticketID;
-		this.assignee = assignee;
-		this.status = status;
-		this.subject = subject;
-		this.description = description;
-		this.tracker = tracker;
-	}
 
 	@Id
 	@Column(name = "ticketID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ticketID;
-	private String assignee;
+	@JoinColumn(name ="userID",nullable = false)
+	private int userID;
+
+	@JoinColumn(name ="userRoleID",nullable = false)
+	@Column(name = "categoryID")
+	private int categoryID;
 	private String status;
 	private String subject;
 	private String description;
-	private String tracker;
+
+	private Timestamp date;
+
+	public Ticket() {
+
+	}
 
 	public int getTicketID() {
 		return ticketID;
@@ -42,12 +36,20 @@ public class Ticket {
 		this.ticketID = ticketID;
 	}
 
-	public String getAssignee() {
-		return assignee;
+	public int getUserID() {
+		return userID;
 	}
 
-	public void setAssignee(String assignee) {
-		this.assignee = assignee;
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+
+	public int getCategoryID() {
+		return categoryID;
+	}
+
+	public void setCategoryID(int categoryID) {
+		this.categoryID = categoryID;
 	}
 
 	public String getStatus() {
@@ -74,32 +76,34 @@ public class Ticket {
 		this.description = description;
 	}
 
-	public String getTracker() {
-		return tracker;
+	public Timestamp getDate() {
+		return date;
 	}
 
-	public void setTracker(String tracker) {
-		this.tracker = tracker;
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 
-	public Ticket set(Ticket ticket) {
-		this.assignee = ticket.assignee != null ? this.assignee : ticket.assignee;
-		this.description = ticket.description != null ? this.description : ticket.description;
-		this.status = ticket.status != null ? this.status : ticket.status;
-		this.subject = ticket.subject != null ? this.subject : ticket.subject;
-		this.tracker = ticket.tracker != null ? this.tracker : ticket.tracker;
-
-		return ticket;
+	public Ticket(int ticketID, int userID, int categoryID, String status, String subject, String description, Timestamp date) {
+		this.ticketID = ticketID;
+		this.userID = userID;
+		this.categoryID = categoryID;
+		this.status = status;
+		this.subject = subject;
+		this.description = description;
+		this.date = date;
 	}
+
 
 	public Ticket get() {
 		Ticket ticket = new Ticket();
 		ticket.ticketID = ticketID;
-		ticket.assignee = assignee;
 		ticket.status = status;
 		ticket.subject = subject;
 		ticket.description = description;
-		ticket.tracker = tracker;
+		ticket.userID = userID;
+		ticket.categoryID = categoryID;
+
 
 		return ticket;
 	}

@@ -1,21 +1,13 @@
 package service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.controller;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.common.models.ApiResponse;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity.Ticket;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.message.Messages;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.service.ITicketService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -27,6 +19,8 @@ public class TicketController {
 	@PostMapping("/create")
 	@ResponseBody
 	public ApiResponse save(Ticket ticket) throws IOException {
+
+		System.out.println(ticket.getCategoryID());
 		Ticket savedTicket = service.saveTicket(ticket);
 		if (savedTicket != null) {
 			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_SUCCESSFULLY_SAVED);
@@ -43,6 +37,7 @@ public class TicketController {
 			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_SUCCESSFULLY_SAVED);
 		}
 		
+
 		return ApiResponse.CreateError(Messages.GENERIC_TICKET_NOT_FOUND);
 	}
 	

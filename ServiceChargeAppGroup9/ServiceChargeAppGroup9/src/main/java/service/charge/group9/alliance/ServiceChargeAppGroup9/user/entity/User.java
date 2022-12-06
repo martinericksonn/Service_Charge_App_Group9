@@ -14,52 +14,16 @@ import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity.Ticke
 public class User {
 
     @Id
-    @Column(name = "userId", nullable = false)
+    @Column(name = "userID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    private int userID;
 
-    @Column(name = "firstName")
-    private String firstName;
-
-    @Column(name = "lastName")
-    private String lastName;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "role")
-    private String role;
-
-    @Column(name = "email")
-    private String email;
-
-    public User(int userId, String firstName, String lastName, String username, String password, String role, String email) {
-        super();
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.role = role;
-        this.email = email;
+    public int getUserID() {
+        return userID;
     }
 
-    public User() {
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getFirstName() {
@@ -86,12 +50,37 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
+
+    @Column(name = "password")
+    private String password;
+
+
+    @Column(name = "email")
+    private String email;
+
+    public User(int userId, String firstName, String lastName, String username, String password, String role, String email) {
+        super();
+        this.userID = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+    }
+
+    public User() {
     }
 
     public User get() {
@@ -99,8 +88,8 @@ public class User {
         user.firstName = firstName;
         user.lastName = lastName;
         user.password = password;
-        user.role = role;
-        user.userId = userId;
+
+        user.userID = userID;
         user.email = email;
         return user;
     }
