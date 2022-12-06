@@ -1,20 +1,17 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:service_charge_app/src/controller/role_controller.dart';
+import 'package:service_charge_app/src/controller/ticket_controller.dart';
+import 'package:service_charge_app/src/controller/user_controller.dart';
+import 'package:service_charge_app/src/entity/role/user_role.dart';
 
 import 'package:service_charge_app/src/screen/dashboard.dart';
 
+Future<void> main() async {
+  // runApp(const MyApp());
 
-import 'src/app.dart';
-import 'src/settings/settings_controller.dart';
-import 'src/settings/settings_service.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:dio/dio.dart';
-
-void main() {
-  runApp(const MyApp());
+  RoleController roleController = RoleController();
+  var roles = await roleController.getRolesAll();
+  print(roles);
 }
 
 class MyApp extends StatelessWidget {
@@ -22,9 +19,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: prefer_const_constructors
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: dashboard(),
+      home: const dashboard(),
     );
   }
 }

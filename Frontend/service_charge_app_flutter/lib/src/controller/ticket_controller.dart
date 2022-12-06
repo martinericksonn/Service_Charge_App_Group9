@@ -8,7 +8,7 @@ import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 class TicketController {
   final url = ('http://127.0.0.1:8080');
   final dio = Dio();
-  late Ticket ticket;
+  
 
   Future<List<Ticket>> getTicketAll() async {
     List<Ticket> ticketList = [];

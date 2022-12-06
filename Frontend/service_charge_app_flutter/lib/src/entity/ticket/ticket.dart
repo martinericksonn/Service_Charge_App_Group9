@@ -25,3 +25,4 @@ class Ticket {
   factory Ticket.fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);
   Map<String, dynamic> toJson() => _$TicketToJson(this);
 }
+//DateTime.fromMillisecondsSinceEpoch(json['date']),
