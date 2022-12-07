@@ -8,8 +8,6 @@ import 'package:service_charge_app/src/widgets/user/view_users.dart';
 
 import '../widgets/createTicket.dart';
 
-
-
 class AppView extends StatelessWidget {
   const AppView({super.key});
 
@@ -33,7 +31,7 @@ class AppView extends StatelessWidget {
 
   AppBar navbar(BuildContext context) {
     return AppBar(
-      // backgroundColor: Colors.black12,
+      backgroundColor: Color.fromARGB(31, 112, 112, 112),
       centerTitle: true,
       leadingWidth: 200,
       leading: Center(

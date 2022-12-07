@@ -23,5 +23,5 @@ Map<String, dynamic> _$TicketToJson(Ticket instance) => <String, dynamic>{
       'description': instance.description,
       'subject': instance.subject,
       'status': instance.status,
-      'date': instance.date?.toIso8601String(),
+      'date': instance.date,
     };
