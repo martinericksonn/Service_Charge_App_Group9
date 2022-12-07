@@ -35,22 +35,29 @@ class TicketController {
     return ticket;
   }
 
-  Future<dynamic> saveTicket(String endpoint,Ticket ticket) async {
-    var formData = FormData.fromMap(ticket.toJson());
-    var response = await dio.post(
-      "$url/$endpoint",
-      data: formData,
-    );
+  Future<dynamic> saveTicket(String endpoint, Ticket ticket) async {
+    try {
+      var formData = FormData.fromMap(ticket.toJson());
+      var response = await dio.post(
+        "$url/$endpoint",
+        data: formData,
+      );
 
-    return response;
+      return response;
+    } catch (e) {
+      return e;
+    }
   }
 
   Future<dynamic> deleteTicket(int id) async {
-    var response = await dio.delete(
-      "$url/delete/$id",
-    );
+    try {
+      var response = await dio.delete(
+        "$url/delete/$id",
+      );
 
-    return response;
+      return response;
+    } catch (e) {
+      return e;
+    }
   }
-
 }
