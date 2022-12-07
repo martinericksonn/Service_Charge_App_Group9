@@ -8,6 +8,8 @@ import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.message.Mess
 import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.service.ITicketService;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -20,7 +22,9 @@ public class TicketController {
 	@ResponseBody
 	public ApiResponse save(Ticket ticket) throws IOException {
 
-		System.out.println(ticket.getCategoryID());
+		Instant instant = Instant.now();
+		Timestamp timestamp = java.sql.Timestamp.from( instant );
+		ticket.setDate(timestamp);
 		Ticket savedTicket = service.saveTicket(ticket);
 		if (savedTicket != null) {
 			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_SUCCESSFULLY_SAVED);

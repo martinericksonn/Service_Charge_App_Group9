@@ -8,11 +8,11 @@ class UserRole {
   final int roleID;
   final int userID;
 
-  UserRole([
+  UserRole({
     this.userRoleID = 0,
     this.roleID = 0,
     this.userID = 0,
-  ]);
+  });
 
   factory UserRole.fromJson(Map<String, dynamic> json) =>
       _$UserRoleFromJson(json);

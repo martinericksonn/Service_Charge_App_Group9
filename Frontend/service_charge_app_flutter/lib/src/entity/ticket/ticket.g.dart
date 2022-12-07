@@ -7,13 +7,13 @@ part of 'ticket.dart';
 // **************************************************************************
 
 Ticket _$TicketFromJson(Map<String, dynamic> json) => Ticket(
-      json['ticketID'] as int? ?? 0,
-      json['userID'] as int? ?? 0,
-      json['categoryID'] as int? ?? 0,
-      json['status'] as String? ?? "",
-      json['subject'] as String? ?? "",
-      json['description'] as String? ?? "",
-      json['date'] == null ? null : DateTime.parse(json['date'] as String),
+      ticketID: json['ticketID'] as int? ?? 0,
+      userID: json['userID'] as int? ?? 0,
+      categoryID: json['categoryID'] as int? ?? 0,
+      status: json['status'] as String? ?? "",
+      subject: json['subject'] as String? ?? "",
+      description: json['description'] as String? ?? "",
+      date: json['date'],
     );
 
 Map<String, dynamic> _$TicketToJson(Ticket instance) => <String, dynamic>{
@@ -23,5 +23,5 @@ Map<String, dynamic> _$TicketToJson(Ticket instance) => <String, dynamic>{
       'description': instance.description,
       'subject': instance.subject,
       'status': instance.status,
-      'date': instance.date.toIso8601String(),
+      'date': instance.date?.toIso8601String(),
     };

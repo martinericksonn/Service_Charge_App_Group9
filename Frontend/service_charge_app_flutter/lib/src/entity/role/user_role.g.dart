@@ -7,9 +7,9 @@ part of 'user_role.dart';
 // **************************************************************************
 
 UserRole _$UserRoleFromJson(Map<String, dynamic> json) => UserRole(
-      json['userRoleID'] as int? ?? 0,
-      json['roleID'] as int? ?? 0,
-      json['userID'] as int? ?? 0,
+      userRoleID: json['userRoleID'] as int? ?? 0,
+      roleID: json['roleID'] as int? ?? 0,
+      userID: json['userID'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$UserRoleToJson(UserRole instance) => <String, dynamic>{

@@ -10,18 +10,19 @@ class Ticket {
   final String description;
   final String subject;
   final String status;
-  final DateTime date;
+  DateTime? date;
 
-  Ticket([
+  Ticket({
     this.ticketID = 0,
     this.userID = 0,
     this.categoryID = 0,
     this.status = "",
     this.subject = "",
     this.description = "",
-    DateTime? date,
-  ]) : this.date = date ?? DateTime.now();
+    this.date,
+  });
 
   factory Ticket.fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);
   Map<String, dynamic> toJson() => _$TicketToJson(this);
 }
+//DateTime.fromMillisecondsSinceEpoch
