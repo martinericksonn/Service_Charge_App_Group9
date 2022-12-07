@@ -187,7 +187,12 @@ class _ViewUserState extends State<ViewUser> {
                 Navigator.pop(context);
               })
             },
-            child: const Text('OK'),
+            child: Text(
+              'OK',
+              style: TextStyle(
+                color: Theme.of(context).errorColor,
+              ),
+            ),
           ),
         ],
       ),
