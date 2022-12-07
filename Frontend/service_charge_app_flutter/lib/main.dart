@@ -27,7 +27,7 @@ Future<void> main() async {
     description: "This is a sample description",
   );
 
-  var response = await tc.createTicket(ticket);
+  var response = await tc.deleteTicket(5041);
   print(response);
 }
 
