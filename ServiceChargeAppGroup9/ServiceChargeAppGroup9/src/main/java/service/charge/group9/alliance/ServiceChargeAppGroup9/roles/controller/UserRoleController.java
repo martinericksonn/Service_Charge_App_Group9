@@ -56,6 +56,7 @@ public class UserRoleController {
     @DeleteMapping("/delete/{id}")
     public ApiResponse deleteUserRole(@PathVariable int id){
         try{
+
             serv.deleteUserRole(id);
             return ApiResponse.CreateSuccess(Messages.USER_ROLE_SUCCESSFULLY_DELETED);
         }catch (Exception e){

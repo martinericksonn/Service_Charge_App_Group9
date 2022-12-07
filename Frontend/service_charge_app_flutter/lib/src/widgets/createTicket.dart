@@ -7,15 +7,18 @@ import 'package:service_charge_app/src/widgets/ticket/ticketStat.dart';
 import 'package:service_charge_app/src/widgets/user/assignees.dart';
 
 class CreateTicket extends StatelessWidget {
-  const CreateTicket({
+  TextEditingController forDescription = TextEditingController();
+  TextEditingController forSubject = TextEditingController();
+  TextEditingController forRole = TextEditingController(text: '0');
+  TextEditingController forAssignee = TextEditingController();
+  TextEditingController forStatus = TextEditingController();
+
+  CreateTicket({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController forDescription = TextEditingController();
-    TextEditingController forSubject1 = TextEditingController();
-
     return Container(
       margin: EdgeInsets.only(left: 300, right: 300, top: 20),
       // color: Colors.green,
@@ -37,11 +40,11 @@ class CreateTicket extends StatelessWidget {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    subject(forSubject1),
+                    subject(),
                     SizedBox(
                       height: 10,
                     ),
-                    description(forDescription),
+                    description(),
                     roleAssignee(),
                     statusAttachFile(),
                     SizedBox(
@@ -49,7 +52,8 @@ class CreateTicket extends StatelessWidget {
                     ),
                     createButton(
                       forDescription,
-                      forSubject1,
+                      forSubject,
+                      forRole,
                     ),
                   ]),
             ),
@@ -61,7 +65,8 @@ class CreateTicket extends StatelessWidget {
 
   Container createButton(
     TextEditingController forDescription,
-    TextEditingController forSubject1,
+    TextEditingController forSubject,
+    TextEditingController forRole,
   ) {
     return Container(
       padding: EdgeInsets.all(10),
@@ -72,9 +77,10 @@ class CreateTicket extends StatelessWidget {
             backgroundColor: Colors.blue, foregroundColor: Colors.white),
         onPressed: () {
           print(forDescription.text);
-          print(forSubject1.text);
+          print(forSubject.text);
+          print(forRole.text);
           forDescription.clear();
-          forSubject1.clear();
+          forSubject.clear();
         },
         child: Text("Create"),
       ),
@@ -140,26 +146,31 @@ class CreateTicket extends StatelessWidget {
 
           // SizedBox(width: 105),
           Row(
-            children: const [
+            children: [
               Text(
                 "Select Role",
                 style: TextStyle(
                   fontSize: 12,
                 ),
               ),
-              RolesDropdown(),
+              RolesDropdown(
+                forRole: forRole,
+              ),
             ],
           ),
 
           Row(
-            children: const [
+            children: [
               Text(
                 "Select Assignee",
                 style: TextStyle(
                   fontSize: 12,
                 ),
               ),
-              AssigneeDropDown(),
+              AssigneeDropDown(
+                forAssignee: forAssignee,
+                roleID: int.parse(forRole.text),
+              ),
             ],
           ),
           SizedBox(
@@ -170,7 +181,7 @@ class CreateTicket extends StatelessWidget {
     );
   }
 
-  Row description(TextEditingController forDescription) {
+  Row description() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -198,7 +209,7 @@ class CreateTicket extends StatelessWidget {
     );
   }
 
-  Row subject(TextEditingController forSubject1) {
+  Row subject() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -213,7 +224,7 @@ class CreateTicket extends StatelessWidget {
         ),
         Expanded(
           child: TextField(
-            controller: forSubject1,
+            controller: forSubject,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),

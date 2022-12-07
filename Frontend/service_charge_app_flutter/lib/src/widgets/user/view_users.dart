@@ -18,6 +18,7 @@ class ViewUser extends StatefulWidget {
 }
 
 class _ViewUserState extends State<ViewUser> {
+    
   List userAtributes = [
     "User ID",
     "First Name",
