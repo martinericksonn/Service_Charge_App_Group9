@@ -51,4 +51,18 @@ class UserController {
     return response;
   }
 
+
+   Future<List<User>> getUsersFromRoleID(int id) async {
+    List<User> userList = [];
+
+    var response = await dio.get("$url/users-from-role/$id");
+    response.data['data']
+        .map((data) => {
+              userList.add(User.fromJson(data)),
+            })
+        .toList();
+    return userList;
+  }
+
+
 }

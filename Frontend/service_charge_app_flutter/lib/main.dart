@@ -17,6 +17,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 Future<void> main() async {
+  
   final settingsController = SettingsController(SettingsService());
 
   await settingsController.loadSettings();

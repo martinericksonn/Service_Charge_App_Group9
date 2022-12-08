@@ -11,7 +11,7 @@ public class GlobalCorsConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedMethods("*").allowedOrigins("http://localhost:50022").allowedHeaders("*")
+		registry.addMapping("/**").allowedMethods("*").allowedOrigins("http://localhost:57069").allowedHeaders("*")
 				.allowCredentials(false).maxAge(-1);
 	}
 }

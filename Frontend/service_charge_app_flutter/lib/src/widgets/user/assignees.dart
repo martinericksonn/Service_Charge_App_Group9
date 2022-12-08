@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/controller/role_controller.dart';
 import 'package:service_charge_app/src/controller/user_controller.dart';
 import 'package:service_charge_app/src/entity/role/user_role.dart';
-import 'package:service_charge_app/src/entity/user/user.dart';
+
+import '../../entity/user/user.dart';
 
 // List<String> assignees = [
 //   "Captain America",
@@ -20,11 +21,12 @@ import 'package:service_charge_app/src/entity/user/user.dart';
 
 class AssigneeDropDown extends StatefulWidget {
   TextEditingController forAssignee;
-  int? roleID;
+  TextEditingController forRole;
+
   AssigneeDropDown({
     Key? key,
     required this.forAssignee,
-    required this.roleID,
+    required this.forRole,
   }) : super(key: key);
 
   @override
@@ -33,48 +35,42 @@ class AssigneeDropDown extends StatefulWidget {
 
 class _AssigneeDropDownState extends State<AssigneeDropDown> {
   RoleController roleController = RoleController();
+  UserController uc = UserController();
 
   String assigneesID = '--';
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<UserRole>>(
-      future: roleController.getAllUserRole(),
-      builder: (BuildContext context, AsyncSnapshot<List<UserRole>> snapshot) {
+    return FutureBuilder<List<User>>(
+      future: uc.getUsersFromRoleID(int.parse(widget.forRole.text)),
+      builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
         if (!snapshot.hasData) {
-          return const CircularProgressIndicator();
+          return const Text("--");
         }
-        List<UserRole> roleList = snapshot.data!;
-        List<int> userList = findUserIDs(widget.roleID ?? 0, roleList);
+        List<User> roleList = snapshot.data!;
+        roleList.add(
+          User(firstName: "--"),
+        );
 
-        return FutureBuilder<List<String>>(
-          future: findUserNames(userList),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<String>> userNames) {
-            List<String> userStringList = userNames.data!;
-            return Container(
-              padding: EdgeInsets.all(12.0),
-              child: SizedBox(
-                height: 50,
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                    onChanged: (String? value) {
-                      setState(() {
-                        assigneesID = value!;
-                      });
-                    },
-                    value: assigneesID,
-                    items: userStringList.map((value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
+        return Container(
+          padding: const EdgeInsets.all(12.0),
+          child: SizedBox(
+            height: 50,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+                onChanged: (String? value) {
+                  assigneesID = value!;
+                },
+                value: assigneesID,
+                items: roleList.map((value) {
+                  return DropdownMenuItem<String>(
+                    value: "${value.firstName} ${value.lastName}".trim(),
+                    child: Text("${value.firstName} ${value.lastName}".trim()),
+                  );
+                }).toList(),
               ),
-            );
-          },
+            ),
+          ),
         );
       },
     );

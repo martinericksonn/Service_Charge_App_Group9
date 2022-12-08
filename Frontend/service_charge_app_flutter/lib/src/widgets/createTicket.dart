@@ -147,32 +147,13 @@ class CreateTicket extends StatelessWidget {
           // SizedBox(width: 105),
           Row(
             children: [
-              Text(
-                "Select Role",
-                style: TextStyle(
-                  fontSize: 12,
-                ),
-              ),
-              RolesDropdown(
+              RolesAssigneeDropdown(
                 forRole: forRole,
+                forAssignee: forAssignee,
               ),
             ],
           ),
 
-          Row(
-            children: [
-              Text(
-                "Select Assignee",
-                style: TextStyle(
-                  fontSize: 12,
-                ),
-              ),
-              AssigneeDropDown(
-                forAssignee: forAssignee,
-                roleID: int.parse(forRole.text),
-              ),
-            ],
-          ),
           SizedBox(
             width: 40,
           ),
