@@ -1,12 +1,17 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:service_charge_app/src/controller/role_controller.dart';
+import 'package:service_charge_app/src/controller/ticket_controller.dart';
 import 'package:service_charge_app/src/widgets/rolesDropdown.dart';
 import 'package:service_charge_app/src/widgets/ticket/datePcker.dart';
 import 'package:service_charge_app/src/widgets/ticket/filePcker.dart';
 import 'package:service_charge_app/src/widgets/ticket/ticketStat.dart';
 import 'package:service_charge_app/src/widgets/user/assignees.dart';
+import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 
 class CreateTicket extends StatelessWidget {
+  TicketController ticketController = TicketController();
+  RoleController roleController = RoleController();
   TextEditingController forDescription = TextEditingController();
   TextEditingController forSubject = TextEditingController();
   TextEditingController forRole = TextEditingController(text: '0');
@@ -50,11 +55,7 @@ class CreateTicket extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    createButton(
-                      forDescription,
-                      forSubject,
-                      forRole,
-                    ),
+                    createButton(context),
                   ]),
             ),
           ],
@@ -63,11 +64,7 @@ class CreateTicket extends StatelessWidget {
     );
   }
 
-  Container createButton(
-    TextEditingController forDescription,
-    TextEditingController forSubject,
-    TextEditingController forRole,
-  ) {
+  Container createButton(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
       height: 60,
@@ -75,12 +72,32 @@ class CreateTicket extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
             backgroundColor: Colors.blue, foregroundColor: Colors.white),
-        onPressed: () {
-          print(forDescription.text);
-          print(forSubject.text);
-          print(forRole.text);
-          forDescription.clear();
-          forSubject.clear();
+        onPressed: () async {
+          if (forDescription.text.isEmpty ||
+              forSubject.text.isEmpty ||
+              forRole.text.isEmpty ||
+              forAssignee.text.isEmpty ||
+              forStatus.text.isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(snackBarError);
+          } else {
+            int userRoleID = await roleController.getUserRoleByIdInt(
+                int.parse(forAssignee.text), int.parse(forRole.text));
+            print(forAssignee.text);
+            print(forRole.text);
+            Ticket newTicket = Ticket(
+              userID: 2001,
+              description: forDescription.text,
+              subject: forSubject.text,
+              categoryID: userRoleID,
+              status: forStatus.text,
+            );
+
+            await ticketController.saveTicket("create", newTicket).then(
+                (value) => ScaffoldMessenger.of(context)
+                    .showSnackBar(snackBarSuccess));
+            // forDescription.clear();
+            // forSubject.clear();
+          }
         },
         child: Text("Create"),
       ),
@@ -97,30 +114,18 @@ class CreateTicket extends StatelessWidget {
             width: 40,
           ),
           Row(
-            children: const [
+            children: [
               Text(
                 "Status",
                 style: TextStyle(
                   fontSize: 12,
                 ),
               ),
-              TixStatusDropDown(),
+              TixStatusDropDown(
+                forStatus: forStatus,
+              ),
             ],
           ),
-          // Row(
-          //   children: const [
-          //     Text(
-          //       "Date Started",
-          //       style: TextStyle(
-          //         fontSize: 12,
-          //       ),
-          //     ),
-          //     SizedBox(
-          //       width: 150,
-          //       child: DatePicker(),
-          //     ),
-          //   ],
-          // ),
           SizedBox(
             width: 150,
             child: FilePcker(),
@@ -133,6 +138,39 @@ class CreateTicket extends StatelessWidget {
     );
   }
 
+  final snackBarError = SnackBar(
+    backgroundColor: Colors.red,
+    content: const Text(
+      'Error: missing Ticket fields',
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+    action: SnackBarAction(
+      textColor: Colors.white,
+      label: 'ok',
+      onPressed: () {
+        // Some code to undo the change.
+      },
+    ),
+  );
+
+  final snackBarSuccess = SnackBar(
+    backgroundColor: Colors.green,
+    content: const Text(
+      'Ticket successfuly created',
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+    action: SnackBarAction(
+      textColor: Colors.white,
+      label: 'ok',
+      onPressed: () {
+        // Some code to undo the change.
+      },
+    ),
+  );
   Widget roleAssignee() {
     return SizedBox(
       height: 45,

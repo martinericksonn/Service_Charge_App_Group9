@@ -50,4 +50,7 @@ public class UserRoleService implements IUserRoleService {
     public Roles getRoleByID(int id) {
         return roleRepository.getReferenceById(id).get();
     }
+    public int findUserRoleId(int userID, int roleID){
+        return  userRoleRepository.findUserRoleId ( userID ,roleID);
+    }
 }

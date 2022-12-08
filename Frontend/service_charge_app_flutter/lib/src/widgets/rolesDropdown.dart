@@ -95,6 +95,9 @@ class _RolesAssigneeDropdownState extends State<RolesAssigneeDropdown> {
                     onChanged: (String? value) {
                       setState(() {
                         assigneesID = value ?? "--";
+
+                             widget.forAssignee.text =
+                        findRoleUserID(value!, userList  ).toString();
                       });
                     },
                     value: assigneesID,
@@ -161,9 +164,18 @@ class _RolesAssigneeDropdownState extends State<RolesAssigneeDropdown> {
   }
 }
 
-int findRoleID(String roleValue, List<Role> role) {
-  for (var element in role) {
+int findRoleID(String roleValue, List<Role> roles) {
+  for (var element in roles) {
     if (element.role == roleValue) return element.roleID;
+  }
+  return 0;
+}
+
+int findRoleUserID(String userName, List<User> users) {
+  for (var element in users) {
+    if ("${element.firstName} ${element.lastName}" == userName) {
+      return element.userID;
+    }
   }
   return 0;
 }

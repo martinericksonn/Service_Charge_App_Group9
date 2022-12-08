@@ -6,7 +6,7 @@ import '../entity/role/user_role.dart';
 class RoleController {
   final url = ('http://127.0.0.1:8080');
   final role = "role";
-  final userRole = "userRole";
+  final userRole = "user-role";
   final dio = Dio();
 
   Future<List<Role>> getAllRole() async {
@@ -57,6 +57,13 @@ class RoleController {
         .toList();
 
     return userRole;
+  }
+
+  Future<int> getUserRoleByIdInt(int userID, int roleID) async {
+    String userRoleID = "0";
+    var response = await dio.get("$url/$userRole/$userID/$roleID");
+
+    return response.data['data'];
   }
 
   Future<dynamic> deleteUserRole(int id) async {

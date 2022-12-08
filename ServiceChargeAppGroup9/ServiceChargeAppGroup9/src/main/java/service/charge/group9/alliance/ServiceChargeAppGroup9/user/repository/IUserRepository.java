@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface IUserRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT * FROM users WHERE userID IN (SELECT userID  FROM roles INNER JOIN userrole WHERE roles.roleID = ?1 AND roles.roleID = userrole.roleID);",nativeQuery = true)
-    //SELECT * FROM users WHERE userID IN (SELECT userID  FROM roles INNER JOIN userrole WHERE roles.roleID = 1007 AND roles.roleID = userrole.roleID);
     List<User> findUserByRoleIds(int id);
+
+
 }
