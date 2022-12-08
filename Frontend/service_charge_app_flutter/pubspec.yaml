@@ -20,6 +20,7 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
+  flutter_vector_icons: ^2.0.0
   flutter_web_data_table: ^1.0.0
   http: ^0.13.5
   json_serializable: ^6.5.4

@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import 'package:service_charge_app/src/screen/login_page.dart';
 import 'package:service_charge_app/src/screen/dashboard.dart';
-
 
 import 'src/app.dart';
 import 'src/settings/settings_controller.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: dashboard(),
+      home: LoginScreen(),
     );
   }
 }
