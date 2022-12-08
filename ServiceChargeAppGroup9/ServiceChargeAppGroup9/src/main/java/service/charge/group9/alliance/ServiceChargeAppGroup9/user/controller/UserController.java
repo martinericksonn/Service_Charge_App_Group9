@@ -63,4 +63,12 @@ public class UserController {
 		}
 		return ApiResponse.CreateError(Messages.USER_NOT_FOUND);
 	}
+
+	@GetMapping("/users-from-role/{id}")
+	@ResponseBody
+	public ApiResponse usersFromRole(@PathVariable int id){
+		List<User> userList =serv.usersFromRoleID(id);
+		return ApiResponse.CreateSuccess(userList,Messages.ALL_USER_SUCCESSFULLY__RETIEVE_);
+	}
+
 }
