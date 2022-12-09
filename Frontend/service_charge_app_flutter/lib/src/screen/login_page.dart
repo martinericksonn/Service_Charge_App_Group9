@@ -5,6 +5,7 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
 import 'package:service_charge_app/src/screen/dashboard.dart';
+import 'package:service_charge_app/src/screen/sidebar.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -112,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => dashboard()),
+                                          builder: (context) => Sidebar()),
                                     ),
                                   },
                                   child: Text("Continue"),

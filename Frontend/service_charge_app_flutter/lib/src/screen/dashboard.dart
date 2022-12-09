@@ -1,52 +1,22 @@
 // ignore_for_file: unused_field
 
 import 'package:flutter/material.dart';
-import 'package:service_charge_app/src/screen/login_page.dart';
+import 'package:service_charge_app/src/screen/app_view.dart';
+import 'package:service_charge_app/src/screen/sidebar.dart';
 
 class dashboard extends StatefulWidget {
   const dashboard({Key? key}) : super(key: key);
-
   @override
   State<dashboard> createState() => _dashboardState();
 }
 
 class _dashboardState extends State<dashboard> {
   bool isExpanded = false;
-  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Row(
-        children: [
-          NavigationRail(
-            onDestinationSelected: (int index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            selectedIndex: _selectedIndex,
-            extended: isExpanded,
-            backgroundColor: Colors.grey,
-            unselectedIconTheme: IconThemeData(color: Colors.white, opacity: 2),
-            unselectedLabelTextStyle: TextStyle(color: Colors.white),
-            selectedIconTheme:
-                IconThemeData(color: Colors.yellowAccent.shade400),
-            destinations: const [
-              //sidebar functionalities, to be determined.
-              NavigationRailDestination(
-                icon: Icon(Icons.home),
-                label: Text("Home"),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.article_outlined),
-                label: Text("Ticket Management"),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.person),
-                label: Text("Profile"),
-              ),
-            ],
-          ),
+        children: <Widget>[
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(60.0),

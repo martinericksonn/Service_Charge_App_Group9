@@ -15,6 +15,9 @@ dependencies:
   dropdown_textfield: ^1.0.7
   dropdownfield: ^1.0.3
   file_picker: ^5.2.3
+  google_fonts: ^2.1.0
+  charts_flutter: ^0.10.0
+  getter: ^0.0.3
   flutter:
     sdk: flutter
 

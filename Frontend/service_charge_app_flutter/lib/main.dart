@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:service_charge_app/src/screen/login_page.dart';
 import 'package:service_charge_app/src/screen/dashboard.dart';
+import 'package:service_charge_app/src/screen/sidebar.dart';
 
 import 'src/app.dart';
 import 'src/settings/settings_controller.dart';
