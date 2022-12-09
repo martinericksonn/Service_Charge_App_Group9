@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
 
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
-import 'package:service_charge_app/src/widgets/editForAdmin.dart';
+import 'package:service_charge_app/src/widgets/ticket/editForAdmin.dart';
 
 class ViewTicket extends StatefulWidget {
   ViewTicket({
@@ -119,7 +119,7 @@ class _ViewTicketState extends State<ViewTicket> {
                 refreshState: table,
               ),
               IconButton(
-                onPressed: () => inputDialog(context),
+                onPressed: () => deleteDialog(context, ticket),
                 icon: Icon(
                   Icons.delete_outline,
                 ),
@@ -154,6 +154,53 @@ class _ViewTicketState extends State<ViewTicket> {
           TextButton(
             onPressed: () => Navigator.pop(context, 'OK'),
             child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<String?> deleteDialog(BuildContext context, Ticket ticket) {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(
+          "Are you sure?",
+          style: TextStyle(
+            color: Theme.of(context).errorColor,
+          ),
+        ),
+        content: Row(
+          children: [
+            Text(
+              'Delete ticket ',
+            ),
+            Text(
+              '${ticket.ticketID}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => {
+              setState(() {
+                ticketController.deleteTicket(ticket.ticketID);
+                Navigator.pop(context);
+              })
+            },
+            child: Text(
+              'OK',
+              style: TextStyle(
+                color: Theme.of(context).errorColor,
+              ),
+            ),
           ),
         ],
       ),

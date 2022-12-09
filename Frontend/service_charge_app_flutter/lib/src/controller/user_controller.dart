@@ -33,10 +33,10 @@ class UserController {
     return user;
   }
 
-  Future<dynamic> saveUser(String endpoint, User user) async {
-    var formData = FormData.fromMap(ticket.toJson());
+  Future<dynamic> saveUser(User user) async {
+    var formData = FormData.fromMap(user.toJson());
     var response = await dio.post(
-      "$url/$endpoint",
+      "$url/create",
       data: formData,
     );
 
@@ -51,8 +51,7 @@ class UserController {
     return response;
   }
 
-
-   Future<List<User>> getUsersFromRoleID(int id) async {
+  Future<List<User>> getUsersFromRoleID(int id) async {
     List<User> userList = [];
 
     var response = await dio.get("$url/users-from-role/$id");
@@ -63,6 +62,4 @@ class UserController {
         .toList();
     return userList;
   }
-
-
 }

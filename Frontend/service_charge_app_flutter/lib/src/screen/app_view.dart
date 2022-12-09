@@ -6,7 +6,7 @@ import 'package:service_charge_app/src/widgets/ticket/view_ticket.dart';
 
 import 'package:service_charge_app/src/widgets/user/view_users.dart';
 
-import '../widgets/createTicket.dart';
+import '../widgets/ticket/createTicket.dart';
 
 class AppView extends StatelessWidget {
   const AppView({super.key});
