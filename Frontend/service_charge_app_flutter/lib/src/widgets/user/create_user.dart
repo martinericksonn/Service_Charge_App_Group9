@@ -1,40 +1,32 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first, use_build_context_synchronously, prefer_const_constructors
 import 'package:flutter/material.dart';
-// ignore_for_file: public_member_api_docs, sort_constructors_first, prefer_const_constructors, use_build_context_synchronously
 import 'package:service_charge_app/src/controller/role_controller.dart';
 import 'package:service_charge_app/src/controller/user_controller.dart';
 import 'package:service_charge_app/src/entity/role/user_role.dart';
+import 'dart:math';
+
 import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/widgets/ticket/create_ticket/roles_dropdown.dart';
 
-class EditUser {
-  User user;
-  EditUser({
-    Key? key,
-    required this.user,
-  });
-
-  TextEditingController forFirstName = TextEditingController();
-  TextEditingController forLastName = TextEditingController();
-  TextEditingController forEmail = TextEditingController();
-  TextEditingController forPassword = TextEditingController();
-
+class AddClientUser {
   UserController userController = UserController();
+  RoleController roleController = RoleController();
 
   Future<void> dialogBuilder(BuildContext context) {
-    forFirstName.text = user.firstName;
-    forLastName.text = user.lastName;
-    forEmail.text = user.email;
-    forPassword.text = user.password;
+    TextEditingController forFirstName = TextEditingController();
+    TextEditingController forLastName = TextEditingController();
+
+    TextEditingController forRole = TextEditingController();
+
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          scrollable: true,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(15.0))),
           insetPadding: EdgeInsets.symmetric(horizontal: 50, vertical: 80),
           title: const Text(
-            'Edit User',
+            'Add New User',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -107,68 +99,6 @@ class EditUser {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        "Email",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: TextField(
-                        controller: forEmail,
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        "Password",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: TextField(
-                        controller: forPassword,
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -179,6 +109,20 @@ class EditUser {
                         SizedBox(
                           width: 13,
                         ),
+                        Text(
+                          "Roles",
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        RolesDropdown(forRole: forRole),
                       ],
                     ),
                   ]),
@@ -195,30 +139,37 @@ class EditUser {
                 onPressed: () async {
                   String fname = forFirstName.text;
                   String lname = forLastName.text;
-                  String email = forEmail.text;
-                  String password = forPassword.text;
 
-                  if (fname.isEmpty ||
-                      lname.isEmpty ||
-                      email.isEmpty ||
-                      password.isEmpty) {
+                  if (fname.isEmpty || lname.isEmpty || forRole.text == '0') {
                     ScaffoldMessenger.of(context).showSnackBar(snackBarError);
                     return;
                   }
 
+                  String email =
+                      "${lname.trim().replaceAll(' ', '')}.${fname.trim().replaceAll(' ', '')}@gmail.com";
+                  String password = generatePassword(8);
+
                   User newUser = User(
-                      userID: user.userID,
                       firstName: fname,
                       lastName: lname,
-                      email: email,
+                      email: email.toLowerCase(),
                       password: password);
 
-                  await userController.saveUser(newUser);
+                  await userController.saveUser(newUser).then((value) {
+                    roleController
+                        .saveUserRole(
+                          UserRole(
+                            roleID: int.parse(forRole.text),
+                            userID: value.data["data"]['userID'],
+                          ),
+                        )
+                        .then((value) => ScaffoldMessenger.of(context)
+                            .showSnackBar(snackBarSuccess));
 
-                  ScaffoldMessenger.of(context).showSnackBar(snackBarSuccess);
-                  Navigator.pop(context);
+                    Navigator.pop(context);
+                  });
                 },
-                child: const Text("Save"),
+                child: const Text("Add"),
               ),
             ),
           ],
@@ -227,6 +178,18 @@ class EditUser {
     );
   }
 }
+
+const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+Random _rnd = Random();
+
+String generatePassword(int length) => String.fromCharCodes(
+      Iterable.generate(
+        length,
+        (_) => _chars.codeUnitAt(
+          _rnd.nextInt(_chars.length),
+        ),
+      ),
+    );
 
 final snackBarError = SnackBar(
   backgroundColor: Colors.red,
@@ -248,7 +211,7 @@ final snackBarError = SnackBar(
 final snackBarSuccess = SnackBar(
   backgroundColor: Colors.green,
   content: const Text(
-    'User successfuly edited',
+    'User successfuly created',
     style: TextStyle(
       color: Colors.white,
     ),

@@ -8,6 +8,8 @@ import 'package:service_charge_app/src/controller/ticket_controller.dart';
 
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 import 'package:service_charge_app/src/widgets/ticket/admin_view/edit_ticket_dialog.dart';
+import 'package:service_charge_app/src/widgets/ticket/create_ticket/dashboard.dart';
+import 'package:service_charge_app/src/widgets/ticket/create_ticket/create_ticket.dart';
 
 class ViewTicket extends StatefulWidget {
   ViewTicket({
@@ -22,7 +24,6 @@ class _ViewTicketState extends State<ViewTicket> {
   List<String> ticketAtributes = [
     "Ticket ID",
     "User ID",
-    "Category ID",
     "Status",
     "Subject",
     "Description",
@@ -57,15 +58,32 @@ class _ViewTicketState extends State<ViewTicket> {
 
         return Column(
           children: [
-            Container(
-              padding: EdgeInsets.only(top: 20, right: 40),
-              alignment: Alignment.topRight,
-              child: TextButton(
-                onPressed: () {
-                  setState(() {});
-                },
-                child: Text("Refresh"),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(top: 20, left: 40),
+                  alignment: Alignment.topRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      CreateTicketDialog createTicketDialog =
+                          CreateTicketDialog();
+                      createTicketDialog.dialogBox(context);
+                    },
+                    child: Text("Create Ticket"),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(top: 20, right: 40),
+                  alignment: Alignment.topRight,
+                  child: TextButton(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    child: Text("Refresh"),
+                  ),
+                ),
+              ],
             ),
             Container(
               padding: EdgeInsets.all(18),
@@ -94,9 +112,6 @@ class _ViewTicketState extends State<ViewTicket> {
         ),
         DataCell(
           Text(ticket.userID.toString()),
-        ),
-        DataCell(
-          Text(ticket.categoryID.toString()),
         ),
         DataCell(
           Text(ticket.status),

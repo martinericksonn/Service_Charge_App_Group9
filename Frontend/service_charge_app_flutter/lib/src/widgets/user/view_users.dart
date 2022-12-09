@@ -7,7 +7,7 @@ import 'package:flutter_web_data_table/web_data_table.dart';
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
 import 'package:service_charge_app/src/controller/user_controller.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
-import 'package:service_charge_app/src/widgets/user/add_user.dart';
+import 'package:service_charge_app/src/widgets/user/create_user.dart';
 import 'package:service_charge_app/src/widgets/user/edit_user.dart';
 import 'package:service_charge_app/src/widgets/user/edit_user_demo.dart';
 
@@ -47,8 +47,8 @@ class _ViewUserState extends State<ViewUser> {
                 padding: const EdgeInsets.only(left: 18.0, top: 18.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    AddClientUserSimp addClientUserSimp = AddClientUserSimp();
-                    addClientUserSimp.dialogBuilder(context);
+                    AddClientUser addClientUser = AddClientUser();
+                    addClientUser.dialogBuilder(context);
                   },
                   child: Text("Add User"),
                 ),
@@ -126,7 +126,13 @@ class _ViewUserState extends State<ViewUser> {
         DataCell(SizedBox(
           child: Row(
             children: [
-              EditUser(context: context, user: user),
+              IconButton(
+                onPressed: () {
+                  EditUser editUser = EditUser(user: user);
+                  editUser.dialogBuilder(context);
+                },
+                icon: Icon(Icons.edit_outlined),
+              ),
               IconButton(
                 onPressed: () => deleteDialog(context, user),
                 icon: Icon(

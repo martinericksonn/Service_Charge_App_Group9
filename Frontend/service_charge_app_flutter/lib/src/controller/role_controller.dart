@@ -43,7 +43,7 @@ class RoleController {
               userRoleList.add(UserRole.fromJson(data)),
             })
         .toList();
-
+    
     return userRoleList;
   }
 

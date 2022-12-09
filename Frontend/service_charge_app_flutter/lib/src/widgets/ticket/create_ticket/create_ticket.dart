@@ -9,7 +9,7 @@ import 'package:service_charge_app/src/widgets/ticket/create_ticket/ticketStat.d
 import 'package:service_charge_app/src/widgets/user/assignees.dart';
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 
-class CreateTicket extends StatelessWidget {
+class CreateTicketDialog {
   TicketController ticketController = TicketController();
   RoleController roleController = RoleController();
   TextEditingController forDescription = TextEditingController();
@@ -18,49 +18,60 @@ class CreateTicket extends StatelessWidget {
   TextEditingController forAssignee = TextEditingController();
   TextEditingController forStatus = TextEditingController();
 
-  CreateTicket({
+  CreateTicketDialog({
     Key? key,
-  }) : super(key: key);
+  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 300, right: 300, top: 20),
-      // color: Colors.green,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "New Ticket",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
+  Future<void> dialogBox(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          insetPadding: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+          title: const Text(
+            'Create Ticket',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          content: Card(
+            elevation: 5,
+            color: Colors.grey.shade200,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          subject(),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          description(),
+                          roleAssignee(),
+                          statusAttachFile(),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ]),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    subject(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    description(),
-                    roleAssignee(),
-                    statusAttachFile(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    createButton(context),
-                  ]),
-            ),
+          ),
+          actions: <Widget>[
+            createButton(context),
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -171,7 +182,7 @@ class CreateTicket extends StatelessWidget {
       },
     ),
   );
-  
+
   Widget roleAssignee() {
     return SizedBox(
       height: 45,

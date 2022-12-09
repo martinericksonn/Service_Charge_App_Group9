@@ -31,15 +31,14 @@ class EditTixAdmin {
   TextEditingController forRole = TextEditingController(text: '0');
   TextEditingController forAssignee = TextEditingController();
   TextEditingController forStatus = TextEditingController();
-  AddClientUserSimp addc = AddClientUserSimp();
+
   // @override
   // Widget build(context) {
-    
 
   //   return IconButton(
   //     onPressed: () async {
   //       addc.dialogBuilder(context);
-        
+
   //     },
   //     icon: Icon(
   //       Icons.edit_outlined,
@@ -66,15 +65,17 @@ class EditTixAdmin {
               fontWeight: FontWeight.w600,
             ),
           ),
-          content: Container(
-            margin: EdgeInsets.only(left: 100, right: 100, top: 20),
+          content: Card(
+            elevation: 5,
+            color: Colors.grey.shade200,
+
             // color: Colors.green,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(height: 5),
+                  SizedBox(height: 15),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                     child: Column(
@@ -95,51 +96,46 @@ class EditTixAdmin {
             ),
           ),
           actions: <Widget>[
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 35,
-                  width: 70,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        foregroundColor: Colors.white),
-                    onPressed: () async {
-                      if (forDescription.text.isEmpty ||
-                          forSubject.text.isEmpty ||
-                          forRole.text.isEmpty ||
-                          forAssignee.text.isEmpty ||
-                          forStatus.text.isEmpty) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(snackBarError);
-                      } else {
-                        int userRoleID =
-                            await roleController.getUserRoleByIdInt(
-                                int.parse(forAssignee.text),
-                                int.parse(forRole.text));
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 35,
+                width: 70,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white),
+                  onPressed: () async {
+                    if (forDescription.text.isEmpty ||
+                        forSubject.text.isEmpty ||
+                        forRole.text.isEmpty ||
+                        forAssignee.text.isEmpty ||
+                        forStatus.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(snackBarError);
+                    } else {
+                      int userRoleID = await roleController.getUserRoleByIdInt(
+                          int.parse(forAssignee.text), int.parse(forRole.text));
 
-                        Ticket newTicket = Ticket(
-                          ticketID: ticket.ticketID,
-                          userID: 2002,
-                          description: forDescription.text,
-                          subject: forSubject.text,
-                          categoryID: userRoleID,
-                          status: forStatus.text,
-                        );
-                        ticket = newTicket;
-                        await ticketController
-                            .saveTicket("create", newTicket)
-                            .then((value) => ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBarSuccess));
-                        // forDescription.clear();
-                        // forSubject.clear();
-                        refreshState;
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    child: const Text("Save"),
-                  ),
+                      Ticket newTicket = Ticket(
+                        ticketID: ticket.ticketID,
+                        userID: 2002,
+                        description: forDescription.text,
+                        subject: forSubject.text,
+                        categoryID: userRoleID,
+                        status: forStatus.text,
+                      );
+                      ticket = newTicket;
+                      await ticketController
+                          .saveTicket("create", newTicket)
+                          .then((value) => ScaffoldMessenger.of(context)
+                              .showSnackBar(snackBarSuccess));
+                      // forDescription.clear();
+                      // forSubject.clear();
+                      refreshState;
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: const Text("Save"),
                 ),
               ),
             ),

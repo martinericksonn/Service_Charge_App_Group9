@@ -60,6 +60,8 @@ class UserController {
               userList.add(User.fromJson(data)),
             })
         .toList();
+
+        
     return userList;
   }
 }

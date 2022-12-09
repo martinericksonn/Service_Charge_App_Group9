@@ -95,6 +95,7 @@ class _RolesAssigneeDropdownState extends State<RolesAssigneeDropdown> {
             }
 
             for (var element in userList) {
+              print("${element.firstName} ${element.lastName}");
               names.add("${element.firstName} ${element.lastName}");
             }
             names.add("--");

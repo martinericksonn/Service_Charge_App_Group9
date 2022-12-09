@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/controller/role_controller.dart';
 import 'package:service_charge_app/src/entity/role/Role.dart';
+import 'package:service_charge_app/src/entity/user/user.dart';
 
 // import 'package:service_charge_app/src/entity/role/Role.dart';
 // import '../../../entity/role/role.dart';
 
 class RolesDropdown extends StatefulWidget {
   final TextEditingController forRole;
+  int defaultRoleID;
   RolesDropdown({
     super.key,
     required this.forRole,
+    this.defaultRoleID = 0,
   });
 
   @override
@@ -22,14 +25,18 @@ class _RolesDropdown extends State<RolesDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    rolesID = widget.forRole.text.isNotEmpty ? widget.forRole.text : "--";
     return FutureBuilder<List<Role>>(
       future: roleController.getAllRole(),
       builder: (BuildContext context, AsyncSnapshot<List<Role>> snapshot) {
-        List<Role> roles = snapshot.data!;
-        List<String> rolesName = [];
+        if (!snapshot.hasData) return CircularProgressIndicator();
 
-        for (var element in roles) {
+        List<Role> roleList = snapshot.data!;
+        List<String> rolesName = [];
+        if (widget.defaultRoleID != 0) {
+          rolesID = findRoleName(widget.defaultRoleID, roleList);
+          widget.defaultRoleID = 0;
+        }
+        for (var element in roleList) {
           rolesName.add(element.role);
         }
 
@@ -43,8 +50,9 @@ class _RolesDropdown extends State<RolesDropdown> {
               child: DropdownButton(
                 onChanged: (String? value) {
                   setState(() {
-                    rolesID = value!;
-                    widget.forRole.text = findRoleID(rolesID, roles).toString();
+                    rolesID = value ?? "--";
+                    widget.forRole.text =
+                        findRoleID(rolesID, roleList).toString();
                   });
                 },
                 value: rolesID,
@@ -68,4 +76,11 @@ int findRoleID(String roleValue, List<Role> roles) {
     if (element.role == roleValue) return element.roleID;
   }
   return 0;
+}
+
+String findRoleName(int id, List<Role> roles) {
+  for (var element in roles) {
+    if (element.roleID == id) return element.role;
+  }
+  return "--";
 }
