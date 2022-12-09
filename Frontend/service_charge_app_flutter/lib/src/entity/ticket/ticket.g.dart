@@ -13,7 +13,7 @@ Ticket _$TicketFromJson(Map<String, dynamic> json) => Ticket(
       status: json['status'] as String? ?? "",
       subject: json['subject'] as String? ?? "",
       description: json['description'] as String? ?? "",
-      date: json['date'],
+      date: DateTime.fromMillisecondsSinceEpoch(json['date']),
     );
 
 Map<String, dynamic> _$TicketToJson(Ticket instance) => <String, dynamic>{

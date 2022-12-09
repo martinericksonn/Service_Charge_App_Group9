@@ -26,3 +26,4 @@ class Ticket {
   Map<String, dynamic> toJson() => _$TicketToJson(this);
 }
 //DateTime.fromMillisecondsSinceEpoch
+// date: DateTime.fromMillisecondsSinceEpoch(json['date']),

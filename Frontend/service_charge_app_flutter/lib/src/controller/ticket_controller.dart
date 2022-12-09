@@ -13,6 +13,7 @@ class TicketController {
     List<Ticket> ticketList = [];
 
     var response = await dio.get("$url/all");
+  
     response.data['data']
         .map((data) => {
               ticketList.add(Ticket.fromJson(data)),

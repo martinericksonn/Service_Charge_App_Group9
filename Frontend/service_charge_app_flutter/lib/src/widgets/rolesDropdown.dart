@@ -4,14 +4,19 @@ import 'package:service_charge_app/src/controller/user_controller.dart';
 import 'package:service_charge_app/src/entity/role/Role.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:delayed_display/delayed_display.dart';
+import 'package:service_charge_app/src/widgets/ticket/edit_ticket_admin_view.dart';
 
 class RolesAssigneeDropdown extends StatefulWidget {
   final TextEditingController forRole;
   final TextEditingController forAssignee;
-  const RolesAssigneeDropdown({
+  int defaultRoleID;
+  int defaultAssigneeID;
+  RolesAssigneeDropdown({
     super.key,
     required this.forRole,
     required this.forAssignee,
+    this.defaultRoleID = 0,
+    this.defaultAssigneeID = 0,
   });
 
   @override
@@ -67,6 +72,9 @@ class _RolesAssigneeDropdownState extends State<RolesAssigneeDropdown> {
   }
 
   Widget asignee() {
+    widget.forRole.text = widget.defaultAssigneeID != 0
+        ? widget.defaultRoleID.toString()
+        : widget.forRole.text;
     try {
       return FutureBuilder<List<User>>(
         future:
@@ -78,6 +86,12 @@ class _RolesAssigneeDropdownState extends State<RolesAssigneeDropdown> {
           List<String> names = [];
           if (snapshot.hasData) {
             var userList = snapshot.data!;
+
+            if (widget.defaultAssigneeID != 0) {
+              assigneesID =
+                  findRoleUserName(widget.defaultAssigneeID, userList);
+              widget.defaultAssigneeID = 0;
+            }
 
             for (var element in userList) {
               names.add("${element.firstName} ${element.lastName}");
@@ -96,13 +110,12 @@ class _RolesAssigneeDropdownState extends State<RolesAssigneeDropdown> {
                       setState(() {
                         assigneesID = value ?? "--";
 
-                             widget.forAssignee.text =
-                        findRoleUserID(value!, userList  ).toString();
+                        widget.forAssignee.text =
+                            findRoleUserID(value!, userList).toString();
                       });
                     },
                     value: assigneesID,
                     items: names.map((value) {
-                      print(names);
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -130,6 +143,10 @@ class _RolesAssigneeDropdownState extends State<RolesAssigneeDropdown> {
         }
 
         List<Role> roleList = snapshot.data!;
+        if (widget.defaultRoleID != 0) {
+          rolesID = findRoleName(widget.defaultRoleID, roleList);
+          widget.defaultRoleID = 0;
+        }
         roleList.add(Role(99, "--"));
 
         return Container(
@@ -178,4 +195,19 @@ int findRoleUserID(String userName, List<User> users) {
     }
   }
   return 0;
+}
+
+String findRoleName(int id, List<Role> roles) {
+  for (var element in roles) {
+    if (element.roleID == id) return element.role;
+  }
+  return "--";
+}
+
+String findRoleUserName(int id, List<User> users) {
+  for (var element in users) {
+    if (element.userID == id) return "${element.firstName} ${element.lastName}";
+  }
+
+  return "--";
 }
