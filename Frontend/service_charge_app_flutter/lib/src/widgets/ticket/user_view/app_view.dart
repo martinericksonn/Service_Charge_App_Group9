@@ -9,8 +9,6 @@ import 'package:service_charge_app/src/widgets/ticket/user_view/dashboard.dart';
 import 'package:service_charge_app/src/widgets/ticket/user_view/view_ticket.dart';
 import 'package:service_charge_app/src/widgets/user/view_users.dart';
 
-
-
 class AppViewClient extends StatelessWidget {
   final User user;
   const AppViewClient({
@@ -31,7 +29,6 @@ class AppViewClient extends StatelessWidget {
               user: user,
             ),
             ViewTicketClient(user: user),
-        
           ],
         ),
       ),
@@ -59,7 +56,6 @@ class AppViewClient extends StatelessWidget {
           Tab(
             text: "Ticket Management",
           ),
-         
         ]),
       ),
       actions: [

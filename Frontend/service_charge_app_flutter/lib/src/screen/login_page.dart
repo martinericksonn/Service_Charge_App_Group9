@@ -7,6 +7,7 @@ import 'package:service_charge_app/src/controller/user_controller.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
 import 'package:service_charge_app/src/screen/app_view.dart';
+import 'package:service_charge_app/src/widgets/ticket/user_view/app_view.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -129,14 +130,30 @@ class LoginScreen extends StatelessWidget {
                                             passwordController.text)
                                         .then((value) {
                                       if (value.data["data"] != null) {
+                                        if (value.data["data"]["userID"] !=
+                                            9999) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AppViewClient(
+                                                user: User.fromJson(
+                                                    value.data["data"]),
+                                              ),
+                                            ),
+                                          );
+                                        }else{
+
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => AppView(
-                                                    user: User.fromJson(
-                                                        value.data["data"]),
-                                                  )),
+                                            builder: (context) => AppView(
+                                              user: User.fromJson(
+                                                  value.data["data"]),
+                                            ),
+                                          ),
                                         );
+                                        }
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(snackBarError);
