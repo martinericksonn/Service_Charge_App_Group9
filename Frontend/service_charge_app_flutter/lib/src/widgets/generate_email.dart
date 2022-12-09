@@ -215,16 +215,17 @@ class _SendEmailDState extends State<SendEmailD> {
                       foregroundColor: Colors.white),
                   onPressed: () {
                     sendEmail(
-                        email: email.text,
-                        message: message.text,
-                        name: name.text,
-                        subject: subject.text,
-                      );
-                      Navigator.of(context).pop();
-                      email.clear();
-                      message.clear();
-                      name.clear();
-                      subject.clear();
+                      email: email.text,
+                      message: message.text,
+                      name: name.text,
+                      subject: subject.text,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBarSuccess);
+                    Navigator.of(context).pop();
+                    email.clear();
+                    message.clear();
+                    name.clear();
+                    subject.clear();
                   },
                   child: const Text("Send"),
                 ),
@@ -236,3 +237,20 @@ class _SendEmailDState extends State<SendEmailD> {
     );
   }
 }
+
+final snackBarSuccess = SnackBar(
+  backgroundColor: Colors.green,
+  content: const Text(
+    'Email successfully sent!',
+    style: TextStyle(
+      color: Colors.white,
+    ),
+  ),
+  action: SnackBarAction(
+    textColor: Colors.white,
+    label: 'ok',
+    onPressed: () {
+      // Some code to undo the change.
+    },
+  ),
+);

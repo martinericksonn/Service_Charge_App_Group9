@@ -163,9 +163,9 @@ class EditTixAdmin {
           } else {
             int userRoleID = await roleController.getUserRoleByIdInt(
                 int.parse(forAssignee.text), int.parse(forRole.text));
-  
+
             Ticket newTicket = Ticket(
-              userID: 2001,
+              userID: 9999,
               description: forDescription.text,
               subject: forSubject.text,
               categoryID: userRoleID,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
+import 'package:service_charge_app/src/widgets/generate_email.dart';
 
 class CreateTicket extends StatelessWidget {
   final User user;
@@ -126,18 +127,20 @@ class CreateTicket extends StatelessWidget {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-
-          Container(
-            alignment: Alignment.centerRight,
-            padding: EdgeInsets.all(20),
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Text("Generate Report"),
-            ),
-          )
-
-          
+              Container(
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.all(20),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Generate Report"),
+                ),
+              ),
+              SendEmailD(),
+              SizedBox(
+                width: 20,
+              ),
             ],
           )
         ],

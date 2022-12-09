@@ -13,10 +13,9 @@ import 'package:service_charge_app/src/widgets/ticket/create_ticket/ticketStat.d
 class EditTixUser {
   final BuildContext context;
   final User user;
-   Ticket ticket;
+  Ticket ticket;
 
-  EditTixUser(
-    {
+  EditTixUser({
     required this.context,
     required this.ticket,
     required this.user,
@@ -103,32 +102,30 @@ class EditTixUser {
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white),
                   onPressed: () async {
-                    if (forDescription.text.isEmpty ||
-                        forSubject.text.isEmpty ||
-                        forRole.text.isEmpty ||
-                        forAssignee.text.isEmpty ||
-                        forStatus.text.isEmpty) {
+                    if (forStatus.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(snackBarError);
                     } else {
-                      int userRoleID = await roleController.getUserRoleByIdInt(
-                          int.parse(forAssignee.text), int.parse(forRole.text));
-
                       Ticket newTicket = Ticket(
                         ticketID: ticket.ticketID,
                         userID: user.userID,
-                        description: forDescription.text,
-                        subject: forSubject.text,
-                        categoryID: userRoleID,
+                        description: ticket.description,
+                        subject: ticket.subject,
+                        categoryID: ticket.categoryID,
                         status: forStatus.text,
                       );
                       ticket = newTicket;
+                      print(ticket.toJson());
+                      print(newTicket.toJson());
                       await ticketController
                           .saveTicket("create", newTicket)
-                          .then((value) => ScaffoldMessenger.of(context)
-                              .showSnackBar(snackBarSuccess));
+                          .then((value) {
+                        print(value);
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(snackBarSuccess);
+                      });
                       // forDescription.clear();
                       // forSubject.clear();
-                      
+
                       Navigator.of(context).pop();
                     }
                   },
@@ -142,45 +139,6 @@ class EditTixUser {
     );
   }
 
-  Container createButton(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      height: 60,
-      width: 100,
-      child: TextButton(
-        style: TextButton.styleFrom(
-            backgroundColor: Colors.blue, foregroundColor: Colors.white),
-        onPressed: () async {
-          if (forDescription.text.isEmpty ||
-              forSubject.text.isEmpty ||
-              forRole.text.isEmpty ||
-              forAssignee.text.isEmpty ||
-              forStatus.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(snackBarError);
-          } else {
-            int userRoleID = await roleController.getUserRoleByIdInt(
-                int.parse(forAssignee.text), int.parse(forRole.text));
-            print(forAssignee.text);
-            print(forRole.text);
-            Ticket newTicket = Ticket(
-              userID: 2001,
-              description: forDescription.text,
-              subject: forSubject.text,
-              categoryID: userRoleID,
-              status: forStatus.text,
-            );
-
-            await ticketController.saveTicket("create", newTicket).then(
-                (value) => ScaffoldMessenger.of(context)
-                    .showSnackBar(snackBarSuccess));
-            // forDescription.clear();
-            // forSubject.clear();
-          }
-        },
-        child: Text("Create"),
-      ),
-    );
-  }
 
   Widget statusAttachFile() {
     return SizedBox(

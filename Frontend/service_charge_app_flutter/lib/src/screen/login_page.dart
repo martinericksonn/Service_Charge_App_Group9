@@ -142,17 +142,16 @@ class LoginScreen extends StatelessWidget {
                                               ),
                                             ),
                                           );
-                                        }else{
-
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => AppView(
-                                              user: User.fromJson(
-                                                  value.data["data"]),
+                                        } else {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => AppView(
+                                                user: User.fromJson(
+                                                    value.data["data"]),
+                                              ),
                                             ),
-                                          ),
-                                        );
+                                          );
                                         }
                                       } else {
                                         ScaffoldMessenger.of(context)
@@ -169,7 +168,9 @@ class LoginScreen extends StatelessWidget {
                                 height: 10,
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  forgetPass(context);
+                                },
                                 child: Text("Forget password?"),
                               )
                             ],
@@ -189,6 +190,31 @@ class LoginScreen extends StatelessWidget {
           ],
         ),
       ]),
+    );
+  }
+
+  Future<String?> forgetPass(BuildContext context) {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(
+          "Forget Password?",
+          style: TextStyle(
+            color: Theme.of(context).errorColor,
+          ),
+        ),
+        content: Text(
+          'Please request new password from admin',
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => {Navigator.pop(context)},
+            child: Text(
+              'OK',
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
