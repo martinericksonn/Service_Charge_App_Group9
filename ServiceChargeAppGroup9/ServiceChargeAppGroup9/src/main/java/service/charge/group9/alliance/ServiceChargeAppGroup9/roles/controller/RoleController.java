@@ -39,4 +39,17 @@ public class RoleController {
 
 
     }
+
+    @GetMapping("/findRoleIdByRole/{role}")
+    public ApiResponse findRoleIdByRole(@PathVariable String role) {
+        try{
+            int roleID = serv.findRoleIdByRole(role);
+            return ApiResponse.CreateSuccess(role,Messages.ROLE_FOUND);
+        }catch (Exception e){
+            return ApiResponse.CreateError(Messages.USER_ROLE_NOT_FOUND
+            );
+        }
+
+
+    }
 }

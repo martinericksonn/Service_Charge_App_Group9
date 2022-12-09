@@ -15,4 +15,6 @@ public interface ITicketService {
 	List<Ticket> findTicketStatus(String status);
 	List<Ticket> findTicketCategory(int roleID);
 	List<Ticket> findTicketCategoryByUserID(int userID);
+
+
 }
