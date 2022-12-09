@@ -54,6 +54,26 @@ public class TicketController {
 			return ApiResponse.CreateError(Messages.GENERIC_TICKET_NOT_FOUND);
 		}
 	}
+
+	@GetMapping("/ticket-status/{id}")
+	public ApiResponse findTicketCategory(@PathVariable int id) {
+		try {
+			List<Ticket> savedTicket = service.findTicketCategory(id);
+			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_FOUND);
+		} catch (Exception e) {
+			return ApiResponse.CreateError(Messages.GENERIC_TICKET_NOT_FOUND);
+		}
+	}
+
+	@GetMapping("/ticket-category/{status}")
+	public ApiResponse findTicketStatus(@PathVariable String status) {
+		try {
+			List<Ticket> savedTicket = service.findTicketStatus(status);
+			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_FOUND);
+		} catch (Exception e) {
+			return ApiResponse.CreateError(Messages.GENERIC_TICKET_NOT_FOUND);
+		}
+	}
 	
 	@DeleteMapping("/delete/{id}")
 	public ApiResponse deleteTicket(@PathVariable int id) {

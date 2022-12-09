@@ -96,7 +96,7 @@ class CreateTicketDialog {
             print(forAssignee.text);
             print(forRole.text);
             Ticket newTicket = Ticket(
-              userID: 2001,
+              userID: 2002,
               description: forDescription.text,
               subject: forSubject.text,
               categoryID: userRoleID,
@@ -106,8 +106,7 @@ class CreateTicketDialog {
             await ticketController.saveTicket("create", newTicket).then(
                 (value) => ScaffoldMessenger.of(context)
                     .showSnackBar(snackBarSuccess));
-            // forDescription.clear();
-            // forSubject.clear();
+            Navigator.of(context).pop();
           }
         },
         child: Text("Create"),

@@ -8,7 +8,7 @@ import 'package:service_charge_app/src/controller/ticket_controller.dart';
 
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 import 'package:service_charge_app/src/widgets/ticket/admin_view/edit_ticket_dialog.dart';
-import 'package:service_charge_app/src/widgets/ticket/create_ticket/dashboard.dart';
+import 'package:service_charge_app/src/widgets/ticket/dashboard.dart';
 import 'package:service_charge_app/src/widgets/ticket/create_ticket/create_ticket.dart';
 
 class ViewTicket extends StatefulWidget {
@@ -66,9 +66,14 @@ class _ViewTicketState extends State<ViewTicket> {
                   alignment: Alignment.topRight,
                   child: ElevatedButton(
                     onPressed: () {
-                      CreateTicketDialog createTicketDialog =
-                          CreateTicketDialog();
-                      createTicketDialog.dialogBox(context);
+                      setState(() async {
+                        CreateTicketDialog createTicketDialog =
+                            CreateTicketDialog();
+                        await createTicketDialog.dialogBox(context).then(
+                              (value) => setState(() {}),
+                            );
+                            
+                      });
                     },
                     child: Text("Create Ticket"),
                   ),

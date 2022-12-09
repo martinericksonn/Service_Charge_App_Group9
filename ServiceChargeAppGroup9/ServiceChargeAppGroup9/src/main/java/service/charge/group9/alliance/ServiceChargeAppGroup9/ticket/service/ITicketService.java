@@ -12,5 +12,6 @@ public interface ITicketService {
 	Ticket updateTicket(Ticket ticket);
 	List<Ticket> getAllTicket();
 	void deleteById(int id);
-
+	List<Ticket> findTicketStatus(String status);
+	List<Ticket> findTicketCategory(int roleID);
 }

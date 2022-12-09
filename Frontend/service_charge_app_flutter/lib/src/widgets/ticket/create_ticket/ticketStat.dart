@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 List<String> tixStatus = [
   "New",
   "Pending",
-  "In Process",
-  "Approved",
+  "Hold",
   "Completed",
   "--",
 ];

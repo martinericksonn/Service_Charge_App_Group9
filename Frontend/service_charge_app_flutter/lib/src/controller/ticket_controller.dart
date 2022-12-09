@@ -22,6 +22,32 @@ class TicketController {
 
     return ticketList;
   }
+    Future<List<Ticket>> getTicketAllCategoryID(int id) async {
+    List<Ticket> ticketList = [];
+
+    var response = await dio.get("$url/ticket-category/$id");
+  
+    response.data['data']
+        .map((data) => {
+              ticketList.add(Ticket.fromJson(data)),
+            })
+        .toList();
+
+    return ticketList;
+  }
+    Future<List<Ticket>> getTicketAllStatus(String status) async {
+    List<Ticket> ticketList = [];
+
+    var response = await dio.get("$url/ticket-status/$status");
+  
+    response.data['data']
+        .map((data) => {
+              ticketList.add(Ticket.fromJson(data)),
+            })
+        .toList();
+
+    return ticketList;
+  }
 
   Future<Ticket> getTicketById(int id) async {
     Ticket ticket = Ticket();

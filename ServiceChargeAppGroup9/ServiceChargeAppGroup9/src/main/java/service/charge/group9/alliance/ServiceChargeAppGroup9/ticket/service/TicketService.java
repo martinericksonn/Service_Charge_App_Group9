@@ -35,7 +35,17 @@ public class TicketService implements ITicketService {
 	public void deleteById(int id) {
 		ticketJpaRepository.deleteById(id);
 	}
-	
+
+	@Override
+	public List<Ticket> findTicketStatus(String status) {
+		return ticketJpaRepository.findTicketStatus(status);
+	}
+
+	@Override
+	public List<Ticket> findTicketCategory(int roleID) {
+		return ticketJpaRepository.findTicketCategory(roleID);
+	}
+
 	public List<Ticket> getAllTicket(){
 		return  ticketJpaRepository.findAll();	
 	}
