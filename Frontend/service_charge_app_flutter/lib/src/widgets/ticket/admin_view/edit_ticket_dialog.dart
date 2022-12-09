@@ -5,10 +5,10 @@ import 'package:service_charge_app/src/controller/ticket_controller.dart';
 import 'package:service_charge_app/src/entity/role/user_role.dart';
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 import 'package:service_charge_app/src/widgets/rolesDropdown.dart';
-import 'package:service_charge_app/src/widgets/ticket/datePcker.dart';
+import 'package:service_charge_app/src/widgets/ticket/create_ticket/datePcker.dart';
 
-import 'package:service_charge_app/src/widgets/ticket/filePcker.dart';
-import 'package:service_charge_app/src/widgets/ticket/ticketStat.dart';
+import 'package:service_charge_app/src/widgets/ticket/create_ticket/filePcker.dart';
+import 'package:service_charge_app/src/widgets/ticket/create_ticket/ticketStat.dart';
 import 'package:service_charge_app/src/widgets/user/assignees.dart';
 
 class EditTixAdmin extends StatefulWidget {

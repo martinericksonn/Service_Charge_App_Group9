@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:service_charge_app/src/widgets/ticket/filePcker.dart';
+import 'package:service_charge_app/src/widgets/ticket/create_ticket/filePcker.dart';
 
 
 class EditTixClient extends StatefulWidget {

@@ -7,7 +7,7 @@ import 'package:flutter_web_data_table/web_data_table.dart';
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
 import 'package:service_charge_app/src/controller/user_controller.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
-import 'package:service_charge_app/src/widgets/admin/addUserClient.dart';
+import 'package:service_charge_app/src/widgets/user/add_user.dart';
 
 class ViewUser extends StatefulWidget {
   ViewUser({

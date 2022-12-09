@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
 
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
-import 'package:service_charge_app/src/widgets/ticket/editForAdmin.dart';
+import 'package:service_charge_app/src/widgets/ticket/admin_view/edit_ticket_dialog.dart';
 
 class ViewTicket extends StatefulWidget {
   ViewTicket({

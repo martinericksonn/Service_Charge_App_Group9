@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
-import 'package:service_charge_app/src/widgets/ticket/view_ticket.dart';
+import 'package:service_charge_app/src/widgets/ticket/admin_view/view_ticket.dart';
 
 import 'package:service_charge_app/src/widgets/user/view_users.dart';
 
-import '../widgets/ticket/createTicket.dart';
+import '../widgets/ticket/create_ticket/createTicket.dart';
 
 class AppView extends StatelessWidget {
   const AppView({super.key});
