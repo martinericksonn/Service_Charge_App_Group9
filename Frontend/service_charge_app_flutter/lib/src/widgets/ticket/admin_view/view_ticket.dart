@@ -113,10 +113,21 @@ class _ViewTicketState extends State<ViewTicket> {
         DataCell(SizedBox(
           child: Row(
             children: [
-              EditTixAdmin(
-                ticket: ticket,
-                context: context,
-                refreshState: table,
+              IconButton(
+                icon: Icon(
+                  Icons.edit_outlined,
+                ),
+                onPressed: () async {
+                  EditTixAdmin editTicket = EditTixAdmin(
+                    ticket: ticket,
+                    context: context,
+                    refreshState: table,
+                  );
+
+                  await editTicket
+                      .editTicketDialog(context)
+                      .then((value) => setState(() {}));
+                },
               ),
               IconButton(
                 onPressed: () => deleteDialog(context, ticket),

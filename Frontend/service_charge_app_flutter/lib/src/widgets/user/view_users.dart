@@ -9,6 +9,7 @@ import 'package:service_charge_app/src/controller/user_controller.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/widgets/user/add_user.dart';
 import 'package:service_charge_app/src/widgets/user/edit_user.dart';
+import 'package:service_charge_app/src/widgets/user/edit_user_demo.dart';
 
 class ViewUser extends StatefulWidget {
   ViewUser({
@@ -44,8 +45,12 @@ class _ViewUserState extends State<ViewUser> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 18.0, top: 18.0),
-                child: AddClientUser(
-                  context: context,
+                child: ElevatedButton(
+                  onPressed: () {
+                    AddClientUserSimp addClientUserSimp = AddClientUserSimp();
+                    addClientUserSimp.dialogBuilder(context);
+                  },
+                  child: Text("Add User"),
                 ),
               ),
               Padding(

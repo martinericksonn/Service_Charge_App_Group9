@@ -4,14 +4,15 @@ import 'package:service_charge_app/src/controller/role_controller.dart';
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
 import 'package:service_charge_app/src/entity/role/user_role.dart';
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
-import 'package:service_charge_app/src/widgets/rolesDropdown.dart';
+import 'package:service_charge_app/src/widgets/roles_assignee_dropdown.dart';
 import 'package:service_charge_app/src/widgets/ticket/create_ticket/datePcker.dart';
 
 import 'package:service_charge_app/src/widgets/ticket/create_ticket/filePcker.dart';
 import 'package:service_charge_app/src/widgets/ticket/create_ticket/ticketStat.dart';
 import 'package:service_charge_app/src/widgets/user/assignees.dart';
+import 'package:service_charge_app/src/widgets/user/edit_user_demo.dart';
 
-class EditTixAdmin extends StatefulWidget {
+class EditTixAdmin {
   final BuildContext context;
   final Function refreshState;
   Ticket ticket;
@@ -21,13 +22,8 @@ class EditTixAdmin extends StatefulWidget {
     required this.context,
     required this.ticket,
     required this.refreshState,
-  }) : super(key: key);
+  });
 
-  @override
-  State<EditTixAdmin> createState() => _EditForAdminState();
-}
-
-class _EditForAdminState extends State<EditTixAdmin> {
   TicketController ticketController = TicketController();
   RoleController roleController = RoleController();
   TextEditingController forDescription = TextEditingController();
@@ -35,26 +31,27 @@ class _EditForAdminState extends State<EditTixAdmin> {
   TextEditingController forRole = TextEditingController(text: '0');
   TextEditingController forAssignee = TextEditingController();
   TextEditingController forStatus = TextEditingController();
+  AddClientUserSimp addc = AddClientUserSimp();
+  // @override
+  // Widget build(context) {
+    
 
-  @override
-  Widget build(context) {
-    forRole.text = widget.ticket.categoryID.toString();
-    forDescription.text = widget.ticket.description;
-    forStatus.text = widget.ticket.status;
-    forSubject.text = widget.ticket.subject;
+  //   return IconButton(
+  //     onPressed: () async {
+  //       addc.dialogBuilder(context);
+        
+  //     },
+  //     icon: Icon(
+  //       Icons.edit_outlined,
+  //     ),
+  //   );
+  // }
 
-    return IconButton(
-      onPressed: () async {
-        _dialogBuilder(context);
-        await roleController.getUserRoleById(5);
-      },
-      icon: Icon(
-        Icons.edit_outlined,
-      ),
-    );
-  }
-
-  Future<void> _dialogBuilder(BuildContext context) {
+  Future<void> editTicketDialog(BuildContext context) {
+    forRole.text = ticket.categoryID.toString();
+    forDescription.text = ticket.description;
+    forStatus.text = ticket.status;
+    forSubject.text = ticket.subject;
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -123,21 +120,21 @@ class _EditForAdminState extends State<EditTixAdmin> {
                                 int.parse(forRole.text));
 
                         Ticket newTicket = Ticket(
-                          ticketID: widget.ticket.ticketID,
+                          ticketID: ticket.ticketID,
                           userID: 2002,
                           description: forDescription.text,
                           subject: forSubject.text,
                           categoryID: userRoleID,
                           status: forStatus.text,
                         );
-                        widget.ticket = newTicket;
+                        ticket = newTicket;
                         await ticketController
                             .saveTicket("create", newTicket)
                             .then((value) => ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBarSuccess));
                         // forDescription.clear();
                         // forSubject.clear();
-                        widget.refreshState;
+                        refreshState;
                         Navigator.of(context).pop();
                       }
                     },
@@ -145,15 +142,6 @@ class _EditForAdminState extends State<EditTixAdmin> {
                   ),
                 ),
               ),
-              // child: TextButton(
-              //   style: TextButton.styleFrom(
-              //     textStyle: Theme.of(context).textTheme.labelLarge,
-              //   ),
-              //   child: const Text('Save'),
-              //   onPressed: () {
-              //     Navigator.of(context).pop();
-              //   },
-              // ),
             ),
           ],
         );
@@ -270,7 +258,7 @@ class _EditForAdminState extends State<EditTixAdmin> {
   );
   Widget roleAssignee() {
     return FutureBuilder<UserRole>(
-        future: roleController.getUserRoleById(widget.ticket.categoryID),
+        future: roleController.getUserRoleById(ticket.categoryID),
         builder: (context, AsyncSnapshot<UserRole> snapshot) {
           if (!snapshot.hasData) return CircularProgressIndicator();
 

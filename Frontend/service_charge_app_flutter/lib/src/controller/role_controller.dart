@@ -53,7 +53,6 @@ class RoleController {
   }
 
   Future<int> getUserRoleByIdInt(int userID, int roleID) async {
-    
     var response = await dio.get("$url/$userRole/$userID/$roleID");
 
     return response.data['data'];
@@ -72,11 +71,11 @@ class RoleController {
     // ignore: dead_code
   }
 
-  Future<dynamic> saveUserRole(String endpoint, UserRole thisUserRole) async {
+  Future<dynamic> saveUserRole(UserRole thisUserRole) async {
     try {
       var formData = FormData.fromMap(thisUserRole.toJson());
       var response = await dio.post(
-        "$url/$userRole/$endpoint",
+        "$url/user-role/create",
         data: formData,
       );
 

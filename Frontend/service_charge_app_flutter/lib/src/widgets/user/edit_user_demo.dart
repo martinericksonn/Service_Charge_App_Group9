@@ -1,47 +1,24 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, use_build_context_synchronously
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:service_charge_app/src/controller/role_controller.dart';
-import 'package:service_charge_app/src/controller/user_controller.dart';
-import 'package:service_charge_app/src/entity/role/user_role.dart';
-import 'dart:math';
-
-import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/widgets/ticket/create_ticket/roles_dropdown.dart';
 
-class AddClientUser extends StatefulWidget {
-  const AddClientUser({
-    Key? key,
-  }) : super(key: key);
+class AddClientUserSimp {
+  // final BuildContext context;
+  const AddClientUserSimp(
+      // required this.context,
+      );
 
-  @override
-  State<AddClientUser> createState() => _AddClientUSerState();
-}
-
-class _AddClientUSerState extends State<AddClientUser> {
-  UserController userController = UserController();
-  RoleController roleController = RoleController();
-  @override
-  Widget build(context) {
-    return ElevatedButton(
-      onPressed: () => _dialogBuilder(context),
-      child: Text("Add User"),
-    );
-  }
-
-  Future<void> _dialogBuilder(BuildContext context) {
+  Future<void> dialogBuilder(BuildContext context) async {
     TextEditingController forFirstName = TextEditingController();
     TextEditingController forLastName = TextEditingController();
-    TextEditingController forEmail = TextEditingController();
-    TextEditingController forPassword = TextEditingController();
     TextEditingController forRole = TextEditingController();
-
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(15.0))),
-          insetPadding: EdgeInsets.symmetric(horizontal: 50, vertical: 80),
+          insetPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 120),
           title: const Text(
             'Add New User',
             style: TextStyle(
@@ -54,8 +31,11 @@ class _AddClientUSerState extends State<AddClientUser> {
             color: Colors.grey.shade200,
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SizedBox(
+                height: 15,
+              ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: 13,
@@ -165,32 +145,8 @@ class _AddClientUSerState extends State<AddClientUser> {
                   style: TextButton.styleFrom(
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white),
-                  onPressed: () async {
-                    String fname = forFirstName.text;
-                    String lname = forLastName.text;
-
-                    if (fname.isEmpty || lname.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(snackBarError);
-                      return;
-                    }
-
-                    String email =
-                        "${lname.trim().replaceAll(' ', '')}.${fname.trim().replaceAll(' ', '')}@gmail.com";
-                    String password = generatePassword(8);
-
-                    User newUser = User(
-                        firstName: fname,
-                        lastName: lname,
-                        email: email.toLowerCase(),
-                        password: password);
-
-                    UserRole userRole = UserRole(userID: 2002, roleID: 1001);
-                    await roleController.saveUserRole(userRole);
-
-                    await userController.saveUser(newUser).then((value) =>
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(snackBarSuccess));
-                    Navigator.pop(context);
+                  onPressed: () {
+                    Navigator.of(context).pop();
                   },
                   child: const Text("Add"),
                 ),
@@ -202,49 +158,3 @@ class _AddClientUSerState extends State<AddClientUser> {
     );
   }
 }
-
-const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-Random _rnd = Random();
-
-String generatePassword(int length) => String.fromCharCodes(
-      Iterable.generate(
-        length,
-        (_) => _chars.codeUnitAt(
-          _rnd.nextInt(_chars.length),
-        ),
-      ),
-    );
-
-final snackBarError = SnackBar(
-  backgroundColor: Colors.red,
-  content: const Text(
-    'Error: missing User fields',
-    style: TextStyle(
-      color: Colors.white,
-    ),
-  ),
-  action: SnackBarAction(
-    textColor: Colors.white,
-    label: 'ok',
-    onPressed: () {
-      // Some code to undo the change.
-    },
-  ),
-);
-
-final snackBarSuccess = SnackBar(
-  backgroundColor: Colors.green,
-  content: const Text(
-    'User successfuly created',
-    style: TextStyle(
-      color: Colors.white,
-    ),
-  ),
-  action: SnackBarAction(
-    textColor: Colors.white,
-    label: 'ok',
-    onPressed: () {
-      // Some code to undo the change.
-    },
-  ),
-);
