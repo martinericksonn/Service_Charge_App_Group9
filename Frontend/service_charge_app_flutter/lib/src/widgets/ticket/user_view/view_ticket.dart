@@ -7,9 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
+import 'package:service_charge_app/src/widgets/editForClient.dart';
 import 'package:service_charge_app/src/widgets/ticket/admin_view/edit_ticket_dialog.dart';
 import 'package:service_charge_app/src/widgets/ticket/create_ticket/create_ticket.dart';
-
+import 'package:service_charge_app/src/widgets/ticket/user_view/edit_ticket_dialog.dart';
 
 class ViewTicketClient extends StatefulWidget {
   final User user;
@@ -74,7 +75,6 @@ class _ViewTicketClientState extends State<ViewTicketClient> {
                         await createTicketDialog.dialogBox(context).then(
                               (value) => setState(() {}),
                             );
-                            
                       });
                     },
                     child: Text("Create Ticket"),
@@ -140,23 +140,22 @@ class _ViewTicketClientState extends State<ViewTicketClient> {
                   Icons.edit_outlined,
                 ),
                 onPressed: () async {
-                  EditTixAdmin editTicket = EditTixAdmin(
-                    ticket: ticket,
+                  EditTixUser editTicket = EditTixUser(
                     context: context,
-                    refreshState: table,
+                    ticket: ticket,
+                    user: widget.user,
                   );
+                  // EditTixUser editTicket = EditTixUser(
+                  //   ticket: ticket,
+                  //   context: context,
+                  //   refreshState: table,
+                  // );
 
                   await editTicket
                       .editTicketDialog(context)
                       .then((value) => setState(() {}));
                 },
               ),
-              IconButton(
-                onPressed: () => deleteDialog(context, ticket),
-                icon: Icon(
-                  Icons.delete_outline,
-                ),
-              )
             ],
           ),
         ))

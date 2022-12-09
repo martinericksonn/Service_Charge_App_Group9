@@ -43,13 +43,18 @@ class RoleController {
               userRoleList.add(UserRole.fromJson(data)),
             })
         .toList();
-    
+
     return userRoleList;
   }
 
   Future<UserRole> getUserRoleById(int id) async {
     var response = await dio.get("$url/user-role/$id");
     return UserRole.fromJson(response.data['data']);
+  }
+
+  Future<String> getUserRoleName(int id) async {
+    var response = await dio.get("$url/user-role/findID/$id");
+    return (response.data['data']);
   }
 
   Future<int> getUserRoleByIdInt(int userID, int roleID) async {

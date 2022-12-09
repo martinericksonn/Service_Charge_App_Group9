@@ -6,25 +6,20 @@ import 'package:service_charge_app/src/entity/role/user_role.dart';
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/widgets/roles_assignee_dropdown.dart';
-import 'package:service_charge_app/src/widgets/ticket/create_ticket/datePcker.dart';
 
 import 'package:service_charge_app/src/widgets/ticket/create_ticket/filePcker.dart';
 import 'package:service_charge_app/src/widgets/ticket/create_ticket/ticketStat.dart';
-import 'package:service_charge_app/src/widgets/user/assignees.dart';
-import 'package:service_charge_app/src/widgets/user/edit_user_demo.dart';
 
 class EditTixUser {
   final BuildContext context;
-  final Function refreshState;
   final User user;
-  Ticket ticket;
+   Ticket ticket;
 
   EditTixUser(
-    Key? key,
-    this.user, {
+    {
     required this.context,
     required this.ticket,
-    required this.refreshState,
+    required this.user,
   });
 
   TicketController ticketController = TicketController();
@@ -89,7 +84,6 @@ class EditTixUser {
                           height: 10,
                         ),
                         description(),
-                        
                         statusAttachFile(),
                       ],
                     ),
@@ -134,7 +128,7 @@ class EditTixUser {
                               .showSnackBar(snackBarSuccess));
                       // forDescription.clear();
                       // forSubject.clear();
-                      refreshState;
+                      
                       Navigator.of(context).pop();
                     }
                   },
@@ -337,7 +331,6 @@ class EditTixUser {
         ),
         Expanded(
           child: TextField(
-            
             enabled: false,
             controller: forSubject,
             decoration: InputDecoration(

@@ -125,6 +125,9 @@ class CreateTicket extends StatelessWidget {
               )
             ],
           ),
+          Row(
+            children: [
+
           Container(
             alignment: Alignment.centerRight,
             padding: EdgeInsets.all(20),
@@ -132,6 +135,10 @@ class CreateTicket extends StatelessWidget {
               onPressed: () {},
               child: Text("Generate Report"),
             ),
+          )
+
+          
+            ],
           )
         ],
       ),

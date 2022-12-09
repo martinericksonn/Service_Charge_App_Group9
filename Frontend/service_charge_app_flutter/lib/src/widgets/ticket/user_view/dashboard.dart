@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 import 'package:flutter/material.dart';
+import 'package:service_charge_app/src/controller/role_controller.dart';
+import 'package:service_charge_app/src/controller/role_controller.dart';
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
@@ -8,6 +10,7 @@ import 'package:service_charge_app/src/entity/user/user.dart';
 class DashboardClient extends StatelessWidget {
   final User user;
   TicketController tc = TicketController();
+  RoleController rc = RoleController();
   DashboardClient({
     Key? key,
     required this.user,
@@ -21,56 +24,39 @@ class DashboardClient extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.all(20),
-            child: Text(
-              "Aging Tickets",
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Row(
+              // ignore: prefer_const_literals_to_create_immutables
+              children: [
+                Text(
+                  "Aging Tickets for ",
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                FutureBuilder<String>(
+                    future: rc.getUserRoleName(user.userID),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (!snapshot.hasData) return CircularProgressIndicator();
+                      String role = snapshot.data!;
+                      return Text(
+                        role,
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    }),
+              ],
             ),
           ),
           Row(
+            // ignore: prefer_const_literals_to_create_immutables
             children: [
               SizedBox(
                 width: 50,
               ),
-              FutureBuilder<List<Ticket>>(
-                  future: tc.getTicketAllCategoryID(1001),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<Ticket>> snapshot) {
-                    if (!snapshot.hasData) return CircularProgressIndicator();
-                    List<Ticket> tickets = snapshot.data!;
-                    return ticketCard("Sales Team", "${tickets.length} Ticket");
-                  }),
-              FutureBuilder<List<Ticket>>(
-                  future: tc.getTicketAllCategoryID(1002),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<Ticket>> snapshot) {
-                    if (!snapshot.hasData) return CircularProgressIndicator();
-                    List<Ticket> tickets = snapshot.data!;
-                    return ticketCard(
-                        "Billing In-Charge", "${tickets.length} Ticket");
-                  }),
-              FutureBuilder<List<Ticket>>(
-                  future: tc.getTicketAllCategoryID(1003),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<Ticket>> snapshot) {
-                    if (!snapshot.hasData) return CircularProgressIndicator();
-                    List<Ticket> tickets = snapshot.data!;
-                    return ticketCard(
-                        "Collection In-Charge", "${tickets.length} Ticket");
-                  }),
-              FutureBuilder<List<Ticket>>(
-                  future: tc.getTicketAllCategoryID(1004),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<Ticket>> snapshot) {
-                    if (!snapshot.hasData) return CircularProgressIndicator();
-                    List<Ticket> tickets = snapshot.data!;
-                    return ticketCard("Treasury", "${tickets.length} Ticket");
-                  }),
-              // ticketCard("Billing In-Charge", "180 Ticket"),
-              // ticketCard("Collection In-Charge", "180 Ticket"),
-              // ticketCard("Treasury", "180 Ticket"),
               SizedBox(
                 width: 50,
               )
@@ -82,24 +68,9 @@ class DashboardClient extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: 50,
+                width: 100,
               ),
-              FutureBuilder<List<Ticket>>(
-                  future: tc.getTicketAllStatus("New"),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<Ticket>> snapshot) {
-                    if (!snapshot.hasData) return CircularProgressIndicator();
-                    List<Ticket> tickets = snapshot.data!;
-                    return ticketCard("New", "${tickets.length} Ticket");
-                  }),
-              FutureBuilder<List<Ticket>>(
-                  future: tc.getTicketAllStatus("Pending"),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<Ticket>> snapshot) {
-                    if (!snapshot.hasData) return CircularProgressIndicator();
-                    List<Ticket> tickets = snapshot.data!;
-                    return ticketCard("Pending", "${tickets.length} Ticket");
-                  }),
+
               FutureBuilder<List<Ticket>>(
                   future: tc.getTicketAllStatus("On-Hold"),
                   builder: (BuildContext context,
@@ -121,7 +92,33 @@ class DashboardClient extends StatelessWidget {
               // ticketCard("On-Hold", "180 Ticket"),
               // ticketCard("Completed", "180 Ticket"),
               SizedBox(
-                width: 50,
+                width: 100,
+              )
+            ],
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: 100,
+              ),
+              FutureBuilder<List<Ticket>>(
+                  future: tc.getTicketAllStatus("New"),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Ticket>> snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    List<Ticket> tickets = snapshot.data!;
+                    return ticketCard("New", "${tickets.length} Ticket");
+                  }),
+              FutureBuilder<List<Ticket>>(
+                  future: tc.getTicketAllStatus("Pending"),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Ticket>> snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    List<Ticket> tickets = snapshot.data!;
+                    return ticketCard("Pending", "${tickets.length} Ticket");
+                  }),
+              SizedBox(
+                width: 100,
               )
             ],
           ),
@@ -132,7 +129,7 @@ class DashboardClient extends StatelessWidget {
               onPressed: () {},
               child: Text("Generate Report"),
             ),
-          )
+          ),
         ],
       ),
     );

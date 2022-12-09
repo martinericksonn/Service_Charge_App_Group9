@@ -71,6 +71,14 @@ public class UserRoleController {
             return ApiResponse.CreateError(Messages.USER_ROLE_NOT_FOUND);
         }
     }
-
+    @GetMapping("/findID/{id}")
+    public ApiResponse findRoleByUserID(@PathVariable int id) {
+        try {
+            String savedUserRole = serv.findRoleByUserID(id);
+            return ApiResponse.CreateSuccess(savedUserRole,Messages.USER_ROLE_FOUND);
+        } catch (Exception e) {
+            return ApiResponse.CreateError(Messages.USER_ROLE_NOT_FOUND);
+        }
+    }
 
 }

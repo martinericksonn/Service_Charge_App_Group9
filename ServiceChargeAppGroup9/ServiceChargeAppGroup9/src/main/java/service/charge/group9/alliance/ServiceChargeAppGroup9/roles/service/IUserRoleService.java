@@ -12,6 +12,6 @@ public interface IUserRoleService {
     void deleteUserRole(int id);
     List<Roles> getAllRole();
     Roles getRoleByID(int id);
-
+    String findRoleByUserID(int userID);
     int findUserRoleId(int userID,int roleID);
 }
