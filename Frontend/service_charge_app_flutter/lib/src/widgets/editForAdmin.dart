@@ -6,19 +6,21 @@ import 'package:service_charge_app/src/entity/role/user_role.dart';
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 import 'package:service_charge_app/src/widgets/rolesDropdown.dart';
 import 'package:service_charge_app/src/widgets/ticket/datePcker.dart';
-import 'package:service_charge_app/src/widgets/ticket/edit_ticket_admin_view.dart';
+
 import 'package:service_charge_app/src/widgets/ticket/filePcker.dart';
 import 'package:service_charge_app/src/widgets/ticket/ticketStat.dart';
 import 'package:service_charge_app/src/widgets/user/assignees.dart';
 
 class EditTixAdmin extends StatefulWidget {
   final BuildContext context;
-  final Ticket ticket;
+  final Function refreshState;
+  Ticket ticket;
 
-  const EditTixAdmin({
+  EditTixAdmin({
     Key? key,
     required this.context,
     required this.ticket,
+    required this.refreshState,
   }) : super(key: key);
 
   @override
@@ -106,8 +108,38 @@ class _EditForAdminState extends State<EditTixAdmin> {
                     style: TextButton.styleFrom(
                         backgroundColor: Colors.blue,
                         foregroundColor: Colors.white),
-                    onPressed: () {
-                      Navigator.of(context).pop();
+                    onPressed: () async {
+                      if (forDescription.text.isEmpty ||
+                          forSubject.text.isEmpty ||
+                          forRole.text.isEmpty ||
+                          forAssignee.text.isEmpty ||
+                          forStatus.text.isEmpty) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(snackBarError);
+                      } else {
+                        int userRoleID =
+                            await roleController.getUserRoleByIdInt(
+                                int.parse(forAssignee.text),
+                                int.parse(forRole.text));
+
+                        Ticket newTicket = Ticket(
+                          ticketID: widget.ticket.ticketID,
+                          userID: 2002,
+                          description: forDescription.text,
+                          subject: forSubject.text,
+                          categoryID: userRoleID,
+                          status: forStatus.text,
+                        );
+                        widget.ticket = newTicket;
+                        await ticketController
+                            .saveTicket("create", newTicket)
+                            .then((value) => ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBarSuccess));
+                        // forDescription.clear();
+                        // forSubject.clear();
+                        widget.refreshState;
+                        Navigator.of(context).pop();
+                      }
                     },
                     child: const Text("Save"),
                   ),
@@ -243,8 +275,6 @@ class _EditForAdminState extends State<EditTixAdmin> {
           if (!snapshot.hasData) return CircularProgressIndicator();
 
           UserRole userRole = snapshot.data!;
-          print("UserRole userRole = snapshot.data!;");
-          print(userRole.toJson());
           return SizedBox(
             height: 45,
             child: Row(

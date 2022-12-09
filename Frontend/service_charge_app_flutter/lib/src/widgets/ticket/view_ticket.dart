@@ -8,7 +8,6 @@ import 'package:service_charge_app/src/controller/ticket_controller.dart';
 
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 import 'package:service_charge_app/src/widgets/editForAdmin.dart';
-import 'package:service_charge_app/src/widgets/ticket/edit_ticket_admin_view.dart';
 
 class ViewTicket extends StatefulWidget {
   ViewTicket({
@@ -42,9 +41,7 @@ class _ViewTicketState extends State<ViewTicket> {
     return FutureBuilder<List<Ticket>>(
       future: ticketController.getTicketAll(),
       builder: (BuildContext context, AsyncSnapshot<List<Ticket>> snapshot) {
-        
         if (!snapshot.hasData) {
-        
           // ignore: curly_braces_in_flow_control_structures
           return Center(
             child: Expanded(
@@ -58,17 +55,32 @@ class _ViewTicketState extends State<ViewTicket> {
         }
         List<Ticket> ticket = snapshot.data!;
 
-        return Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: DataTable(
-              columns: ticketAtributes
-                  .map((atribute) => tabTitle(atribute))
-                  .toList(),
-              rows: ticket
-                  .map(
-                    (ticket) => dataRows(ticket, context),
-                  )
-                  .toList()),
+        return Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 20, right: 40),
+              alignment: Alignment.topRight,
+              child: TextButton(
+                onPressed: () {
+                  setState(() {});
+                },
+                child: Text("Refresh"),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(18),
+              width: double.infinity,
+              child: DataTable(
+                  columns: ticketAtributes
+                      .map((atribute) => tabTitle(atribute))
+                      .toList(),
+                  rows: ticket
+                      .map(
+                        (ticket) => dataRows(ticket, context),
+                      )
+                      .toList()),
+            ),
+          ],
         );
       },
     );
@@ -101,7 +113,11 @@ class _ViewTicketState extends State<ViewTicket> {
         DataCell(SizedBox(
           child: Row(
             children: [
-              EditTixAdmin(ticket: ticket, context: context),
+              EditTixAdmin(
+                ticket: ticket,
+                context: context,
+                refreshState: table,
+              ),
               IconButton(
                 onPressed: () => inputDialog(context),
                 icon: Icon(

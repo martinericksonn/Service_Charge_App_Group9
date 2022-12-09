@@ -25,6 +25,7 @@ class _TixStatusDropDown extends State<TixStatusDropDown> {
 
   @override
   Widget build(BuildContext context) {
+    statID = widget.forStatus.text.isNotEmpty ? widget.forStatus.text : "--";
     return Container(
       padding: EdgeInsets.all(15.0),
       child: SizedBox(

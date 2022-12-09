@@ -4,7 +4,6 @@ import 'package:service_charge_app/src/controller/user_controller.dart';
 import 'package:service_charge_app/src/entity/role/Role.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:delayed_display/delayed_display.dart';
-import 'package:service_charge_app/src/widgets/ticket/edit_ticket_admin_view.dart';
 
 class RolesAssigneeDropdown extends StatefulWidget {
   final TextEditingController forRole;
@@ -75,6 +74,7 @@ class _RolesAssigneeDropdownState extends State<RolesAssigneeDropdown> {
     widget.forRole.text = widget.defaultAssigneeID != 0
         ? widget.defaultRoleID.toString()
         : widget.forRole.text;
+
     try {
       return FutureBuilder<List<User>>(
         future:
@@ -90,6 +90,7 @@ class _RolesAssigneeDropdownState extends State<RolesAssigneeDropdown> {
             if (widget.defaultAssigneeID != 0) {
               assigneesID =
                   findRoleUserName(widget.defaultAssigneeID, userList);
+              widget.forAssignee.text = widget.defaultAssigneeID.toString();
               widget.defaultAssigneeID = 0;
             }
 
