@@ -45,6 +45,11 @@ public class UserService implements IUserService{
 		return userJpaRepository.findUserByRoleIds( id);
 	}
 
+	public User loginUser(String email,String password){
+		return userJpaRepository.loginUser(email,password);
+
+
+	}
 
 
 }

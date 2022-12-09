@@ -3,10 +3,17 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:service_charge_app/src/controller/user_controller.dart';
+import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
+import 'package:service_charge_app/src/screen/app_view.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  UserController uc = UserController();
 
   final Widget networkSvg = Expanded(
     child: Image.asset(
@@ -80,15 +87,17 @@ class LoginScreen extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.all(10),
                                 child: TextField(
+                                  controller: emailController,
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(),
-                                      labelText: 'Username',
+                                      labelText: 'Email',
                                       hintText: 'Enter your username'),
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsets.all(10),
                                 child: TextField(
+                                  controller: passwordController,
                                   obscureText: true,
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(),
@@ -108,8 +117,33 @@ class LoginScreen extends StatelessWidget {
                                       backgroundColor: Colors.blue,
                                       foregroundColor: Colors.white),
                                   onPressed: () {
-                                    Navigator.pushReplacementNamed(
-                                        context, routeAppView);
+                                    if (emailController.text.isEmpty ||
+                                        passwordController.text.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBarMissing);
+                                      return;
+                                    }
+
+                                    uc
+                                        .loginUser(emailController.text,
+                                            passwordController.text)
+                                        .then((value) {
+                                      if (value.data["data"] != null) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => AppView(
+                                                    user: User.fromJson(
+                                                        value.data["data"]),
+                                                  )),
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBarError);
+                                      }
+                                    });
+                                    // Navigator.pushReplacementNamed(
+                                    //     context, routeAppView);
                                   },
                                   child: Text("Continue"),
                                 ),
@@ -141,3 +175,37 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+
+final snackBarError = SnackBar(
+  backgroundColor: Colors.red,
+  content: const Text(
+    'Error: Incorrect email or password ',
+    style: TextStyle(
+      color: Colors.white,
+    ),
+  ),
+  action: SnackBarAction(
+    textColor: Colors.white,
+    label: 'ok',
+    onPressed: () {
+      // Some code to undo the change.
+    },
+  ),
+);
+
+final snackBarMissing = SnackBar(
+  backgroundColor: Colors.red,
+  content: const Text(
+    'Error: Missing fields for email or password ',
+    style: TextStyle(
+      color: Colors.white,
+    ),
+  ),
+  action: SnackBarAction(
+    textColor: Colors.white,
+    label: 'ok',
+    onPressed: () {
+      // Some code to undo the change.
+    },
+  ),
+);

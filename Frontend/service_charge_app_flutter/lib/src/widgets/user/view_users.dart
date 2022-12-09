@@ -85,15 +85,18 @@ class _ViewUserState extends State<ViewUser> {
                       ),
                     );
 
+                  List<User> currentUsers = [];
                   List<User> users = snapshot.data!;
-
+                  for (var element in users) {
+                    if (element.userID != 9999) currentUsers.add(element);
+                  }
                   return Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: DataTable(
                         columns: userAtributes
                             .map((atribute) => tabTitle(atribute))
                             .toList(),
-                        rows: users
+                        rows: currentUsers
                             .map(
                               (user) => dataRows(user, context),
                             )

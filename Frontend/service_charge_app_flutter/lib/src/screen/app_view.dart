@@ -1,15 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
 import 'package:service_charge_app/src/widgets/ticket/admin_view/view_ticket.dart';
-
 import 'package:service_charge_app/src/widgets/user/view_users.dart';
 
 import '../widgets/ticket/dashboard.dart';
 
 class AppView extends StatelessWidget {
-  const AppView({super.key});
+  final User user;
+  const AppView({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,9 @@ class AppView extends StatelessWidget {
         appBar: navbar(context),
         body: TabBarView(
           children: [
-            CreateTicket(),
+            CreateTicket(
+              user: user,
+            ),
             ViewTicket(),
             ViewUser(),
           ],
@@ -60,7 +67,7 @@ class AppView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
-              "Martin Erickson Lapetaje",
+              "${user.firstName} ${user.lastName}",
               style: Theme.of(context).textTheme.labelLarge,
             ),
           ),

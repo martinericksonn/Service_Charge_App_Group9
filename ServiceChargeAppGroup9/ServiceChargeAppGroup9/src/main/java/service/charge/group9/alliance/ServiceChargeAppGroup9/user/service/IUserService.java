@@ -9,7 +9,8 @@ public interface IUserService {
 	User findUserById(int id);
 	List<User> getAllUser();
 	void deleteUser(int id);
-
 	List<User> usersFromRoleID(int id);
+
+	User loginUser(String email,String password);
 	
 }

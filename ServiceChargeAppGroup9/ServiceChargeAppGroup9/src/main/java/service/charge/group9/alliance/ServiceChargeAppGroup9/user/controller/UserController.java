@@ -54,6 +54,21 @@ public class UserController {
 		}
 	}
 
+	@GetMapping("/login/{email}/{password}")
+	public ApiResponse loginUser(@PathVariable String email,@PathVariable String password) {
+		try {
+
+			User savedUser = serv.loginUser(email,password);
+			System.out.println(savedUser);
+			var ret_value =ApiResponse.CreateSuccess(savedUser, Messages.USER_FOUND);
+			System.out.println(ret_value);
+			return ApiResponse.CreateSuccess(savedUser, Messages.USER_FOUND);
+		} catch (Exception e) {
+			System.out.println(e);
+			return ApiResponse.CreateError(Messages.USER_NOT_FOUND);
+		}
+	}
+
 	@PostMapping("/update")
 	@ResponseBody
 	public ApiResponse update(User user) throws IOException {

@@ -1,9 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 import 'package:flutter/material.dart';
+import 'package:service_charge_app/src/controller/ticket_controller.dart';
+import 'package:service_charge_app/src/entity/ticket/ticket.dart';
+import 'package:service_charge_app/src/entity/user/user.dart';
 
 class CreateTicket extends StatelessWidget {
+  final User user;
+  TicketController tc = TicketController();
   CreateTicket({
     Key? key,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -27,10 +34,43 @@ class CreateTicket extends StatelessWidget {
               SizedBox(
                 width: 50,
               ),
-              ticketCard("Sales Team", "180 Ticket"),
-              ticketCard("Billing In-Charge", "180 Ticket"),
-              ticketCard("Collection In-Charge", "180 Ticket"),
-              ticketCard("Treasury", "180 Ticket"),
+              FutureBuilder<List<Ticket>>(
+                  future: tc.getTicketAllCategoryID(1001),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Ticket>> snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    List<Ticket> tickets = snapshot.data!;
+                    return ticketCard("Sales Team", "${tickets.length} Ticket");
+                  }),
+              FutureBuilder<List<Ticket>>(
+                  future: tc.getTicketAllCategoryID(1002),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Ticket>> snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    List<Ticket> tickets = snapshot.data!;
+                    return ticketCard(
+                        "Billing In-Charge", "${tickets.length} Ticket");
+                  }),
+              FutureBuilder<List<Ticket>>(
+                  future: tc.getTicketAllCategoryID(1003),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Ticket>> snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    List<Ticket> tickets = snapshot.data!;
+                    return ticketCard(
+                        "Collection In-Charge", "${tickets.length} Ticket");
+                  }),
+              FutureBuilder<List<Ticket>>(
+                  future: tc.getTicketAllCategoryID(1004),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Ticket>> snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    List<Ticket> tickets = snapshot.data!;
+                    return ticketCard("Treasury", "${tickets.length} Ticket");
+                  }),
+              // ticketCard("Billing In-Charge", "180 Ticket"),
+              // ticketCard("Collection In-Charge", "180 Ticket"),
+              // ticketCard("Treasury", "180 Ticket"),
               SizedBox(
                 width: 50,
               )
@@ -44,10 +84,42 @@ class CreateTicket extends StatelessWidget {
               SizedBox(
                 width: 50,
               ),
-              ticketCard("New", "180 Ticket"),
-              ticketCard("Pending", "180 Ticket"),
-              ticketCard("On-Hold", "180 Ticket"),
-              ticketCard("Completed", "180 Ticket"),
+              FutureBuilder<List<Ticket>>(
+                  future: tc.getTicketAllStatus("New"),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Ticket>> snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    List<Ticket> tickets = snapshot.data!;
+                    return ticketCard("New", "${tickets.length} Ticket");
+                  }),
+              FutureBuilder<List<Ticket>>(
+                  future: tc.getTicketAllStatus("Pending"),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Ticket>> snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    List<Ticket> tickets = snapshot.data!;
+                    return ticketCard("Pending", "${tickets.length} Ticket");
+                  }),
+              FutureBuilder<List<Ticket>>(
+                  future: tc.getTicketAllStatus("On-Hold"),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Ticket>> snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    List<Ticket> tickets = snapshot.data!;
+                    return ticketCard("On-Hold", "${tickets.length} Ticket");
+                  }),
+              FutureBuilder<List<Ticket>>(
+                  future: tc.getTicketAllStatus("Completed"),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Ticket>> snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    List<Ticket> tickets = snapshot.data!;
+                    return ticketCard("Completed", "${tickets.length} Ticket");
+                  }),
+              // ticketCard("New", "180 Ticket"),
+              // ticketCard("Pending", "180 Ticket"),
+              // ticketCard("On-Hold", "180 Ticket"),
+              // ticketCard("Completed", "180 Ticket"),
               SizedBox(
                 width: 50,
               )

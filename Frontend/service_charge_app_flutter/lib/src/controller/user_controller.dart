@@ -33,6 +33,12 @@ class UserController {
     return user;
   }
 
+  Future<dynamic> loginUser(String email, String password) async {
+    var response = await dio.get("$url/login/$email/$password");
+    // return User.fromJson(response.data['data']);
+    return response;
+  }
+
   Future<dynamic> saveUser(User user) async {
     var formData = FormData.fromMap(user.toJson());
     var response = await dio.post(
@@ -61,7 +67,6 @@ class UserController {
             })
         .toList();
 
-        
     return userList;
   }
 }

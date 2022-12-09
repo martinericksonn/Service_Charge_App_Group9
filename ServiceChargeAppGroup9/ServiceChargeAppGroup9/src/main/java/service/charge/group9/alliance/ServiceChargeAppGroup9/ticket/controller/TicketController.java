@@ -55,20 +55,20 @@ public class TicketController {
 		}
 	}
 
-	@GetMapping("/ticket-status/{id}")
-	public ApiResponse findTicketCategory(@PathVariable int id) {
+	@GetMapping("/ticket-status/{status}")
+	public ApiResponse findTicketCategory(@PathVariable String status) {
 		try {
-			List<Ticket> savedTicket = service.findTicketCategory(id);
+			List<Ticket> savedTicket = service.findTicketStatus(status);
 			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_FOUND);
 		} catch (Exception e) {
 			return ApiResponse.CreateError(Messages.GENERIC_TICKET_NOT_FOUND);
 		}
 	}
 
-	@GetMapping("/ticket-category/{status}")
-	public ApiResponse findTicketStatus(@PathVariable String status) {
+	@GetMapping("/ticket-category/{roleID}")
+	public ApiResponse findTicketStatus(@PathVariable int roleID) {
 		try {
-			List<Ticket> savedTicket = service.findTicketStatus(status);
+			List<Ticket> savedTicket = service.findTicketCategory(roleID);
 			return ApiResponse.CreateSuccess(savedTicket, Messages.TICKET_FOUND);
 		} catch (Exception e) {
 			return ApiResponse.CreateError(Messages.GENERIC_TICKET_NOT_FOUND);

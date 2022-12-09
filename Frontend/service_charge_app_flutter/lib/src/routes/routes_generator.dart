@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
 import 'package:service_charge_app/src/screen/app_view.dart';
 import 'package:service_charge_app/src/screen/login_page.dart';
@@ -10,7 +11,10 @@ class RouteGenerator {
       case routeLogin:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case routeAppView:
-        return MaterialPageRoute(builder: (_) => const AppView());
+        return MaterialPageRoute(
+            builder: (_) => AppView(
+                  user: User(),
+                ));
 
       default:
         return MaterialPageRoute(builder: (_) => LoginScreen());
