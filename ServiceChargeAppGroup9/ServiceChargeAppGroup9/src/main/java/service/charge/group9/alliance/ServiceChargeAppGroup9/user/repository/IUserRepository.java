@@ -3,6 +3,7 @@ package service.charge.group9.alliance.ServiceChargeAppGroup9.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import service.charge.group9.alliance.ServiceChargeAppGroup9.ticket.entity.Ticket;
 import service.charge.group9.alliance.ServiceChargeAppGroup9.user.entity.User;
 
 import java.util.List;
@@ -13,4 +14,7 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
 //
     @Query(value = "select * from users where email = ?1  and password = ?2",nativeQuery = true)
     User loginUser(String email,String password);
+
+
+    List<Ticket> findTicketCategoryByUserID(int userID);
 }

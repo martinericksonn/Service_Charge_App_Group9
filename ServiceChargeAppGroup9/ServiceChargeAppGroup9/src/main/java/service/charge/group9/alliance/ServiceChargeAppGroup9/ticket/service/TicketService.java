@@ -59,29 +59,8 @@ public class TicketService implements ITicketService {
 		
 		return null;
 	}
+
+	public List<Ticket> findTicketCategoryByUserID(int userID){
+		return ticketJpaRepository.findTicketCategoryByUserID(userID);
+	}
 }
-
-//	public Ticket saveAndFlush(Ticket ticket)
-//    {
-//		System.out.println(ticket);
-//		return repository.create(ticket);
-//    }
-	
-//	public int update(final Ticket ticket)
-//    {
-//        return repository.updateTicket(ticket);
-//    }
-//    
-//	public int updateStatus(final Ticket ticket) 
-//    {
-//        return repository.updateTicketStatus(ticket);
-//    }
-//	 public int updateTicketAssignee(final Ticket ticket) 
-//	{
-//	    return repository.updateTicketAssignee(ticket);
-//	}
-//	 public int deleteById(final int id)
-//	    {
-//	        return repository.deleteByID(id);
-//	    } 
-

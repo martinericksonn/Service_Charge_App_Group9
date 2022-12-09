@@ -35,6 +35,23 @@ class TicketController {
 
     return ticketList;
   }
+
+
+   Future<List<Ticket>> getTicketAllCategoryByUserID(int id) async {
+    List<Ticket> ticketList = [];
+
+    var response = await dio.get("$url/ticket-category-by-user/$id");
+  
+    response.data['data']
+        .map((data) => {
+              ticketList.add(Ticket.fromJson(data)),
+            })
+        .toList();
+
+    return ticketList;
+  }
+
+
     Future<List<Ticket>> getTicketAllStatus(String status) async {
     List<Ticket> ticketList = [];
 

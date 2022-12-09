@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/routes/routes.dart';
 import 'package:service_charge_app/src/widgets/ticket/admin_view/view_ticket.dart';
+import 'package:service_charge_app/src/widgets/ticket/user_view/dashboard.dart';
+import 'package:service_charge_app/src/widgets/ticket/user_view/view_ticket.dart';
 import 'package:service_charge_app/src/widgets/user/view_users.dart';
 
-import '../widgets/ticket/admin_view/dashboard.dart';
 
-class AppView extends StatelessWidget {
+
+class AppViewClient extends StatelessWidget {
   final User user;
-  const AppView({
+  const AppViewClient({
     Key? key,
     required this.user,
   }) : super(key: key);
@@ -25,11 +27,11 @@ class AppView extends StatelessWidget {
         appBar: navbar(context),
         body: TabBarView(
           children: [
-            CreateTicket(
+            DashboardClient(
               user: user,
             ),
-            ViewTicket(),
-            ViewUser(),
+            ViewTicketClient(user: user),
+        
           ],
         ),
       ),
@@ -57,9 +59,7 @@ class AppView extends StatelessWidget {
           Tab(
             text: "Ticket Management",
           ),
-          Tab(
-            text: "User Management",
-          ),
+         
         ]),
       ),
       actions: [

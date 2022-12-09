@@ -1,26 +1,28 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first, prefer_const_constructors_in_immutables
 // ignore_for_file: unused_field, prefer_final_fields, avoid_print, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
-
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
+import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/widgets/ticket/admin_view/edit_ticket_dialog.dart';
-import 'package:service_charge_app/src/widgets/ticket/admin_view/dashboard.dart';
 import 'package:service_charge_app/src/widgets/ticket/create_ticket/create_ticket.dart';
 
-class ViewTicket extends StatefulWidget {
-  ViewTicket({
+
+class ViewTicketClient extends StatefulWidget {
+  final User user;
+  ViewTicketClient({
     Key? key,
+    required this.user,
   }) : super(key: key);
 
   @override
-  State<ViewTicket> createState() => _ViewTicketState();
+  State<ViewTicketClient> createState() => _ViewTicketClientState();
 }
 
-class _ViewTicketState extends State<ViewTicket> {
+class _ViewTicketClientState extends State<ViewTicketClient> {
   List<String> ticketAtributes = [
     "Ticket ID",
     "User ID",
@@ -40,7 +42,7 @@ class _ViewTicketState extends State<ViewTicket> {
 
   Widget table() {
     return FutureBuilder<List<Ticket>>(
-      future: ticketController.getTicketAll(),
+      future: ticketController.getTicketAllCategoryByUserID(widget.user.userID),
       builder: (BuildContext context, AsyncSnapshot<List<Ticket>> snapshot) {
         if (!snapshot.hasData) {
           // ignore: curly_braces_in_flow_control_structures

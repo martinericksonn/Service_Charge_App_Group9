@@ -86,4 +86,6 @@ public class UserController {
 		return ApiResponse.CreateSuccess(userList,Messages.ALL_USER_SUCCESSFULLY__RETIEVE_);
 	}
 
+
+
 }

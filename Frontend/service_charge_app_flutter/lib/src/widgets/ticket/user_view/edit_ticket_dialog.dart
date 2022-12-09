@@ -4,6 +4,7 @@ import 'package:service_charge_app/src/controller/role_controller.dart';
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
 import 'package:service_charge_app/src/entity/role/user_role.dart';
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
+import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/widgets/roles_assignee_dropdown.dart';
 import 'package:service_charge_app/src/widgets/ticket/create_ticket/datePcker.dart';
 
@@ -12,13 +13,15 @@ import 'package:service_charge_app/src/widgets/ticket/create_ticket/ticketStat.d
 import 'package:service_charge_app/src/widgets/user/assignees.dart';
 import 'package:service_charge_app/src/widgets/user/edit_user_demo.dart';
 
-class EditTixAdmin {
+class EditTixUser {
   final BuildContext context;
   final Function refreshState;
+  final User user;
   Ticket ticket;
 
-  EditTixAdmin({
+  EditTixUser(
     Key? key,
+    this.user, {
     required this.context,
     required this.ticket,
     required this.refreshState,
@@ -86,7 +89,7 @@ class EditTixAdmin {
                           height: 10,
                         ),
                         description(),
-                        roleAssignee(),
+                        
                         statusAttachFile(),
                       ],
                     ),
@@ -118,7 +121,7 @@ class EditTixAdmin {
 
                       Ticket newTicket = Ticket(
                         ticketID: ticket.ticketID,
-                        userID: 9999,
+                        userID: user.userID,
                         description: forDescription.text,
                         subject: forSubject.text,
                         categoryID: userRoleID,
@@ -305,6 +308,7 @@ class EditTixAdmin {
         ),
         Expanded(
           child: TextField(
+            enabled: false,
             maxLines: 5,
             controller: forDescription,
             decoration: InputDecoration(
@@ -333,6 +337,8 @@ class EditTixAdmin {
         ),
         Expanded(
           child: TextField(
+            
+            enabled: false,
             controller: forSubject,
             decoration: InputDecoration(
               border: OutlineInputBorder(
