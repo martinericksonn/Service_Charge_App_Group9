@@ -1,37 +1,44 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:service_charge_app/src/controller/user_controller.dart';
-import 'dart:math';
-
 import 'package:service_charge_app/src/entity/user/user.dart';
 
-class AddClientUser extends StatefulWidget {
+class EditUser extends StatefulWidget {
   final BuildContext context;
-  const AddClientUser({
+  User user;
+  EditUser({
     Key? key,
     required this.context,
+    required this.user,
   }) : super(key: key);
 
   @override
-  State<AddClientUser> createState() => _AddClientUSerState();
+  State<EditUser> createState() => _EditUser();
 }
 
-class _AddClientUSerState extends State<AddClientUser> {
+class _EditUser extends State<EditUser> {
+  TextEditingController forFirstName = TextEditingController();
+  TextEditingController forLastName = TextEditingController();
+  TextEditingController forEmail = TextEditingController();
+  TextEditingController forPassword = TextEditingController();
+
   UserController userController = UserController();
   @override
   Widget build(context) {
-    return ElevatedButton(
+    forFirstName.text = widget.user.firstName;
+    forLastName.text = widget.user.lastName;
+    forEmail.text = widget.user.email;
+    forPassword.text = widget.user.password;
+
+    return IconButton(
       onPressed: () => _dialogBuilder(context),
-      child: Text("Add User"),
+      icon: Icon(
+        Icons.edit_outlined,
+      ),
     );
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
-    TextEditingController forFirstName = TextEditingController();
-    TextEditingController forLastName = TextEditingController();
-    TextEditingController forEmail = TextEditingController();
-    TextEditingController forPassword = TextEditingController();
-
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -40,7 +47,7 @@ class _AddClientUSerState extends State<AddClientUser> {
               borderRadius: BorderRadius.all(Radius.circular(15.0))),
           insetPadding: EdgeInsets.symmetric(horizontal: 50, vertical: 80),
           title: const Text(
-            'Add New User',
+            'Edit User',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -148,7 +155,7 @@ class _AddClientUSerState extends State<AddClientUser> {
                     width: 150,
                     height: 50,
                     child: TextField(
-                      obscureText: true,
+                      // obscureText: true,
                       controller: forPassword,
                       decoration: const InputDecoration(
                         filled: true,
@@ -175,28 +182,31 @@ class _AddClientUSerState extends State<AddClientUser> {
                   onPressed: () async {
                     String fname = forFirstName.text;
                     String lname = forLastName.text;
+                    String email = forEmail.text;
+                    String password = forPassword.text;
 
-                    if (fname.isEmpty || lname.isEmpty) {
+                    if (fname.isEmpty ||
+                        lname.isEmpty ||
+                        email.isEmpty ||
+                        password.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(snackBarError);
                       return;
                     }
 
-                    String email =
-                        "${lname.trim().replaceAll(' ', '')}.${fname.trim().replaceAll(' ', '')}@gmail.com";
-                    String password = generatePassword(8);
-
                     User newUser = User(
+                        userID: widget.user.userID,
                         firstName: fname,
                         lastName: lname,
-                        email: email.toLowerCase(),
+                        email: email,
                         password: password);
 
                     await userController.saveUser(newUser).then((value) =>
                         ScaffoldMessenger.of(context)
                             .showSnackBar(snackBarSuccess));
+
                     Navigator.pop(context);
                   },
-                  child: const Text("Add"),
+                  child: const Text("Save"),
                 ),
               ),
             ),
@@ -206,18 +216,6 @@ class _AddClientUSerState extends State<AddClientUser> {
     );
   }
 }
-
-const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-Random _rnd = Random();
-
-String generatePassword(int length) => String.fromCharCodes(
-      Iterable.generate(
-        length,
-        (_) => _chars.codeUnitAt(
-          _rnd.nextInt(_chars.length),
-        ),
-      ),
-    );
 
 final snackBarError = SnackBar(
   backgroundColor: Colors.red,
@@ -239,7 +237,7 @@ final snackBarError = SnackBar(
 final snackBarSuccess = SnackBar(
   backgroundColor: Colors.green,
   content: const Text(
-    'User successfuly created',
+    'User successfuly edited',
     style: TextStyle(
       color: Colors.white,
     ),

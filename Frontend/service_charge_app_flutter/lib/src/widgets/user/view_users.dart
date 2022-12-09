@@ -8,6 +8,7 @@ import 'package:service_charge_app/src/controller/ticket_controller.dart';
 import 'package:service_charge_app/src/controller/user_controller.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/widgets/user/add_user.dart';
+import 'package:service_charge_app/src/widgets/user/edit_user.dart';
 
 class ViewUser extends StatefulWidget {
   ViewUser({
@@ -51,9 +52,7 @@ class _ViewUserState extends State<ViewUser> {
                 padding: const EdgeInsets.only(right: 18.0, top: 18.0),
                 child: TextButton(
                   onPressed: () {
-                    setState(() {
-                      
-                    });
+                    setState(() {});
                   },
                   child: Text("Refresh"),
                 ),
@@ -122,12 +121,7 @@ class _ViewUserState extends State<ViewUser> {
         DataCell(SizedBox(
           child: Row(
             children: [
-              IconButton(
-                onPressed: () => inputDialog(context, user),
-                icon: Icon(
-                  Icons.edit_outlined,
-                ),
-              ),
+              EditUser(context: context, user: user),
               IconButton(
                 onPressed: () => deleteDialog(context, user),
                 icon: Icon(
