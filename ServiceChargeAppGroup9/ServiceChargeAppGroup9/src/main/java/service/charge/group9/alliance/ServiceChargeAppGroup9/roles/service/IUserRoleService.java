@@ -15,5 +15,5 @@ public interface IUserRoleService {
     String findRoleByUserID(int userID);
     int findUserRoleId(int userID,int roleID);
 
-    int findRoleIdByRole(String role);
+    Roles findRoleIdByRole(String role);
 }

@@ -4,7 +4,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:service_charge_app/src/controller/role_controller.dart';
 import 'package:service_charge_app/src/controller/ticket_controller.dart';
+import 'package:service_charge_app/src/entity/role/Role.dart';
 import 'package:service_charge_app/src/entity/ticket/ticket.dart';
 import 'package:service_charge_app/src/entity/user/user.dart';
 import 'package:service_charge_app/src/widgets/editForClient.dart';
@@ -14,6 +16,7 @@ import 'package:service_charge_app/src/widgets/ticket/user_view/edit_ticket_dial
 
 class ViewTicketClient extends StatefulWidget {
   final User user;
+
   ViewTicketClient({
     Key? key,
     required this.user,
@@ -35,80 +38,101 @@ class _ViewTicketClientState extends State<ViewTicketClient> {
   ];
 
   TicketController ticketController = TicketController();
-
+  RoleController rc = RoleController();
   @override
   Widget build(BuildContext context) {
     return table();
   }
 
   Widget table() {
-    return FutureBuilder<List<Ticket>>(
-      future: ticketController.getTicketAllCategoryByUserID(widget.user.userID),
-      builder: (BuildContext context, AsyncSnapshot<List<Ticket>> snapshot) {
-        if (!snapshot.hasData) {
-          // ignore: curly_braces_in_flow_control_structures
-          return Center(
-            child: Expanded(
-              child: const SizedBox(
-                height: 100,
-                width: 100,
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          );
-        }
-        List<Ticket> ticket = snapshot.data!;
+    return FutureBuilder<String>(
+        future: rc.getUserRoleName(widget.user.userID),
+        // rc.findRoleIdByRole(),
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          if (!snapshot.hasData) return CircularProgressIndicator();
 
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 20, left: 40),
-                  alignment: Alignment.topRight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() async {
-                        CreateTicketDialog createTicketDialog =
-                            CreateTicketDialog();
-                        await createTicketDialog.dialogBox(context).then(
-                              (value) => setState(() {}),
-                            );
-                      });
-                    },
-                    child: Text("Create Ticket"),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 20, right: 40),
-                  alignment: Alignment.topRight,
-                  child: TextButton(
-                    onPressed: () {
-                      setState(() {});
-                    },
-                    child: Text("Refresh"),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.all(18),
-              width: double.infinity,
-              child: DataTable(
-                  columns: ticketAtributes
-                      .map((atribute) => tabTitle(atribute))
-                      .toList(),
-                  rows: ticket
-                      .map(
-                        (ticket) => dataRows(ticket, context),
-                      )
-                      .toList()),
-            ),
-          ],
-        );
-      },
-    );
+          String role = snapshot.data!;
+
+          return FutureBuilder<Role>(
+              future: rc.findRoleIdByRole(role),
+              // rc.findRoleIdByRole(),
+              builder: (BuildContext context, AsyncSnapshot<Role> snapshot) {
+                if (!snapshot.hasData) return CircularProgressIndicator();
+
+                Role roleID = snapshot.data!;
+                return FutureBuilder<List<Ticket>>(
+                  future:
+                      ticketController.getTicketAllCategoryID(roleID.roleID),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Ticket>> snapshot) {
+                    if (!snapshot.hasData) {
+                      // ignore: curly_braces_in_flow_control_structures
+                      return Center(
+                        child: Expanded(
+                          child: const SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      );
+                    }
+                    List<Ticket> ticket = snapshot.data!;
+
+                    return Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(top: 20, left: 40),
+                              alignment: Alignment.topRight,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  setState(() async {
+                                    CreateTicketDialog createTicketDialog =
+                                        CreateTicketDialog();
+                                    await createTicketDialog
+                                        .dialogBox(context)
+                                        .then(
+                                          (value) => setState(() {}),
+                                        );
+                                  });
+                                },
+                                child: Text("Create Ticket"),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 20, right: 40),
+                              alignment: Alignment.topRight,
+                              child: TextButton(
+                                onPressed: () {
+                                  setState(() {});
+                                },
+                                child: Text("Refresh"),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(18),
+                          width: double.infinity,
+                          child: DataTable(
+                              columns: ticketAtributes
+                                  .map((atribute) => tabTitle(atribute))
+                                  .toList(),
+                              rows: ticket
+                                  .map(
+                                    (ticket) => dataRows(ticket, context),
+                                  )
+                                  .toList()),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              });
+        });
   }
 
   DataRow dataRows(Ticket ticket, BuildContext context) {

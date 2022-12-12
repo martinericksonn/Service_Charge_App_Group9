@@ -16,12 +16,20 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer>	{
     List<Ticket> findTicketStatus(String status);
 
 
-    @Query(value = "Select ticket.ticketID,ticket.userID,ticket.categoryID,ticket.userID ,ticket.status,ticket.subject ,ticket.description,ticket.date  FROM ticket  JOIN userrole on ticket.categoryID = userrole.userRoleID  Join roles on roles.roleID = userrole.roleID where roles.roleID = ?1", nativeQuery = true)
+    @Query(value = "Select ticket.ticketID,ticket.userID,ticket.categoryID,ticket.userID " +
+            ",ticket.status,ticket.subject ,ticket.description,ticket.date  FROM ticket " +
+            " JOIN userrole on ticket.categoryID = userrole.userRoleID  Join roles " +
+            "on roles.roleID = userrole.roleID where roles.roleID = ?1", nativeQuery = true)
     List<Ticket> findTicketCategory(int roleID);
 
 
     @Query(value = "Select ticket.ticketID,ticket.userID,ticket.categoryID,ticket.userID ,ticket.status,ticket.subject ,ticket.description,ticket.date  FROM ticket  JOIN userrole on ticket.categoryID = userrole.userRoleID  Join roles on roles.roleID = userrole.roleID where userrole.userID  = ?1", nativeQuery = true)
     List<Ticket> findTicketCategoryByUserID(int userID);
+
+
+//  ;
+@Query(value = "  Select ticket.ticketID,ticket.userID,ticket.categoryID,ticket.userID ,ticket.status,ticket.subject ,ticket.description,ticket.date  FROM ticket  JOIN userrole on ticket.categoryID = userrole.userRoleID  Join roles on roles.roleID = userrole.roleID where roles.roleID = ?1 and ticket.status = ?2 ", nativeQuery = true)
+    List<Ticket> findTicketStatusByUserIdAndRoleId(int userID,String status);
 }
 
 

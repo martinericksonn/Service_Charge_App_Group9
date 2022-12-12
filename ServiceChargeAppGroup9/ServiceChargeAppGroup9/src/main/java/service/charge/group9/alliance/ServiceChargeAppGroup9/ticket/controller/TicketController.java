@@ -103,51 +103,10 @@ public class TicketController {
 		return ApiResponse.CreateSuccess(ticketlist, Messages.ALL_TICKET_SUCCESSFULLY__RETIEVE_);
 	}
 
-//			
-//	// Update
-//			@PostMapping("/ticket/update/{id}")
-//			public String save(@PathVariable final int id, @RequestParam("subject") final String subject,
-//					@RequestParam("description") final String description, @RequestParam("tracker") final String tracker,
-//					@RequestParam("assignee") final String assignee, @RequestParam("status") final String status)
-//					throws IOException {
-//
-//				try {
-//					return service.update(new Ticket(id, assignee, status, subject, description, tracker)) >= 1 ? "Success" : "Something went wrong";
-//				} catch (Exception e) {
-//					System.out.println(e);
-//					return e.toString();
-//				}
-//			}
- //	
-//	// Update Ticket Status
-//			@PostMapping("/ticket/update-status/{id}")
-//			public String save(@PathVariable final int id, @RequestParam("status") final String status) throws IOException {
-//				try {
-//					Ticket ticket = new Ticket();
-//					ticket.setStatus(status);
-//					ticket.setTicketID(id);
-//					return service.updateStatus(ticket) >= 1 ? "Success" : "Something went wrong";
-//				} catch (Exception e) {
-//					System.out.println(e);
-//					return e.toString();
-//				}
-//
-//			}
-//	// Update Ticket Assignee
-//			@PostMapping("/ticket/update-assignee/{id}")
-//			public String saveAsignee(@PathVariable final int id, @RequestParam("assignee") final String asignee)
-//					throws IOException {
-//				try {
-//					Ticket ticket = new Ticket();
-//					ticket.setStatus(asignee);
-//					ticket.setTicketID(id);
-//					return service.updateTicketAssignee(ticket) >= 1 ? "Success" : "Something went wrong";
-//				} catch (Exception e) {
-//					System.out.println(e);
-//					return e.toString();
-//				}
-//
-//			}
-	 
+	@RequestMapping("/findTicketStatusByUserIdAndRoleId/{id}/{status}")
+	public ApiResponse findTicketStatusByUserIdAndRoleId(@PathVariable int id,@PathVariable String status) {
+		List<Ticket> ticketlist = service.findTicketStatusByUserIdAndRoleId(id,status);
+		return ApiResponse.CreateSuccess(ticketlist, Messages.ALL_TICKET_SUCCESSFULLY__RETIEVE_);
+	}
 
 }

@@ -63,4 +63,8 @@ public class TicketService implements ITicketService {
 	public List<Ticket> findTicketCategoryByUserID(int userID){
 		return ticketJpaRepository.findTicketCategoryByUserID(userID);
 	}
+
+	public List<Ticket> findTicketStatusByUserIdAndRoleId(int userID,String status){
+		return ticketJpaRepository.findTicketStatusByUserIdAndRoleId(userID, status);
+	}
 }

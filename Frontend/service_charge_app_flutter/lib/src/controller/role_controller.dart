@@ -90,15 +90,15 @@ class RoleController {
     }
   }
 
-  Future<dynamic> findRoleIdByRole(String role) async {
+  Future<Role> findRoleIdByRole(String role) async {
     try {
       var response = await dio.get(
         "$url/role/findRoleIdByRole/$role",
       );
 
-      return response.data['data'];
+      return Role.fromjson( response.data['data']);
     } catch (e) {
-      return e;
+      return Role();
     }
     //findRoleIdByRole
   }

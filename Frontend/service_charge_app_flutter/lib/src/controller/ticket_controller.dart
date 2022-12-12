@@ -51,6 +51,21 @@ class TicketController {
     return ticketList;
   }
 
+//findTicketStatusByUserIdAndRoleId/{id}/{status}
+
+Future<List<Ticket>> findTicketStatusByUserIdAndRoleId(int id,String status) async {
+    List<Ticket> ticketList = [];
+
+    var response = await dio.get("$url/findTicketStatusByUserIdAndRoleId/$id/$status");
+  
+    response.data['data']
+        .map((data) => {
+              ticketList.add(Ticket.fromJson(data)),
+            })
+        .toList();
+
+    return ticketList;
+  }
 
     Future<List<Ticket>> getTicketAllStatus(String status) async {
     List<Ticket> ticketList = [];
